@@ -210,6 +210,38 @@ for i, j, w in clf.get_top_edges(20):
 - **Not a GNN:** This is regularized linear model with graph structure, not a graph neural network. Interpretability over raw power.
 - **Edge learning is soft:** Adjacency is probabilistic, not discrete. Threshold for interpretation.
 
+## Benchmark: LogStruct vs CellTypist
+
+We benchmarked LogStruct against [CellTypist](https://www.celltypist.org/) (SOTA cell annotation tool) and sklearn Logistic Regression on the CellTypist Blood Organ Atlas (20k cells, 3k HVGs).
+
+### Results
+
+LogStruct achieves **82.0% accuracy** and **66.5% F1-macro**, approaching CellTypist performance (85.2% accuracy) while offering full interpretability.
+
+| Model | Accuracy | F1-Macro | Training Time |
+|-------|----------|----------|---------------|
+| **CellTypist** | **85.2%** | **74.2%** | 44.7s |
+| sklearn LR | 84.7% | 75.0% | 8.6s |
+| **LogStruct** | **82.0%** | **66.5%** | 52.5s |
+
+> **Note:** LogStruct used a STRING-DB PPI network prior, 3k HVGs (1.5k selected), and 2000 training iterations.
+
+### Visualizations
+
+#### Performance & Training Time
+![Benchmark Results](benchmark_output/benchmark_results.png)
+
+#### Learned Gene Network
+LogStruct learns which biological interactions matter for the classification task:
+
+![Learned Network](benchmark_output/learned_network.png)
+
+### Interpretation
+
+- **Competitive Accuracy:** LogStruct is within ~3% of CellTypist accuracy.
+- **Interpretable:** Unlike pure linear models, LogStruct provides a sparse, weighted adjacency matrix showing gene-gene dependencies.
+- **Biological Prior:** The model effectively filters a dense PPI network (1M+ edges) to the most relevant subnetworks.
+
 ## Citation
 
 If you use LogStruct in your research:
