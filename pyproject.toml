@@ -1,0 +1,87 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "logstruct"
+version = "0.1.0"
+description = "Network-structured regression for biological data"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.9"
+authors = [
+    { name = "Yash Raj", email = "yash@example.com" }
+]
+keywords = [
+    "bioinformatics",
+    "network-regularization",
+    "single-cell",
+    "gene-networks",
+    "machine-learning",
+    "regression",
+    "classification"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+dependencies = [
+    "numpy>=1.21",
+    "torch>=2.0",
+    "scikit-learn>=1.0",
+    "scipy>=1.7",
+]
+
+[project.optional-dependencies]
+bio = [
+    "scanpy>=1.9",
+    "anndata>=0.8",
+]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=23.0",
+    "ruff>=0.1",
+    "mypy>=1.0",
+]
+docs = [
+    "jupyter>=1.0",
+    "matplotlib>=3.5",
+    "seaborn>=0.12",
+]
+all = ["logstruct[bio,dev,docs]"]
+
+[project.urls]
+Homepage = "https://github.com/yashraj/logstruct"
+Documentation = "https://github.com/yashraj/logstruct#readme"
+Repository = "https://github.com/yashraj/logstruct"
+Issues = "https://github.com/yashraj/logstruct/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["logstruct"]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v --cov=logstruct --cov-report=term-missing"
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_ignores = true
+ignore_missing_imports = true
