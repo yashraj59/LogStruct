@@ -204,6 +204,34 @@ for i, j, w in clf.get_top_edges(20):
     print(f"{adata.var_names[i]} -- {adata.var_names[j]}: {w:.3f}")
 ```
 
+## Analyzing Learned Networks
+
+LogStruct allows you to quantify how the learned network differs from your biological prior (e.g., discovering new interactions or pruning false positives).
+
+```python
+from logstruct.analysis import compare_to_prior, print_network_report
+
+# Run analysis
+res = compare_to_prior(
+    clf, 
+    gene_names=adata.var_names.tolist(),
+    prior_threshold=0.5,
+    learned_threshold=0.1
+)
+
+# Print a formatted report
+print_network_report(res)
+
+# Access specific discoveries programmatically
+for i, j, w in res['gained'][:5]:
+    print(f"New Edge: {adata.var_names[i]} -- {adata.var_names[j]} (Weight {w:.3f})")
+```
+
+This will output:
+- **Gained Connections:** High-weight edges in the model that were NOT in the prior (potential novel interactions).
+- **Lost Connections:** High-confidence prior edges that the model pruned (irrelevant for the specific task).
+- **Retained Connections:** Validated prior knowledge.
+
 ## Limitations
 
 - **Scalability:** Dense P×P adjacency. Works well up to ~5k features. For larger, consider selecting features first.

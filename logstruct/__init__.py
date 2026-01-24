@@ -30,6 +30,7 @@ __version__ = "0.1.0"
 from .model import LogStructClassifier, LogStructRegressor
 from . import priors
 from . import viz
+from . import analysis
 from .utils import pick_device
 
 __all__ = [
@@ -37,6 +38,7 @@ __all__ = [
     "LogStructRegressor",
     "priors",
     "viz",
+    "analysis",
     "pick_device",
     "__version__",
 ]
