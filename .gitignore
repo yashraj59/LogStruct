@@ -1,5 +1,5 @@
 benchmark_data/
-benchmark_output/
+
 __pycache__/
 *.pyc
 .DS_Store
