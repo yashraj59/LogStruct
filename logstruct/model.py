@@ -43,6 +43,7 @@ class _StructuredModel(nn.Module):
         self_loop_weight: float = 1.0,
         neighbor_weight: float = 1.0,
         freeze_adjacency: bool = False,
+        normalize_graph_regularizers: bool = False,
         device: torch.device,
     ):
         super().__init__()
@@ -51,6 +52,7 @@ class _StructuredModel(nn.Module):
         self.temperature = temperature
         self.self_loop_weight = self_loop_weight
         self.neighbor_weight = neighbor_weight
+        self.normalize_graph_regularizers = normalize_graph_regularizers
         self.device = device
 
         # Linear head
@@ -60,12 +62,20 @@ class _StructuredModel(nn.Module):
         prior = torch.clamp(prior_adjacency, 1e-6, 1 - 1e-6)
         prior_logits = torch.log(prior / (1 - prior))
 
-        # Store prior probs for KL computation
-        self.register_buffer("prior_probs", torch.sigmoid(prior_logits / temperature))
+        # Store prior probs for KL computation (symmetrized to match learned adjacency)
+        prior_probs = torch.sigmoid(prior_logits / temperature)
+        prior_probs = 0.5 * (prior_probs + prior_probs.t())
+        self.register_buffer("prior_probs", prior_probs)
+
+        # Cached identity matrix for smoothing operator
+        self.register_buffer("_eye", torch.eye(input_dim, device=device))
+
+        # Number of undirected edges (excluding diagonal) for normalization
+        self._num_edges = input_dim * (input_dim - 1) // 2
 
         # Trainable adjacency
         self.adj_logits = nn.Parameter(prior_logits.clone(), requires_grad=not freeze_adjacency)
-        
+
         # Zero out diagonal (no self-loops in learned graph)
         with torch.no_grad():
             idx = torch.arange(input_dim, device=device)
@@ -86,13 +96,22 @@ class _StructuredModel(nn.Module):
         """S = self_loop * I + neighbor * row_norm(A)"""
         A = self.current_adjacency()
         A_norm = normalize_rows(A)
-        I = torch.eye(A.size(0), device=A.device)
-        return self.self_loop_weight * I + self.neighbor_weight * A_norm
+        return self.self_loop_weight * self._eye + self.neighbor_weight * A_norm
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        S = self.smoothing_operator()
-        x_smooth = x @ S
-        return self.linear(x_smooth)
+        """
+        Optimized forward pass: precompute B = S @ W.T to reduce complexity.
+
+        Original: x @ S then linear(x_mod) → O(N·P²) + O(N·P·C)
+        Optimized: x @ (S @ W.T) + b → O(P²·C) + O(N·P·C)
+
+        When N (samples) >> C (classes), this is significantly faster.
+        """
+        S = self.smoothing_operator()  # [P, P]
+        W = self.linear.weight          # [C, P]
+        b = self.linear.bias            # [C]
+        B = S @ W.t()                   # [P, C] — precompute once
+        return x @ B + b                # O(N·P·C) — much cheaper when N >> C
 
     def elastic_net_penalty(self, alpha: float) -> torch.Tensor:
         """α||W||_1 + (1-α) * 0.5||W||_2^2"""
@@ -102,22 +121,61 @@ class _StructuredModel(nn.Module):
         return alpha * l1 + (1 - alpha) * l2_sq
 
     def smoothness_penalty(self) -> torch.Tensor:
-        """trace(W @ L @ W.T) where L = D - A (graph Laplacian)"""
+        """
+        Efficient trace(W @ L @ W.T) where L = D - A (graph Laplacian).
+
+        Avoids forming dense diagonal matrix explicitly:
+            trace(W @ L @ W.T) = trace(W @ D @ W.T) - trace(W @ A @ W.T)
+            = sum_i deg_i * ||w_i||^2 - sum_ij w_i^T A_ij w_j
+            = (W * W) @ deg - (W @ A * W).sum(dim=1).sum()
+        """
         A = self.current_adjacency()
-        D = torch.diag(A.sum(dim=1))
-        L = D - A
-        W = self.linear.weight
-        return (W @ L * W).sum()
+        W = self.linear.weight  # [C, P]
+        deg = A.sum(dim=1)      # [P]
+
+        # term1: sum over classes of (W^2 @ deg) = sum_i deg_i * ||w_i||^2
+        term1 = ((W * W) @ deg).sum()
+
+        # term2: sum over classes of diag(W @ A @ W.T) = sum_ij w_i^T A_ij w_j
+        term2 = (W @ A * W).sum()
+
+        penalty = term1 - term2
+
+        if self.normalize_graph_regularizers:
+            penalty = penalty / max(self._num_edges, 1)
+
+        return penalty
 
     def kl_prior_penalty(self) -> torch.Tensor:
-        """KL(q || p) for Bernoulli adjacency entries."""
+        """
+        KL(q || p) for Bernoulli adjacency entries.
+
+        Fixed computation:
+        - Prior is symmetrized to match learned adjacency (done in __init__)
+        - Excludes diagonal (no self-loops)
+        - Counts each undirected edge (i,j) once, not twice
+        - Optionally normalizes by number of edges
+        """
         q = self.current_adjacency()
-        p = self.prior_probs
+        p = self.prior_probs  # Already symmetrized in __init__
         eps = 1e-6
         q = torch.clamp(q, eps, 1 - eps)
         p = torch.clamp(p, eps, 1 - eps)
+
         kl = q * torch.log(q / p) + (1 - q) * torch.log((1 - q) / (1 - p))
-        return kl.sum()
+
+        # Exclude diagonal (self-loops)
+        diag_sum = torch.diagonal(kl).sum()
+        total_sum = kl.sum()
+        offdiag_sum = total_sum - diag_sum
+
+        # Correct for symmetric matrix: each edge is counted twice
+        undirected_sum = 0.5 * offdiag_sum
+
+        if self.normalize_graph_regularizers:
+            return undirected_sum / max(self._num_edges, 1)
+
+        return undirected_sum
 
 
 class LogStructClassifier(BaseEstimator, ClassifierMixin):
@@ -177,7 +235,12 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
     
     freeze_adjacency : bool, default=False
         If True, don't learn adjacency (use prior directly).
-    
+
+    normalize_graph_regularizers : bool, default=False
+        If True, divides KL and smoothness penalties by number of edges.
+        This makes lambda_smooth and lambda_kl have consistent meaning
+        regardless of the number of features P.
+
     device : str, default="auto"
         Device for computation: "auto", "cpu", "cuda", or "mps".
     
@@ -240,6 +303,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         scale_features: bool = True,
         sparsity_threshold: float = 0.05,
         freeze_adjacency: bool = False,
+        normalize_graph_regularizers: bool = False,
         device: str = "auto",
         random_state: int | None = None,
         verbose: bool = False,
@@ -261,6 +325,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         self.scale_features = scale_features
         self.sparsity_threshold = sparsity_threshold
         self.freeze_adjacency = freeze_adjacency
+        self.normalize_graph_regularizers = normalize_graph_regularizers
         self.device = device
         self.random_state = random_state
         self.verbose = verbose
@@ -346,6 +411,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
             self_loop_weight=self.self_loop_weight,
             neighbor_weight=self.neighbor_weight,
             freeze_adjacency=self.freeze_adjacency,
+            normalize_graph_regularizers=self.normalize_graph_regularizers,
             device=device,
         )
 
@@ -520,6 +586,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         scale_features: bool = True,
         sparsity_threshold: float = 0.05,
         freeze_adjacency: bool = False,
+        normalize_graph_regularizers: bool = False,
         device: str = "auto",
         random_state: int | None = None,
         verbose: bool = False,
@@ -541,6 +608,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         self.scale_features = scale_features
         self.sparsity_threshold = sparsity_threshold
         self.freeze_adjacency = freeze_adjacency
+        self.normalize_graph_regularizers = normalize_graph_regularizers
         self.device = device
         self.random_state = random_state
         self.verbose = verbose
@@ -625,6 +693,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
             self_loop_weight=self.self_loop_weight,
             neighbor_weight=self.neighbor_weight,
             freeze_adjacency=self.freeze_adjacency,
+            normalize_graph_regularizers=self.normalize_graph_regularizers,
             device=device,
         )
 
