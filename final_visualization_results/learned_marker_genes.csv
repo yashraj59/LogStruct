@@ -1,0 +1,211 @@
+Class,Rank,Gene,Coefficient
+"CD16-negative, CD56-bright natural killer cell, human",1,XCL2,0.118698016
+"CD16-negative, CD56-bright natural killer cell, human",2,XCL1,0.11461031
+"CD16-negative, CD56-bright natural killer cell, human",3,CLIC3,0.107405156
+"CD16-negative, CD56-bright natural killer cell, human",4,NCR1,0.10703048
+"CD16-negative, CD56-bright natural killer cell, human",5,KLRF1,0.100233525
+"CD16-negative, CD56-bright natural killer cell, human",6,CD7,0.09997451
+"CD16-negative, CD56-bright natural killer cell, human",7,TYROBP,0.097818464
+"CD16-negative, CD56-bright natural killer cell, human",8,SH2D1B,0.09717247
+"CD16-negative, CD56-bright natural killer cell, human",9,GZMK,0.09426839
+"CD16-negative, CD56-bright natural killer cell, human",10,CMC1,0.08878038
+"CD16-positive, CD56-dim natural killer cell, human",1,TYROBP,0.15739024
+"CD16-positive, CD56-dim natural killer cell, human",2,CD7,0.14954072
+"CD16-positive, CD56-dim natural killer cell, human",3,CLIC3,0.14372222
+"CD16-positive, CD56-dim natural killer cell, human",4,SPON2,0.14334437
+"CD16-positive, CD56-dim natural killer cell, human",5,SH2D1B,0.14319585
+"CD16-positive, CD56-dim natural killer cell, human",6,GZMB,0.12830368
+"CD16-positive, CD56-dim natural killer cell, human",7,IGFBP7,0.115406714
+"CD16-positive, CD56-dim natural killer cell, human",8,GNLY,0.11464237
+"CD16-positive, CD56-dim natural killer cell, human",9,FGFBP2,0.11381553
+"CD16-positive, CD56-dim natural killer cell, human",10,AKR1C3,0.105052434
+cell,1,TYMP,0.29205427
+cell,2,TYMS,0.29196233
+cell,3,MKI67,0.17689972
+cell,4,GZMB,0.08402992
+cell,5,GNLY,0.08191546
+cell,6,FGFBP2,0.081175625
+cell,7,GZMH,0.07991875
+cell,8,PRF1,0.064482555
+cell,9,NKG7,0.05720004
+cell,10,HSPA5,0.050959084
+"central memory CD4-positive, alpha-beta T cell",1,AB_CD4,0.15607788
+"central memory CD4-positive, alpha-beta T cell",2,LTB,0.13899398
+"central memory CD4-positive, alpha-beta T cell",3,LEF1,0.13757889
+"central memory CD4-positive, alpha-beta T cell",4,LDHB,0.13596986
+"central memory CD4-positive, alpha-beta T cell",5,SELL,0.105681516
+"central memory CD4-positive, alpha-beta T cell",6,TCF7,0.09888858
+"central memory CD4-positive, alpha-beta T cell",7,CADM2,0.056971196
+"central memory CD4-positive, alpha-beta T cell",8,AC002454.1,0.05538413
+"central memory CD4-positive, alpha-beta T cell",9,MTRNR2L1,0.054526314
+"central memory CD4-positive, alpha-beta T cell",10,AC104129.1,0.051990837
+"central memory CD8-positive, alpha-beta T cell",1,LINC02446,0.41161048
+"central memory CD8-positive, alpha-beta T cell",2,CD8B,0.40139282
+"central memory CD8-positive, alpha-beta T cell",3,CD8A,0.34771478
+"central memory CD8-positive, alpha-beta T cell",4,PECAM1,0.15434283
+"central memory CD8-positive, alpha-beta T cell",5,AIF1,0.1450614
+"central memory CD8-positive, alpha-beta T cell",6,S100B,0.13009387
+"central memory CD8-positive, alpha-beta T cell",7,AB_CD8,0.11750585
+"central memory CD8-positive, alpha-beta T cell",8,LDHB,0.10903426
+"central memory CD8-positive, alpha-beta T cell",9,LTB,0.10541634
+"central memory CD8-positive, alpha-beta T cell",10,RPS4Y1,0.07396087
+class switched memory B cell,1,LINC01781,0.13001588
+class switched memory B cell,2,JCHAIN,0.129877
+class switched memory B cell,3,BANK1,0.11096522
+class switched memory B cell,4,POU2AF1,0.08884912
+class switched memory B cell,5,TCF4,0.08745868
+class switched memory B cell,6,BLK,0.07612882
+class switched memory B cell,7,IGHA1,0.07583226
+class switched memory B cell,8,TYMP,0.0741749
+class switched memory B cell,9,TYMS,0.07136049
+class switched memory B cell,10,MS4A1,0.070330545
+classical monocyte,1,MS4A6A,0.15141037
+classical monocyte,2,VCAN,0.14948621
+classical monocyte,3,S100A8,0.14944172
+classical monocyte,4,S100A9,0.14726704
+classical monocyte,5,S100A12,0.14707364
+classical monocyte,6,LGALS2,0.14699727
+classical monocyte,7,CD14,0.14654605
+classical monocyte,8,LYZ,0.14489257
+classical monocyte,9,TNFAIP2,0.09920325
+classical monocyte,10,NCF1,0.062787935
+conventional dendritic cell,1,FCER1A,0.24415912
+conventional dendritic cell,2,CLEC10A,0.2127131
+conventional dendritic cell,3,CLEC9A,0.0759021
+conventional dendritic cell,4,CD1C,0.073757485
+conventional dendritic cell,5,HLA-DQA1,0.062382367
+conventional dendritic cell,6,HLA-DRB1,0.06184671
+conventional dendritic cell,7,HLA-DQB1,0.061264638
+conventional dendritic cell,8,HLA-DPB1,0.060774717
+conventional dendritic cell,9,HLA-DPA1,0.060330532
+conventional dendritic cell,10,HLA-DMA,0.060300138
+"effector memory CD4-positive, alpha-beta T cell",1,LDHB,0.2750659
+"effector memory CD4-positive, alpha-beta T cell",2,LTB,0.27094296
+"effector memory CD4-positive, alpha-beta T cell",3,KLRB1,0.16415429
+"effector memory CD4-positive, alpha-beta T cell",4,IL7R,0.15873784
+"effector memory CD4-positive, alpha-beta T cell",5,ANXA1,0.12621447
+"effector memory CD4-positive, alpha-beta T cell",6,ZFP36L2,0.11561291
+"effector memory CD4-positive, alpha-beta T cell",7,TIMP1,0.10642857
+"effector memory CD4-positive, alpha-beta T cell",8,AHNAK,0.10178261
+"effector memory CD4-positive, alpha-beta T cell",9,KLF6,0.096676536
+"effector memory CD4-positive, alpha-beta T cell",10,AQP3,0.09344215
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",1,GZMH,0.16876201
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",2,FGFBP2,0.16262576
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",3,GNLY,0.15809654
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",4,GZMB,0.1483255
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",5,LAIR2,0.13539183
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",6,PRSS23,0.13342276
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",7,CD52,0.11104349
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",8,IL32,0.10419388
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",9,ANXA1,0.0734457
+"effector memory CD4-positive, alpha-beta T cell, terminally differentiated",10,S100A10,0.07334195
+"effector memory CD8-positive, alpha-beta T cell",1,GZMK,0.18928967
+"effector memory CD8-positive, alpha-beta T cell",2,CD8A,0.16939962
+"effector memory CD8-positive, alpha-beta T cell",3,AB_CD8,0.16575994
+"effector memory CD8-positive, alpha-beta T cell",4,GZMA,0.16125272
+"effector memory CD8-positive, alpha-beta T cell",5,CD8B,0.16099522
+"effector memory CD8-positive, alpha-beta T cell",6,CCL5,0.14768714
+"effector memory CD8-positive, alpha-beta T cell",7,CCL4,0.14750841
+"effector memory CD8-positive, alpha-beta T cell",8,CST7,0.14551955
+"effector memory CD8-positive, alpha-beta T cell",9,DUSP2,0.14117914
+"effector memory CD8-positive, alpha-beta T cell",10,CMC1,0.13367432
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",1,CD8A,0.23242658
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",2,GNLY,0.22668666
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",3,GZMH,0.22422858
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",4,CD8B,0.20787394
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",5,FGFBP2,0.20707995
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",6,GZMB,0.20354415
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",7,LINC02446,0.14530145
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",8,CD3E,0.12177361
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",9,CD3D,0.1187709
+"effector memory CD8-positive, alpha-beta T cell, terminally differentiated",10,TRGV4,0.08243988
+gamma-delta T cell,1,TRDV2,0.34374806
+gamma-delta T cell,2,TRGV9,0.32837412
+gamma-delta T cell,3,TRDC,0.17837358
+gamma-delta T cell,4,KLRC1,0.119568594
+gamma-delta T cell,5,KLRB1,0.11636684
+gamma-delta T cell,6,IL7R,0.10484042
+gamma-delta T cell,7,CST7,0.103268325
+gamma-delta T cell,8,IL32,0.09995794
+gamma-delta T cell,9,CD52,0.09772278
+gamma-delta T cell,10,DUSP2,0.090940975
+megakaryocyte,1,TMEM40,0.08113471
+megakaryocyte,2,PPBP,0.07828562
+megakaryocyte,3,PF4,0.078018986
+megakaryocyte,4,MYL9,0.07680714
+megakaryocyte,5,CLU,0.07649297
+megakaryocyte,6,CAVIN2,0.07645042
+megakaryocyte,7,GNG11,0.07581644
+megakaryocyte,8,MPIG6B,0.07411731
+megakaryocyte,9,PF4V1,0.07342349
+megakaryocyte,10,SMIM5,0.07336868
+memory B cell,1,SWAP70,0.07273398
+memory B cell,2,IGHG2,0.072246425
+memory B cell,3,AL928742.1,0.06976219
+memory B cell,4,RALGPS2,0.0625837
+memory B cell,5,MS4A1,0.061739877
+memory B cell,6,AB_CD21,0.058225896
+memory B cell,7,CD79A,0.058114428
+memory B cell,8,BLK,0.05774629
+memory B cell,9,AB_CD19,0.054783396
+memory B cell,10,SPIB,0.053767852
+mucosal invariant T cell,1,KLRB1,0.41577578
+mucosal invariant T cell,2,IL7R,0.40302214
+mucosal invariant T cell,3,TRAV1-2,0.16137564
+mucosal invariant T cell,4,NCR3,0.15181433
+mucosal invariant T cell,5,AQP3,0.13163051
+mucosal invariant T cell,6,PRF1,0.12598228
+mucosal invariant T cell,7,GZMK,0.12578802
+mucosal invariant T cell,8,CST7,0.121200606
+mucosal invariant T cell,9,SH2D2A,0.12088046
+mucosal invariant T cell,10,GZMA,0.12042212
+naive B cell,1,TCL1A,0.23061538
+naive B cell,2,PLPP5,0.21578872
+naive B cell,3,IGHM,0.13636646
+naive B cell,4,FCER2,0.12744635
+naive B cell,5,HVCN1,0.11773745
+naive B cell,6,AFF3,0.10625371
+naive B cell,7,IGHD,0.102865495
+naive B cell,8,AB_IgD,0.10209344
+naive B cell,9,FCRL1,0.09939501
+naive B cell,10,LINC00926,0.098707505
+non-classical monocyte,1,PECAM1,0.09753605
+non-classical monocyte,2,CDKN1C,0.09207548
+non-classical monocyte,3,AIF1,0.09099864
+non-classical monocyte,4,MS4A7,0.089026794
+non-classical monocyte,5,HCK,0.088167794
+non-classical monocyte,6,ABCC3,0.087711535
+non-classical monocyte,7,RHOC,0.08411341
+non-classical monocyte,8,FCGR3A,0.08042519
+non-classical monocyte,9,FTH1,0.0789187
+non-classical monocyte,10,FTL,0.07877166
+plasmacytoid dendritic cell,1,SERPINF1,0.10672984
+plasmacytoid dendritic cell,2,LILRA4,0.10503696
+plasmacytoid dendritic cell,3,CLEC4C,0.102481335
+plasmacytoid dendritic cell,4,LRRC26,0.10033738
+plasmacytoid dendritic cell,5,PTPRS,0.08424354
+plasmacytoid dendritic cell,6,TPM2,0.03729832
+plasmacytoid dendritic cell,7,DNASE1L3,0.03540279
+plasmacytoid dendritic cell,8,MAP1A,0.022798752
+plasmacytoid dendritic cell,9,SCT,0.020904828
+plasmacytoid dendritic cell,10,PLD4,0.019010397
+regulatory T cell,1,LTB,0.1828931
+regulatory T cell,2,LDHB,0.18236956
+regulatory T cell,3,IL32,0.15858148
+regulatory T cell,4,CD52,0.15815613
+regulatory T cell,5,TIGIT,0.11888748
+regulatory T cell,6,DUSP4,0.11447003
+regulatory T cell,7,TNFRSF18,0.11288903
+regulatory T cell,8,FOXP3,0.10231701
+regulatory T cell,9,CD3E,0.0921174
+regulatory T cell,10,CD3D,0.091490924
+unswitched memory B cell,1,LINC01857,0.123558305
+unswitched memory B cell,2,TCF4,0.10316819
+unswitched memory B cell,3,CD24,0.09173617
+unswitched memory B cell,4,LINC01781,0.079337224
+unswitched memory B cell,5,AL928742.1,0.0663415
+unswitched memory B cell,6,SPIB,0.06308529
+unswitched memory B cell,7,IGHA1,0.0627629
+unswitched memory B cell,8,COBLL1,0.062153954
+unswitched memory B cell,9,BANK1,0.055664577
+unswitched memory B cell,10,CD83,0.055061363

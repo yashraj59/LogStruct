@@ -90,6 +90,11 @@ def preprocess(adata: sc.AnnData, n_top_genes: int = 3000, max_cells: int = None
     if max_cells is not None and adata.n_obs > max_cells:
         print(f"  Subsampling to {max_cells:,} cells...")
         sc.pp.subsample(adata, n_obs=max_cells, random_state=42)
+
+    # Use raw counts if available
+    if adata.raw is not None:
+        print("  Resetting X to raw counts from adata.raw...")
+        adata = adata.raw.to_adata()
     
     # Find cell type column
     cell_type_col = None
@@ -302,15 +307,15 @@ def train_logstruct(X_train: np.ndarray, y_train: np.ndarray, n_features: int,
     
     clf = LogStructClassifier(
         prior_adjacency=prior,
-        lambda_en=0.05,           # Even lighter regularization
-        lambda_smooth=0.0,        # Disable smoothing
-        lambda_kl=0.0,            # Disable KL
+        lambda_en=0.001,          # Optimized: Very light regularization
+        lambda_smooth=0.01,       # Optimized: Light smoothing helps!
+        lambda_kl=0.0,            # Optimized: No KL needed
         alpha=0.5,
-        max_iter=2000,            # 2000 iterations as requested
-        learning_rate=0.005,      # Lower LR for better convergence
-        early_stopping=False,     # Don't stop early - run until convergence
-        n_iter_no_change=50,      # If early stopping enabled, be patient
-        tol=1e-5,                 # Tighter tolerance
+        max_iter=1000,
+        learning_rate=0.02,       # Optimized: Higher LR
+        early_stopping=True,
+        n_iter_no_change=50,
+        tol=1e-5,
         verbose=True,
         random_state=42,
     )
@@ -584,8 +589,8 @@ def main():
     
     results = {}
     
-    # 4. Feature selection for LogStruct (use 1500 genes for better representation)
-    n_select = min(1500, X_hvg.shape[1])
+    # 4. Feature selection for LogStruct (use 3000 genes for better representation)
+    n_select = min(3000, X_hvg.shape[1])
     X_train_sel, X_test_sel, selected_indices = select_features(X_train_hvg, y_train, X_test_hvg, k=n_select)
     selected_gene_names = [gene_names_hvg[i] for i in selected_indices]
     
