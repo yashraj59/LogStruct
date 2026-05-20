@@ -42,4 +42,3 @@ __all__ = [
     "pick_device",
     "__version__",
 ]
-

@@ -1,0 +1,14 @@
+dataset_name: gdsc_drug_response
+task: regression
+recommended_drugs:
+  - Erlotinib
+  - Lapatinib
+  - PLX-4720
+required_raw:
+  - data/raw/Cell_line_RMA_proc_basalExp.txt
+  - data/raw/GDSC2_fitted_dose_response_27Oct23.xlsx
+outer_folds: 5
+inner_folds: 5
+seed: 0
+gene_filter:
+  max_genes: 5000

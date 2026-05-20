@@ -1,0 +1,15 @@
+dataset_name: norman_2019_perturb_identity
+task: single_cell_perturbation_classification
+label: perturbation
+required_raw:
+  - data/raw/norman_2019_labeled.h5ad
+hvg_n: 2000
+min_cells_per_perturbation: 50
+seed: 0
+priors:
+  - DoRothEA
+  - STRING-700
+  - KEGG
+  - Reactome
+  - identity
+  - random

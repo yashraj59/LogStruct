@@ -1,0 +1,19 @@
+-e .[dev]
+pandas
+matplotlib
+seaborn
+networkx
+xgboost
+lightgbm
+shap
+requests
+tqdm
+pyyaml
+gseapy
+pyensembl
+mygene
+anndata
+scanpy
+torch-geometric
+colorcet
+celltypist

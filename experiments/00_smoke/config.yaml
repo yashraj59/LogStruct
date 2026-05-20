@@ -1,0 +1,12 @@
+dataset_name: synthetic_docstring_smoke
+seed: 42
+n_samples: 500
+n_features: 100
+test_size: 0.2
+model:
+  lambda_en: 0.1
+  lambda_smooth: 0.1
+  lambda_kl: 1.0
+  kl_reduction: offdiag_mean
+  max_iter: 50
+  device: cpu

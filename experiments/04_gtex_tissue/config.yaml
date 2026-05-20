@@ -1,0 +1,10 @@
+dataset_name: gtex_tissue
+task: classification
+required_raw:
+  - data/raw/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct.gz
+  - data/raw/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt
+outer_folds: 5
+inner_folds: 5
+seed: 0
+gene_filter:
+  max_genes: 5000

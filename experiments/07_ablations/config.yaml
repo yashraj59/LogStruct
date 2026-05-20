@@ -1,0 +1,14 @@
+dataset_name: synthetic_scaling_and_metabric_ablations
+task: ablation
+seed: 0
+feature_grid:
+  - 500
+  - 1000
+  - 5000
+  - 10000
+lambda_kl_grid:
+  - 0.01
+  - 0.1
+  - 1
+  - 10
+  - 100

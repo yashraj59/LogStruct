@@ -1,0 +1,18 @@
+dataset_name: metabric_pam50
+task: classification
+label: PAM50_or_CLAUDIN_SUBTYPE
+required_raw:
+  - data/raw/brca_metabric.tar.gz
+outer_folds: 5
+inner_folds: 5
+seed: 0
+gene_filter:
+  max_genes: 5000
+priors:
+  - STRING-700
+  - STRING-400
+  - KEGG
+  - Reactome
+  - Hallmark
+  - identity
+  - random

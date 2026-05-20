@@ -1,0 +1,35 @@
+{
+  "dataset_name": "synthetic_docstring_smoke",
+  "device": "cpu",
+  "environment": {
+    "cuda_available": "False",
+    "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.12.0+cu130"
+  },
+  "git_sha": "282d53223a4a9c13dcb636b7570981461eb66b56",
+  "hyperparameters": {
+    "device": "cpu",
+    "kl_reduction": "offdiag_mean",
+    "lambda_en": 0.1,
+    "lambda_kl": 1.0,
+    "lambda_smooth": 0.1,
+    "max_iter": 50
+  },
+  "method": "LogStructClassifier",
+  "metrics": {
+    "balanced_accuracy": 0.7727272727272727,
+    "final_train_loss": 0.6326575875282288,
+    "final_val_loss": 0.630370020866394,
+    "macro_f1": 0.7771836007130125,
+    "mcc": 0.6339667779924166,
+    "n_iter": 50,
+    "ovr_auprc": 0.9730627717999001,
+    "ovr_auroc": 0.9650974025974025
+  },
+  "seed": 42,
+  "test_size": 100,
+  "train_size": 400,
+  "val_size": 40,
+  "wall_clock_sec": 0.876123520999954
+}

@@ -1,0 +1,10 @@
+dataset_name: uci_pancancer
+task: classification
+mode: shakedown_subset
+required_raw:
+  - data/raw/uci_gene_expression_cancer_rna_seq.zip
+outer_folds: 5
+inner_folds: 5
+seed: 0
+gene_filter:
+  max_genes: 5000

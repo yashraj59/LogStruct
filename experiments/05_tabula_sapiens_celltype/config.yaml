@@ -1,0 +1,11 @@
+dataset_name: tabula_sapiens_immune
+task: single_cell_celltype_classification
+label: cell_ontology_class
+split: donor_stratified
+required_raw: []
+tissues:
+  - blood
+  - spleen
+  - lymph_node
+hvg_n: 2000
+seed: 0

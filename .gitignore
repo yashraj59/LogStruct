@@ -1,4 +1,16 @@
 benchmark_data/
+benchmark_output/
+benchmark_results.png
+learned_network.png
+cell_type_classification.ipynb
+.venv/
+data/raw/*
+data/processed/*
+data/priors/*
+!data/raw/.gitkeep
+!data/raw/CHECKSUMS.txt
+!data/processed/.gitkeep
+!data/priors/.gitkeep
 
 __pycache__/
 *.pyc

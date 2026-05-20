@@ -23,10 +23,10 @@ from .utils import pick_device, normalize_rows
 class _StructuredModel(nn.Module):
     """
     Internal PyTorch module for structured regression.
-    
+
     Smoothing: x_smooth = x @ S
     where S = self_loop_weight * I + neighbor_weight * row_norm(sym(sigmoid(adj_logits / T)))
-    
+
     Regularization:
         - Elastic net on weights
         - Laplacian smoothness on coefficients
@@ -42,8 +42,9 @@ class _StructuredModel(nn.Module):
         temperature: float = 0.8,
         self_loop_weight: float = 1.0,
         neighbor_weight: float = 1.0,
-        freeze_adjacency: bool = False,
         device: torch.device,
+        freeze_adjacency: bool = False,
+        kl_reduction: Literal["sum", "mean", "offdiag_mean"] = "sum",
     ):
         super().__init__()
         self.input_dim = input_dim
@@ -51,21 +52,23 @@ class _StructuredModel(nn.Module):
         self.temperature = temperature
         self.self_loop_weight = self_loop_weight
         self.neighbor_weight = neighbor_weight
+        self.kl_reduction = kl_reduction
         self.device = device
 
         # Linear head
         self.linear = nn.Linear(input_dim, output_dim, bias=True)
 
-        # Prior logits (avoid ±inf)
+        # Prior logits (avoid ±inf). Scale logits by temperature so
+        # current_adjacency() initializes to the user-provided prior.
         prior = torch.clamp(prior_adjacency, 1e-6, 1 - 1e-6)
-        prior_logits = torch.log(prior / (1 - prior))
+        prior_logits = temperature * torch.log(prior / (1 - prior))
 
         # Store prior probs for KL computation
-        self.register_buffer("prior_probs", torch.sigmoid(prior_logits / temperature))
+        self.register_buffer("prior_probs", prior)
 
         # Trainable adjacency
         self.adj_logits = nn.Parameter(prior_logits.clone(), requires_grad=not freeze_adjacency)
-        
+
         # Zero out diagonal (no self-loops in learned graph)
         with torch.no_grad():
             idx = torch.arange(input_dim, device=device)
@@ -94,6 +97,11 @@ class _StructuredModel(nn.Module):
         x_smooth = x @ S
         return self.linear(x_smooth)
 
+    def effective_coefficients(self) -> torch.Tensor:
+        """Linear coefficients with the smoothing operator folded in."""
+        S = self.smoothing_operator()
+        return self.linear.weight @ S.t()
+
     def elastic_net_penalty(self, alpha: float) -> torch.Tensor:
         """α||W||_1 + (1-α) * 0.5||W||_2^2"""
         W = self.linear.weight
@@ -117,96 +125,117 @@ class _StructuredModel(nn.Module):
         q = torch.clamp(q, eps, 1 - eps)
         p = torch.clamp(p, eps, 1 - eps)
         kl = q * torch.log(q / p) + (1 - q) * torch.log((1 - q) / (1 - p))
-        return kl.sum()
+        if self.kl_reduction == "sum":
+            return kl.sum()
+        if self.kl_reduction == "mean":
+            return kl.mean()
+        if self.kl_reduction == "offdiag_mean":
+            mask = ~torch.eye(kl.size(0), dtype=torch.bool, device=kl.device)
+            return kl[mask].mean()
+        raise ValueError(f"Unknown kl_reduction={self.kl_reduction!r}")
 
 
 class LogStructClassifier(BaseEstimator, ClassifierMixin):
     """
     Network-structured logistic regression with learned feature-graph smoothing.
-    
+
     Parameters
     ----------
     prior_adjacency : array-like of shape (n_features, n_features)
         Prior adjacency matrix (e.g., PPI network, pathway co-membership).
         Values should be in [0, 1] representing edge probabilities.
-    
+
     alpha : float, default=0.5
         Elastic net mixing: 0 = pure L2, 1 = pure L1.
-    
+
     lambda_en : float, default=1.0
         Elastic net regularization strength.
-    
+
     lambda_smooth : float, default=1.0
         Coefficient smoothness penalty (Laplacian regularization).
-    
+
     lambda_kl : float, default=1.0
         KL divergence penalty to prior adjacency.
-    
+
+    kl_reduction : {"sum", "mean", "offdiag_mean"}, default="sum"
+        Reduction applied to the Bernoulli KL terms. The legacy default sums
+        over all entries; "offdiag_mean" is usually better scaled for large
+        feature graphs.
+
     temperature : float, default=0.8
         Temperature for adjacency sigmoid (lower = sharper edges).
-    
+
     self_loop_weight : float, default=1.0
         Weight for self-connections in smoothing operator.
-    
+
     neighbor_weight : float, default=1.0
         Weight for neighbor aggregation in smoothing operator.
-    
+
     learning_rate : float, default=0.01
         Learning rate for AdamW optimizer.
-    
+
     max_iter : int, default=100
         Maximum training epochs.
-    
+
     tol : float, default=1e-4
         Tolerance for early stopping (on validation loss).
-    
+
     validation_fraction : float, default=0.1
         Fraction of training data for validation.
-    
+
     early_stopping : bool, default=True
         Whether to use early stopping.
-    
+
     n_iter_no_change : int, default=10
         Patience for early stopping.
-    
+
     scale_features : bool, default=True
         Whether to standardize features before fitting.
-    
+
     sparsity_threshold : float, default=0.05
         Threshold for sparsifying learned adjacency.
-    
+
     freeze_adjacency : bool, default=False
         If True, don't learn adjacency (use prior directly).
-    
+
     device : str, default="auto"
         Device for computation: "auto", "cpu", "cuda", or "mps".
-    
+
     random_state : int, default=None
         Random seed for reproducibility.
-    
+
     verbose : bool, default=False
         Print training progress.
-    
+
     Attributes
     ----------
     coef_ : ndarray of shape (n_classes, n_features) or (n_features,)
-        Learned coefficients.
-    
+        Learned raw linear-head coefficients.
+
+    effective_coef_ : ndarray of shape (n_classes, n_features) or (n_features,)
+        Coefficients with the learned smoothing operator folded in. These are
+        the coefficients of the equivalent linear model on the original
+        feature space and should be preferred for biological interpretation.
+
     intercept_ : ndarray of shape (n_classes,) or (1,)
         Learned intercepts.
-    
+
     adjacency_ : ndarray of shape (n_features, n_features)
         Learned (and thresholded) adjacency matrix.
-    
+
+    adjacency_raw_ : ndarray of shape (n_features, n_features)
+        Learned unthresholded adjacency used by the prediction-time smoothing
+        operator.
+
     classes_ : ndarray
         Unique class labels.
-    
+
     n_iter_ : int
         Actual number of training iterations.
-    
+
     history_ : dict
         Training history with loss and accuracy.
-    
+
     Examples
     --------
     >>> from logstruct import LogStructClassifier
@@ -228,6 +257,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         lambda_en: float = 1.0,
         lambda_smooth: float = 1.0,
         lambda_kl: float = 1.0,
+        kl_reduction: Literal["sum", "mean", "offdiag_mean"] = "sum",
         temperature: float = 0.8,
         self_loop_weight: float = 1.0,
         neighbor_weight: float = 1.0,
@@ -249,6 +279,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         self.lambda_en = lambda_en
         self.lambda_smooth = lambda_smooth
         self.lambda_kl = lambda_kl
+        self.kl_reduction = kl_reduction
         self.temperature = temperature
         self.self_loop_weight = self_loop_weight
         self.neighbor_weight = neighbor_weight
@@ -268,12 +299,12 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
     def fit(self, X, y):
         """
         Fit the structured classifier.
-        
+
         Parameters
         ----------
         X : array-like of shape (n_samples, n_features)
         y : array-like of shape (n_samples,)
-        
+
         Returns
         -------
         self
@@ -288,7 +319,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         # Convert inputs
         X = np.asarray(X.toarray() if issparse(X) else X, dtype=np.float32)
         y = np.asarray(y)
-        
+
         self.classes_ = np.unique(y)
         n_classes = len(self.classes_)
         n_samples, n_features = X.shape
@@ -299,8 +330,10 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         # Validation split
         if self.early_stopping and self.validation_fraction > 0:
             from sklearn.model_selection import train_test_split
+
             X_train, X_val, y_train, y_val = train_test_split(
-                X, y_encoded,
+                X,
+                y_encoded,
                 test_size=self.validation_fraction,
                 stratify=y_encoded,
                 random_state=self.random_state,
@@ -327,9 +360,12 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
 
         # Prior adjacency
         prior = np.asarray(
-            self.prior_adjacency.toarray() if issparse(self.prior_adjacency) 
-            else self.prior_adjacency,
-            dtype=np.float32
+            (
+                self.prior_adjacency.toarray()
+                if issparse(self.prior_adjacency)
+                else self.prior_adjacency
+            ),
+            dtype=np.float32,
         )
         if prior.shape != (n_features, n_features):
             raise ValueError(
@@ -346,6 +382,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
             self_loop_weight=self.self_loop_weight,
             neighbor_weight=self.neighbor_weight,
             freeze_adjacency=self.freeze_adjacency,
+            kl_reduction=self.kl_reduction,
             device=device,
         )
 
@@ -427,16 +464,20 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
         # Extract parameters
         self._model.eval()
         self.coef_ = self._model.linear.weight.detach().cpu().numpy()
+        self.effective_coef_ = self._model.effective_coefficients().detach().cpu().numpy()
         self.intercept_ = self._model.linear.bias.detach().cpu().numpy()
-        
+        self.smoothing_operator_ = self._model.smoothing_operator().detach().cpu().numpy()
+
         if n_classes == 2:
             self.coef_ = self.coef_[1] - self.coef_[0]
+            self.effective_coef_ = self.effective_coef_[1] - self.effective_coef_[0]
             self.intercept_ = self.intercept_[1] - self.intercept_[0]
 
         # Learned adjacency
         adj = self._model.current_adjacency().detach().cpu().numpy()
         adj = 0.5 * (adj + adj.T)
         np.fill_diagonal(adj, 0.0)
+        self.adjacency_raw_ = adj.copy()
         if self.sparsity_threshold > 0:
             adj[adj < self.sparsity_threshold] = 0.0
         self.adjacency_ = adj
@@ -446,7 +487,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
     def predict_proba(self, X):
         """Predict class probabilities."""
         check_is_fitted(self)
-        
+
         X = np.asarray(X.toarray() if issparse(X) else X, dtype=np.float32)
         if self._scaler is not None:
             X = self._scaler.transform(X)
@@ -470,7 +511,7 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
     def get_top_edges(self, n: int = 10) -> list[tuple[int, int, float]]:
         """
         Get top n edges by learned weight.
-        
+
         Returns list of (i, j, weight) tuples.
         """
         check_is_fitted(self)
@@ -484,20 +525,29 @@ class LogStructClassifier(BaseEstimator, ClassifierMixin):
 class LogStructRegressor(BaseEstimator, RegressorMixin):
     """
     Network-structured linear regression with learned feature-graph smoothing.
-    
+
     Same parameters as LogStructClassifier, but for regression tasks.
     See LogStructClassifier for full parameter documentation.
-    
+
     Attributes
     ----------
     coef_ : ndarray of shape (n_targets, n_features) or (n_features,)
-        Learned coefficients.
-    
+        Learned raw linear-head coefficients.
+
+    effective_coef_ : ndarray of shape (n_targets, n_features) or (n_features,)
+        Coefficients with the learned smoothing operator folded in. These are
+        the coefficients of the equivalent linear model on the original
+        feature space and should be preferred for biological interpretation.
+
     intercept_ : ndarray of shape (n_targets,) or float
         Learned intercepts.
-    
+
     adjacency_ : ndarray of shape (n_features, n_features)
-        Learned adjacency matrix.
+        Learned thresholded adjacency matrix.
+
+    adjacency_raw_ : ndarray of shape (n_features, n_features)
+        Learned unthresholded adjacency used by the prediction-time smoothing
+        operator.
     """
 
     def __init__(
@@ -508,6 +558,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         lambda_en: float = 1.0,
         lambda_smooth: float = 1.0,
         lambda_kl: float = 1.0,
+        kl_reduction: Literal["sum", "mean", "offdiag_mean"] = "sum",
         temperature: float = 0.8,
         self_loop_weight: float = 1.0,
         neighbor_weight: float = 1.0,
@@ -529,6 +580,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         self.lambda_en = lambda_en
         self.lambda_smooth = lambda_smooth
         self.lambda_kl = lambda_kl
+        self.kl_reduction = kl_reduction
         self.temperature = temperature
         self.self_loop_weight = self_loop_weight
         self.neighbor_weight = neighbor_weight
@@ -548,12 +600,12 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
     def fit(self, X, y):
         """
         Fit the structured regressor.
-        
+
         Parameters
         ----------
         X : array-like of shape (n_samples, n_features)
         y : array-like of shape (n_samples,) or (n_samples, n_targets)
-        
+
         Returns
         -------
         self
@@ -566,7 +618,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
 
         X = np.asarray(X.toarray() if issparse(X) else X, dtype=np.float32)
         y = np.asarray(y, dtype=np.float32)
-        
+
         if y.ndim == 1:
             y = y.reshape(-1, 1)
             self._squeeze_output = True
@@ -579,8 +631,10 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         # Validation split
         if self.early_stopping and self.validation_fraction > 0:
             from sklearn.model_selection import train_test_split
+
             X_train, X_val, y_train, y_val = train_test_split(
-                X, y,
+                X,
+                y,
                 test_size=self.validation_fraction,
                 random_state=self.random_state,
             )
@@ -606,9 +660,12 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
 
         # Prior
         prior = np.asarray(
-            self.prior_adjacency.toarray() if issparse(self.prior_adjacency)
-            else self.prior_adjacency,
-            dtype=np.float32
+            (
+                self.prior_adjacency.toarray()
+                if issparse(self.prior_adjacency)
+                else self.prior_adjacency
+            ),
+            dtype=np.float32,
         )
         if prior.shape != (n_features, n_features):
             raise ValueError(
@@ -625,6 +682,7 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
             self_loop_weight=self.self_loop_weight,
             neighbor_weight=self.neighbor_weight,
             freeze_adjacency=self.freeze_adjacency,
+            kl_reduction=self.kl_reduction,
             device=device,
         )
 
@@ -697,16 +755,20 @@ class LogStructRegressor(BaseEstimator, RegressorMixin):
         # Extract
         self._model.eval()
         self.coef_ = self._model.linear.weight.detach().cpu().numpy()
+        self.effective_coef_ = self._model.effective_coefficients().detach().cpu().numpy()
         self.intercept_ = self._model.linear.bias.detach().cpu().numpy()
+        self.smoothing_operator_ = self._model.smoothing_operator().detach().cpu().numpy()
 
         if self._squeeze_output:
             self.coef_ = self.coef_.ravel()
+            self.effective_coef_ = self.effective_coef_.ravel()
             self.intercept_ = float(self.intercept_[0])
 
         # Adjacency
         adj = self._model.current_adjacency().detach().cpu().numpy()
         adj = 0.5 * (adj + adj.T)
         np.fill_diagonal(adj, 0.0)
+        self.adjacency_raw_ = adj.copy()
         if self.sparsity_threshold > 0:
             adj[adj < self.sparsity_threshold] = 0.0
         self.adjacency_ = adj
