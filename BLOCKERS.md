@@ -1,26 +1,27 @@
 # Blockers and issue log
 
-Date: 2026-05-19
+Date: 2026-05-20
 
 ## Open blockers
 
 1. Full empirical campaign not yet run.
 
-   METABRIC has one real 5-fold 1,000-gene run and Norman has one real
-   single-fold 500-gene pilot. The requested full 5k-10k bulk feature campaign,
-   full Norman 5-fold run, Tabula Sapiens preprocessing/training, drug-response,
-   GTEx, TCGA/Xena, ablations, and biological validation remain incomplete.
+   METABRIC has one real 5-fold 1,000-gene run, GTEx has one real 5-fold
+   500-gene run, Norman has one real 5-fold 500-gene run, and Tabula Sapiens has
+   one real 5-fold donor-held-out 500-gene LogStruct run with a class cap. The
+   requested full 5k-10k bulk feature campaign, tuned Tabula logistic/celltypist
+   baselines, drug-response, TCGA/Xena, ablations, and biological validation
+   remain incomplete.
 
 2. Some raw datasets are still absent.
 
    Downloaded and checksummed: METABRIC, UCI pan-cancer shakedown, STRING v12
-   links/aliases, Norman 2019 labeled H5AD, and Tabula Sapiens v2 Blood,
-   Spleen, and Lymph Node H5ADs.
+   links/aliases, Norman 2019 labeled H5AD, Tabula Sapiens v2 Blood/Spleen/Lymph
+   Node H5ADs, GTEx v8 expression/annotations, and GDSC2 dose-response.
 
-   Still missing: UCSC Xena full Pan-Cancer Atlas, GDSC expression/response,
-   GTEx expression/annotations, MSigDB licensed GMT downloads, and DoRothEA
-   regulons. The runner should continue to fail rather than silently substituting
-   datasets.
+   Still missing: UCSC Xena full Pan-Cancer Atlas expression, GDSC expression,
+   MSigDB licensed GMT downloads, and DoRothEA regulons. The runner should
+   continue to fail rather than silently substituting datasets.
 
    Additional check: the specified METABRIC S3 tarball
    `https://cbioportal-datahub.s3.amazonaws.com/brca_metabric.tar.gz` returned
@@ -30,6 +31,16 @@ Date: 2026-05-19
    The registry now uses the working official cBioPortal asset host
    `https://datahub.assets.cbioportal.org/brca_metabric.tar.gz`; source metadata
    is recorded under `results/source_metadata/`.
+
+   Additional source checks on 2026-05-20:
+
+   - UCSC Xena Pan-Cancer expression redirected to S3 and returned HTTP 403 from
+     this environment, while the survival supplemental phenotype file returned
+     HTTP 200.
+   - The old GDSC expression URL
+     `https://www.cancerrxgene.org/gdsc1000/GDSC1000_WebResources/Data/preprocessed/Cell_line_RMA_proc_basalExp.txt.zip`
+     returned HTTP 410. The GDSC2 fitted dose-response XLSX did download from
+     the release 8.5 Sanger URL.
 
 3. GPU environment was repaired but should remain pinned.
 
@@ -57,7 +68,7 @@ Date: 2026-05-19
 
 3. Dataset-specific parsers are incomplete.
 
-   Status: partially addressed. METABRIC and Norman parsers are implemented and
-   tested against downloaded raw files. Tabula Sapiens H5ADs open in backed mode
-   and expose `donor_id` and `cell_type`, but donor-held-out preprocessing is not
-   yet implemented. TCGA/Xena, GDSC, and GTEx parsers remain absent.
+   Status: partially addressed. METABRIC, GTEx, and Norman parsers are
+   implemented and tested against downloaded raw files. Tabula Sapiens now has a
+   custom sparse donor-held-out runner with train-fold gene selection, but still
+   lacks the full baseline suite. TCGA/Xena and GDSC parsers remain absent.

@@ -1,9 +1,10 @@
 # LogStruct: learned prior-anchored gene-graph smoothing for interpretable omics prediction
 
 Draft status: active empirical draft. The code audit, METABRIC 1,000-gene
-5-fold run, and one-fold Norman perturbation pilot are backed by logged runs
-under `results/`. The full 5k-10k feature campaign, remaining datasets, and
-biological validation are not complete.
+5-fold run, GTEx 500-gene 5-fold run, Norman 500-gene 5-fold run, and Tabula
+Sapiens 500-gene donor-held-out run are backed by logged runs under `results/`.
+The full 5k-10k feature campaign, remaining datasets, ablations, and biological
+validation are not complete.
 
 ## Abstract
 
@@ -13,12 +14,15 @@ gene graph as fixed. We evaluate LogStruct, a sklearn-compatible PyTorch
 estimator that learns a Bernoulli-parameterized feature graph anchored to a
 biological prior, uses the learned graph as an explicit feature-smoothing
 operator, and retains linear-model interpretability through effective
-coefficients. This draft currently reports an initial METABRIC breast-cancer
-run and a single-fold Norman perturb-seq pilot. These first results are mixed:
-LogStruct is competitive with a fixed STRING graph on METABRIC but trails tuned
-L2 logistic regression; on the Norman pilot, LogStruct improves macro-F1 over
-the tuned logistic baseline. These results are logged but not yet
-publication-complete.
+coefficients. This draft currently reports initial METABRIC, GTEx, Norman
+perturb-seq, and Tabula Sapiens immune-cell experiments. These first results are
+mixed: LogStruct is competitive with a fixed STRING graph on METABRIC but trails
+tuned L2 logistic regression; GTEx confirms the pipeline on a high-signal tissue
+task but again favors logistic regression; on Norman, LogStruct has similar
+balanced accuracy but higher macro-F1 and top-5 accuracy than the tuned logistic
+baseline; on Tabula Sapiens, the current run validates the donor-held-out
+LogStruct pipeline but lacks tuned logistic and celltypist baselines. These
+results are logged but not yet publication-complete.
 
 ## 1. Introduction
 
@@ -155,30 +159,61 @@ Pending real-data runs.
 
 Pending real-data runs.
 
-### 5.6 Sample efficiency
+### 5.6 GTEx tissue sanity check
 
-Pending real-data runs.
+GTEx v8 gene TPM and sample annotations were downloaded from the GTEx Google
+Storage release. The first sanity-check run uses broad `SMTS` tissue labels,
+log2(TPM + 1) expression, and 500 genes selected by variance on the training
+partition of each fold.
+
+Table: `paper/tables/table_gtex_500g.md`.
+
+As expected for tissue-of-origin prediction, tuned L2 logistic regression was
+near ceiling with balanced accuracy 0.979 (95% CI 0.966, 0.990) and macro-F1
+0.974. LogStruct identity and STRING-700 were lower, with balanced accuracy
+0.886 and 0.881 respectively. This validates that the data-processing path is
+not broken, but it does not support using LogStruct over a simple tuned linear
+baseline for high-signal, high-sample tissue classification.
 
 ### 5.7 Single-cell cell-type classification
 
-Pending real-data runs.
+Tabula Sapiens v2 Blood, Spleen, and Lymph Node H5AD files were downloaded from
+CELLxGENE. The custom single-cell runner keeps the full 60,606-gene sparse
+matrix until each fold selects 500 genes by variance on training donors only.
+For this first tractable run, classes with fewer than 500 cells were removed and
+each remaining class was capped at 3,000 cells, yielding a documented
+19-class donor-held-out task. This cap makes the result a controlled first
+experiment, not the final full-atlas claim.
+
+Table: `paper/tables/table_tabula_500g.md`.
+
+Across five donor-held-out folds, LogStruct identity reached balanced accuracy
+0.672 (95% bootstrap CI 0.644, 0.704) and macro-F1 0.650. LogStruct STRING-700
+was similar at balanced accuracy 0.668 and macro-F1 0.646. The near tie between
+identity and STRING priors suggests that the current setting is dominated by
+the learned smoothing/linear classifier rather than the PPI prior. A tuned
+logistic baseline, celltypist, rare-class bins, and marker recall remain
+required before making a single-cell performance claim.
 
 ### 5.8 Perturbation identity and regulatory recovery
 
 Norman 2019 data were downloaded from Figshare article 24688110 and loaded from
 the labeled H5AD. This file is a prefiltered 27,658-cell by 2,000-gene object.
-For the first closed-set pilot, double perturbations were excluded and controls
+For the closed-set run, double perturbations were excluded and controls
 plus single-gene perturbations with at least 50 cells were retained, yielding
-15,216 cells, 18 classes, and 2,000 genes. One outer fold was run with the top
-500 train-selected genes. Because only one fold is complete, the confidence
-intervals in `paper/tables/table_norman_500g_pilot.md` are degenerate and
-should not be interpreted as final uncertainty estimates.
+15,216 cells, 18 classes, and 2,000 genes. Five outer folds were run with the
+top 500 train-selected genes.
 
-In this pilot, LogStruct identity reached balanced accuracy 0.559 and macro-F1
-0.598, LogStruct STRING-700 reached balanced accuracy 0.554 and macro-F1 0.595,
-and tuned L2 logistic regression reached balanced accuracy 0.541 and macro-F1
-0.467. This is promising enough to justify the full 5-fold perturbation run, but
-it is not yet the final perturb-seq result.
+Table: `paper/tables/table_norman_500g.md`.
+
+Tuned L2 logistic regression had the highest balanced accuracy at 0.560 (95% CI
+0.542, 0.579), narrowly ahead of LogStruct identity at 0.559 and LogStruct
+STRING-700 at 0.558. However, the LogStruct models were clearly better on
+macro-F1 and top-5 accuracy: STRING-700 reached macro-F1 0.599 and top-5
+accuracy 0.944, compared with logistic macro-F1 0.478 and top-5 accuracy 0.928.
+This supports a more modest claim than originally hypothesized: the smoothed
+linear model improves imbalanced perturbation-class ranking and macro-F1 at
+this feature scale, but not balanced accuracy.
 
 ### 5.9 Biological interpretation
 
@@ -201,10 +236,11 @@ move the adjacency enough. The next experiment should sweep `lambda_kl`,
 `lambda_smooth`, and temperature before making any claim about adaptive graph
 benefit.
 
-The Norman pilot points in the opposite direction: with imbalanced
-perturbation classes, the smoothed linear model improved macro-F1 over tuned
-logistic regression on the first fold. This must be confirmed over the remaining
-outer folds and with DoRothEA priors before it becomes a paper claim.
+The Norman result points in the opposite direction: with imbalanced perturbation
+classes, the smoothed linear model improved macro-F1 and top-5 accuracy over
+tuned logistic regression while essentially tying balanced accuracy. This should
+still be tested with DoRothEA priors before it becomes a biological-regulatory
+claim.
 
 ## 7. Conclusion
 

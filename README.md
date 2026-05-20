@@ -55,9 +55,14 @@ Logged real-data runs now available on this branch:
 
 - METABRIC PAM50, top 1,000 train-selected genes, 5 outer folds:
   `make metabric-1000`
-- Norman 2019 perturbation identity, top 500 train-selected genes, one pilot
-  outer fold:
-  `make norman-pilot`
+- GTEx broad tissue, top 500 train-selected genes, 5 outer folds:
+  `make gtex-500`
+- Norman 2019 perturbation identity, top 500 train-selected genes, 5 outer
+  folds:
+  `make norman-500`
+- Tabula Sapiens immune cell type, top 500 train-selected genes, 5 donor-held
+  out folds and a 3,000-cells-per-class cap:
+  `make tabula-500`
 
 The downloaded raw files and checksums are listed in `data/raw/CHECKSUMS.txt`
 and `REPRODUCIBILITY.md`.

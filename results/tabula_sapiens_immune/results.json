@@ -1,0 +1,828 @@
+{
+  "aggregate_metrics": {
+    "dummy_most_frequent": {
+      "balanced_accuracy": {
+        "ci_high": 0.06390977443609022,
+        "ci_low": 0.05263157894736842,
+        "mean": 0.05639097744360901
+      },
+      "macro_f1": {
+        "ci_high": 0.003082581761509827,
+        "ci_low": 0.0007197190754162604,
+        "mean": 0.0018582973132914133
+      },
+      "mcc": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "mean": 0.0
+      },
+      "ovr_auprc": {
+        "ci_high": 0.05263157894736843,
+        "ci_low": 0.05263157894736842,
+        "mean": 0.05263157894736842
+      },
+      "ovr_auroc": {
+        "ci_high": 0.5,
+        "ci_low": 0.5,
+        "mean": 0.5
+      },
+      "top5_accuracy": {
+        "ci_high": 0.2961984015161522,
+        "ci_low": 0.13855599975612956,
+        "mean": 0.1973107995058958
+      }
+    },
+    "logstruct_identity": {
+      "balanced_accuracy": {
+        "ci_high": 0.7042265982943555,
+        "ci_low": 0.6444963250491006,
+        "mean": 0.6717588884578989
+      },
+      "macro_f1": {
+        "ci_high": 0.6985883457158136,
+        "ci_low": 0.6091554262746157,
+        "mean": 0.6500493220100622
+      },
+      "mcc": {
+        "ci_high": 0.7553687361865845,
+        "ci_low": 0.5983745646989383,
+        "mean": 0.6822724304869591
+      },
+      "ovr_auprc": {
+        "ci_high": 0.7416607546977338,
+        "ci_low": 0.7153357817670036,
+        "mean": 0.7279605088168308
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9805241661518151,
+        "ci_low": 0.9642674672785301,
+        "mean": 0.9729887211476491
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9939701383756918,
+        "ci_low": 0.9892323899750828,
+        "mean": 0.9916012641753872
+      }
+    },
+    "logstruct_string_700": {
+      "balanced_accuracy": {
+        "ci_high": 0.7031526630197499,
+        "ci_low": 0.640792747139216,
+        "mean": 0.6679771760231017
+      },
+      "macro_f1": {
+        "ci_high": 0.6960393311891294,
+        "ci_low": 0.6048194941636167,
+        "mean": 0.6462361211023977
+      },
+      "mcc": {
+        "ci_high": 0.750929699832573,
+        "ci_low": 0.5941670774194242,
+        "mean": 0.6776057507345212
+      },
+      "ovr_auprc": {
+        "ci_high": 0.7407381029070653,
+        "ci_low": 0.7111790780015186,
+        "mean": 0.7251283353416182
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9801545794903377,
+        "ci_low": 0.9643909097814463,
+        "mean": 0.9725715876658413
+      },
+      "top5_accuracy": {
+        "ci_high": 0.993949220427571,
+        "ci_low": 0.9879319158305806,
+        "mean": 0.9909405681290757
+      }
+    }
+  },
+  "dataset_name": "tabula_sapiens_immune",
+  "environment": {
+    "cuda_available": "True",
+    "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.7.1+cu126"
+  },
+  "fold_records": [
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.05263157894736842,
+        "macro_f1": 0.0032520503848076513,
+        "mcc": 0.0,
+        "ovr_auprc": 0.05263157894736842,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.14830371567043618
+      },
+      "seed": 0,
+      "test_donors": [
+        "TSP1",
+        "TSP7"
+      ],
+      "test_size": 9285,
+      "train_donors": [
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP8"
+      ],
+      "train_size": 34098,
+      "wall_clock_sec": 0.25838664599905314
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        }
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.7215242355155301,
+        "macro_f1": 0.7249720481900419,
+        "mcc": 0.7733280798006801,
+        "ovr_auprc": 0.7507491021953314,
+        "ovr_auroc": 0.9792585267921506,
+        "top5_accuracy": 0.989122240172321
+      },
+      "seed": 0,
+      "test_donors": [
+        "TSP1",
+        "TSP7"
+      ],
+      "test_size": 9285,
+      "train_donors": [
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP8"
+      ],
+      "train_size": 34098,
+      "wall_clock_sec": 7.3412343919990235
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        }
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.721503900870219,
+        "macro_f1": 0.7249483433515195,
+        "mcc": 0.7733876959696377,
+        "ovr_auprc": 0.7509299315310042,
+        "ovr_auroc": 0.9791270496561282,
+        "top5_accuracy": 0.9877221324717286
+      },
+      "seed": 0,
+      "test_donors": [
+        "TSP1",
+        "TSP7"
+      ],
+      "test_size": 9285,
+      "train_donors": [
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP8"
+      ],
+      "train_size": 34098,
+      "wall_clock_sec": 3.3001531480003905
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.07142857142857142,
+        "macro_f1": 0.00017593244194229416,
+        "mcc": 0.0,
+        "ovr_auprc": null,
+        "ovr_auroc": null,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_donors": [
+        "TSP10"
+      ],
+      "test_size": 811,
+      "train_donors": [
+        "TSP1",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 42572,
+      "wall_clock_sec": 0.04104700199968647
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        }
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.6376564435373054,
+        "macro_f1": 0.5767895196211774,
+        "mcc": 0.7051276493770049,
+        "ovr_auprc": null,
+        "ovr_auroc": null,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_donors": [
+        "TSP10"
+      ],
+      "test_size": 811,
+      "train_donors": [
+        "TSP1",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 42572,
+      "wall_clock_sec": 3.557957107999755
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        }
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6307205622724366,
+        "macro_f1": 0.5729479467396708,
+        "mcc": 0.692426479224395,
+        "ovr_auprc": null,
+        "ovr_auroc": null,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_donors": [
+        "TSP10"
+      ],
+      "test_size": 811,
+      "train_donors": [
+        "TSP1",
+        "TSP14",
+        "TSP2",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 42572,
+      "wall_clock_sec": 4.196807339998486
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.05263157894736842,
+        "macro_f1": 0.0020069898612408736,
+        "mcc": 0.0,
+        "ovr_auprc": 0.05263157894736843,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.16605227882037535
+      },
+      "seed": 2,
+      "test_donors": [
+        "TSP21",
+        "TSP27"
+      ],
+      "test_size": 11936,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP25",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 31447,
+      "wall_clock_sec": 0.29176303399981407
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        }
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.6344610952524036,
+        "macro_f1": 0.6304594582301495,
+        "mcc": 0.6410299725258942,
+        "ovr_auprc": 0.7143957122049409,
+        "ovr_auroc": 0.9716361048463097,
+        "top5_accuracy": 0.9941353887399463
+      },
+      "seed": 2,
+      "test_donors": [
+        "TSP21",
+        "TSP27"
+      ],
+      "test_size": 11936,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP25",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 31447,
+      "wall_clock_sec": 4.246767564998663
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        }
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6364098044847606,
+        "macro_f1": 0.6280306848217271,
+        "mcc": 0.6403791434857791,
+        "ovr_auprc": 0.7101626170352485,
+        "ovr_auroc": 0.9704983285261374,
+        "top5_accuracy": 0.993548927613941
+      },
+      "seed": 2,
+      "test_donors": [
+        "TSP21",
+        "TSP27"
+      ],
+      "test_size": 11936,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP2",
+        "TSP25",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 31447,
+      "wall_clock_sec": 1.1001734809997288
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.05263157894736842,
+        "macro_f1": 0.0004718910246327115,
+        "mcc": 0.0,
+        "ovr_auprc": 0.05263157894736842,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.12939057340138096
+      },
+      "seed": 3,
+      "test_donors": [
+        "TSP2"
+      ],
+      "test_size": 6662,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 36721,
+      "wall_clock_sec": 0.1326649250004266
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        }
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.6782465476660852,
+        "macro_f1": 0.6330764697295457,
+        "mcc": 0.5294832001187906,
+        "ovr_auprc": 0.7162758513290665,
+        "ovr_auroc": 0.9592704474406566,
+        "top5_accuracy": 0.9893425397778445
+      },
+      "seed": 3,
+      "test_donors": [
+        "TSP2"
+      ],
+      "test_size": 6662,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 36721,
+      "wall_clock_sec": 4.186589136999828
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        }
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6697030021816857,
+        "macro_f1": 0.6241108731410402,
+        "mcc": 0.5243104043092738,
+        "ovr_auprc": 0.7121955389677886,
+        "ovr_auroc": 0.9594788631565523,
+        "top5_accuracy": 0.9881416991894326
+      },
+      "seed": 3,
+      "test_donors": [
+        "TSP2"
+      ],
+      "test_size": 6662,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP14",
+        "TSP21",
+        "TSP25",
+        "TSP27",
+        "TSP7",
+        "TSP8"
+      ],
+      "train_size": 36721,
+      "wall_clock_sec": 4.300357789999907
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.05263157894736842,
+        "macro_f1": 0.0033846228538335363,
+        "mcc": 0.0,
+        "ovr_auprc": 0.05263157894736842,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.3454966301313908
+      },
+      "seed": 4,
+      "test_donors": [
+        "TSP14",
+        "TSP25",
+        "TSP8"
+      ],
+      "test_size": 14689,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP2",
+        "TSP21",
+        "TSP27",
+        "TSP7"
+      ],
+      "train_size": 28694,
+      "wall_clock_sec": 0.3535191009996197
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        }
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.68690612031817,
+        "macro_f1": 0.6849491142793966,
+        "mcc": 0.7623932506124258,
+        "ovr_auprc": 0.7304213695379843,
+        "ovr_auroc": 0.9817898055114797,
+        "top5_accuracy": 0.9938048880114372
+      },
+      "seed": 4,
+      "test_donors": [
+        "TSP14",
+        "TSP25",
+        "TSP8"
+      ],
+      "test_size": 14689,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP2",
+        "TSP21",
+        "TSP27",
+        "TSP7"
+      ],
+      "train_size": 28694,
+      "wall_clock_sec": 4.869268865999402
+    },
+    {
+      "dataset_name": "tabula_sapiens_immune",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "max_genes": 500,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        }
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6815486103064066,
+        "macro_f1": 0.6811427574580309,
+        "mcc": 0.7575250306835207,
+        "ovr_auprc": 0.7272252538324318,
+        "ovr_auroc": 0.9811821093245471,
+        "top5_accuracy": 0.9943495132412009
+      },
+      "seed": 4,
+      "test_donors": [
+        "TSP14",
+        "TSP25",
+        "TSP8"
+      ],
+      "test_size": 14689,
+      "train_donors": [
+        "TSP1",
+        "TSP10",
+        "TSP2",
+        "TSP21",
+        "TSP27",
+        "TSP7"
+      ],
+      "train_size": 28694,
+      "wall_clock_sec": 4.594092422999893
+    }
+  ],
+  "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+  "metadata": {
+    "class_counts": {
+      "B cell": 3000,
+      "CD4-positive, alpha-beta T cell": 3000,
+      "CD8-positive, alpha-beta T cell": 3000,
+      "T cell": 1432,
+      "classical monocyte": 3000,
+      "endothelial cell": 1546,
+      "erythrocyte": 3000,
+      "innate lymphoid cell": 915,
+      "intermediate monocyte": 1713,
+      "macrophage": 3000,
+      "mature NK T cell": 2255,
+      "monocyte": 3000,
+      "naive thymus-derived CD4-positive, alpha-beta T cell": 3000,
+      "naive thymus-derived CD8-positive, alpha-beta T cell": 622,
+      "natural killer cell": 3000,
+      "neutrophil": 3000,
+      "non-classical monocyte": 550,
+      "plasma cell": 3000,
+      "regulatory T cell": 1350
+    },
+    "dataset_name": "tabula_sapiens_immune",
+    "donor_counts": {
+      "TSP1": 728,
+      "TSP10": 811,
+      "TSP14": 10436,
+      "TSP2": 6662,
+      "TSP21": 7761,
+      "TSP25": 3874,
+      "TSP27": 4175,
+      "TSP7": 8557,
+      "TSP8": 379
+    },
+    "max_cells_per_class": 3000,
+    "min_cells_per_class": 500,
+    "n_classes": 19,
+    "n_donors": 9,
+    "preprocessing_note": "CELLxGENE X used as supplied; genes selected by train-donor variance per fold.",
+    "raw_shape": [
+      43383,
+      60606
+    ]
+  },
+  "methods": [
+    "dummy_most_frequent",
+    "logstruct_identity",
+    "logstruct_string_700"
+  ],
+  "outer_folds_completed": 5,
+  "seed": 0,
+  "task": "single_cell_celltype_classification",
+  "wall_clock_sec": 302.5104645430001
+}

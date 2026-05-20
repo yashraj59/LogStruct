@@ -66,6 +66,24 @@ DATA_SOURCES: dict[str, DataSource] = {
         RAW / "pbmc3k_filtered_gene_bc_matrices.tar.gz",
         "Small single-cell shakedown dataset; not a substitute for Tabula Sapiens.",
     ),
+    "gtex_v8_gene_tpm": DataSource(
+        "gtex_v8_gene_tpm",
+        "https://storage.googleapis.com/adult-gtex/bulk-gex/v8/rna-seq/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct.gz",
+        RAW / "GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct.gz",
+        "GTEx v8 RNASeQC gene TPM matrix.",
+    ),
+    "gtex_v8_sample_annotations": DataSource(
+        "gtex_v8_sample_annotations",
+        "https://storage.googleapis.com/adult-gtex/annotations/v8/metadata-files/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        RAW / "GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt",
+        "GTEx v8 sample attributes.",
+    ),
+    "gdsc2_response_27oct23": DataSource(
+        "gdsc2_response_27oct23",
+        "https://cog.sanger.ac.uk/cancerrxgene/GDSC_release8.5/GDSC2_fitted_dose_response_27Oct23.xlsx",
+        RAW / "GDSC2_fitted_dose_response_27Oct23.xlsx",
+        "GDSC2 fitted dose-response release 8.5.",
+    ),
     "tabula_sapiens_v2_blood": DataSource(
         "tabula_sapiens_v2_blood",
         "https://datasets.cellxgene.cziscience.com/b225ee37-5e06-4e49-9c25-c3d7b5008dab.h5ad",
@@ -425,6 +443,63 @@ def prepare_norman_perturb_identity(
         X=X,
         y=y,
         gene_names=np.asarray(gene_names, dtype=str),
+        metadata=json.dumps(metadata, sort_keys=True),
+    )
+    (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
+    create_nested_stratified_splits(
+        y,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        seed=seed,
+        save_path=out_dir / "splits.json",
+    )
+    return out_dir
+
+
+def prepare_gtex_tissue(*, outer_folds: int = 5, inner_folds: int = 5, seed: int = 0):
+    """Prepare GTEx v8 broad tissue classification from gene TPM GCT."""
+    expression_path = DATA_SOURCES["gtex_v8_gene_tpm"].raw_path
+    annotation_path = DATA_SOURCES["gtex_v8_sample_annotations"].raw_path
+    require_raw([expression_path, annotation_path])
+    out_dir = PROCESSED / "gtex_tissue"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if (
+        (out_dir / "dataset.npz").exists()
+        and (out_dir / "splits.json").exists()
+        and (out_dir / "metadata.json").exists()
+    ):
+        return out_dir
+
+    annotations = pd.read_csv(annotation_path, sep="\t", usecols=["SAMPID", "SMTS", "SMTSD"])
+    annotations = annotations.dropna(subset=["SMTS"]).drop_duplicates("SAMPID")
+    label_map = annotations.set_index("SAMPID")["SMTS"]
+
+    expr = pd.read_csv(expression_path, sep="\t", skiprows=2, low_memory=False)
+    sample_cols = [c for c in expr.columns[2:] if c in label_map.index]
+    if not sample_cols:
+        raise ValueError("No overlapping GTEx expression samples and sample annotations")
+
+    gene_names = expr["Description"].astype(str).to_numpy()
+    values = expr[sample_cols].apply(pd.to_numeric, errors="coerce").fillna(0.0)
+    X = np.log2(values.T.to_numpy(dtype=np.float32) + 1.0)
+    y = label_map.loc[sample_cols].to_numpy(dtype=str)
+
+    metadata = {
+        "source_expression": DATA_SOURCES["gtex_v8_gene_tpm"].url,
+        "source_annotations": DATA_SOURCES["gtex_v8_sample_annotations"].url,
+        "label_column": "SMTS",
+        "n_samples": int(X.shape[0]),
+        "n_genes": int(X.shape[1]),
+        "n_classes": int(len(np.unique(y))),
+        "class_counts": {str(k): int(v) for k, v in pd.Series(y).value_counts().items()},
+        "preprocessing": "log2(TPM + 1); downstream runner applies train-only z-scoring and gene selection",
+    }
+    np.savez_compressed(
+        out_dir / "dataset.npz",
+        X=X,
+        y=y,
+        gene_names=np.asarray(gene_names, dtype=str),
+        sample_ids=np.asarray(sample_cols, dtype=str),
         metadata=json.dumps(metadata, sort_keys=True),
     )
     (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")

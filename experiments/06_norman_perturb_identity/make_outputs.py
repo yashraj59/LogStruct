@@ -62,8 +62,8 @@ def main() -> None:
         "AUROC OvR",
         "AUPRC OvR",
     ]
-    df[display_cols].to_csv(TABLE_DIR / "table_norman_500g_pilot.csv", index=False)
-    (TABLE_DIR / "table_norman_500g_pilot.md").write_text(_to_markdown(df[display_cols]))
+    df[display_cols].to_csv(TABLE_DIR / "table_norman_500g.csv", index=False)
+    (TABLE_DIR / "table_norman_500g.md").write_text(_to_markdown(df[display_cols]))
 
 
 if __name__ == "__main__":

@@ -25,6 +25,7 @@ from experiments.shared.data_loader import (  # noqa: E402
     DATA_SOURCES,
     PRIORS,
     load_dataset,
+    prepare_gtex_tissue,
     prepare_metabric_pam50,
     prepare_norman_perturb_identity,
     prepare_uci_pancancer,
@@ -42,6 +43,7 @@ from logstruct import LogStructClassifier  # noqa: E402
 
 
 PREPARE_DATASET = {
+    "gtex_tissue": prepare_gtex_tissue,
     "metabric_pam50": prepare_metabric_pam50,
     "norman_2019_perturb_identity": prepare_norman_perturb_identity,
     "uci_pancancer": prepare_uci_pancancer,

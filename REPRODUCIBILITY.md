@@ -27,8 +27,12 @@ host NVIDIA driver. The venv was changed to `torch==2.7.1+cu126`, after which
 .venv/bin/python experiments/07_ablations/kl_scaling_sensitivity.py
 .venv/bin/python experiments/01_brca_pam50/run.py --max-genes 1000 --methods dummy_most_frequent logistic_l2 nslr_string_700 logstruct_string_700 --device cuda
 .venv/bin/python experiments/01_brca_pam50/make_outputs.py
-.venv/bin/python experiments/06_norman_perturb_identity/run.py --max-outer 1 --max-genes 500 --methods dummy_most_frequent logistic_l2 logstruct_identity logstruct_string_700 --device cuda
+.venv/bin/python experiments/04_gtex_tissue/run.py --max-genes 500 --methods dummy_most_frequent logistic_l2 logstruct_identity logstruct_string_700 --device cuda
+.venv/bin/python experiments/04_gtex_tissue/make_outputs.py
+.venv/bin/python experiments/06_norman_perturb_identity/run.py --max-genes 500 --methods dummy_most_frequent logistic_l2 logstruct_identity logstruct_string_700 --device cuda
 .venv/bin/python experiments/06_norman_perturb_identity/make_outputs.py
+.venv/bin/python experiments/05_tabula_sapiens_celltype/run.py --max-genes 500 --min-cells 500 --max-cells-per-class 3000 --methods dummy_most_frequent logstruct_identity logstruct_string_700 --device cuda
+.venv/bin/python experiments/05_tabula_sapiens_celltype/make_outputs.py
 make all
 pandoc paper/main.md -o paper/main.pdf
 ```
@@ -65,6 +69,15 @@ Downloaded raw data:
   - SHA256: `2b510d552dc8b1e78f78a45433d81be4c38dd88ecc3db89cf9488c675c5f8714`
 - `data/raw/tabula_sapiens_v2/tabula_sapiens___lymph_node.h5ad`
   - SHA256: `2461260870236be59f270963024cbd3589eb56a988cb13bb9e1868bac24af065`
+- `data/raw/GTEx_Analysis_2017-06-05_v8_RNASeQCv1.1.9_gene_tpm.gct.gz`
+  - Source: GTEx v8 Google Storage adult-gtex bulk-gex release
+  - SHA256: `ec783825ebebb8ba8525b73cb7ff9577162bc0d2e8a7fdc408283b7639c306fb`
+- `data/raw/GTEx_Analysis_v8_Annotations_SampleAttributesDS.txt`
+  - Source: GTEx v8 Google Storage annotations release
+  - SHA256: `74f6ab4c34ed2648d708a0ae6e6dff324f6c86ea723ae7d1c37d76f5221148f0`
+- `data/raw/GDSC2_fitted_dose_response_27Oct23.xlsx`
+  - Source: GDSC release 8.5 Sanger download
+  - SHA256: `f950a7027be265f8a7a74220a27fd18cbd368485349bd8c2048e88bb1cd07560`
 
 The authoritative checksum file is `data/raw/CHECKSUMS.txt`.
 
@@ -73,8 +86,13 @@ The authoritative checksum file is `data/raw/CHECKSUMS.txt`.
 - `results/smoke/results.json`
 - `results/audit/kl_reduction_sensitivity.json`
 - `results/metabric_pam50/results.json`
+- `results/gtex_tissue/results.json`
 - `results/norman_2019_perturb_identity/results.json`
+- `results/tabula_sapiens_immune/results.json`
 
 The smoke and audit runs are synthetic pipeline checks only. The METABRIC run is
-a real 5-fold 1,000-gene experiment. The Norman run is a one-fold 500-gene
-pilot and should not be treated as a final estimate.
+a real 5-fold 1,000-gene experiment. The GTEx run is a real 5-fold 500-gene
+broad-tissue sanity check. The Norman run is a real 5-fold 500-gene experiment
+on the filtered closed-set perturbation task. The Tabula Sapiens run is a real
+5-fold donor-held-out 500-gene experiment with a 3,000-cells-per-class cap and
+no tuned logistic/celltypist baseline yet.

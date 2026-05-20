@@ -1,0 +1,44 @@
+{
+  "class_counts": {
+    "B cell": 3000,
+    "CD4-positive, alpha-beta T cell": 3000,
+    "CD8-positive, alpha-beta T cell": 3000,
+    "T cell": 1432,
+    "classical monocyte": 3000,
+    "endothelial cell": 1546,
+    "erythrocyte": 3000,
+    "innate lymphoid cell": 915,
+    "intermediate monocyte": 1713,
+    "macrophage": 3000,
+    "mature NK T cell": 2255,
+    "monocyte": 3000,
+    "naive thymus-derived CD4-positive, alpha-beta T cell": 3000,
+    "naive thymus-derived CD8-positive, alpha-beta T cell": 622,
+    "natural killer cell": 3000,
+    "neutrophil": 3000,
+    "non-classical monocyte": 550,
+    "plasma cell": 3000,
+    "regulatory T cell": 1350
+  },
+  "dataset_name": "tabula_sapiens_immune",
+  "donor_counts": {
+    "TSP1": 728,
+    "TSP10": 811,
+    "TSP14": 10436,
+    "TSP2": 6662,
+    "TSP21": 7761,
+    "TSP25": 3874,
+    "TSP27": 4175,
+    "TSP7": 8557,
+    "TSP8": 379
+  },
+  "max_cells_per_class": 3000,
+  "min_cells_per_class": 500,
+  "n_classes": 19,
+  "n_donors": 9,
+  "preprocessing_note": "CELLxGENE X used as supplied; genes selected by train-donor variance per fold.",
+  "raw_shape": [
+    43383,
+    60606
+  ]
+}

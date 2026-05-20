@@ -1,0 +1,1046 @@
+{
+  "aggregate_metrics": {
+    "dummy_most_frequent": {
+      "balanced_accuracy": {
+        "ci_high": 0.03333333333333333,
+        "ci_low": 0.03333333333333333,
+        "mean": 0.03333333333333333
+      },
+      "macro_f1": {
+        "ci_high": 0.008801890796763657,
+        "ci_low": 0.008789891756183891,
+        "mean": 0.008796110476376592
+      },
+      "mcc": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "mean": 0.0
+      },
+      "ovr_auprc": {
+        "ci_high": 0.03333333333333334,
+        "ci_low": 0.03333333333333333,
+        "mean": 0.03333333333333334
+      },
+      "ovr_auroc": {
+        "ci_high": 0.5,
+        "ci_low": 0.5,
+        "mean": 0.5
+      },
+      "top5_accuracy": {
+        "ci_high": 0.24024851125909436,
+        "ci_low": 0.2396594520692117,
+        "mean": 0.23996087390654947
+      }
+    },
+    "logistic_l2": {
+      "balanced_accuracy": {
+        "ci_high": 0.9902810788821794,
+        "ci_low": 0.965532263946313,
+        "mean": 0.9791095475169251
+      },
+      "macro_f1": {
+        "ci_high": 0.9803627676647959,
+        "ci_low": 0.9628737291063303,
+        "mean": 0.9735430779135374
+      },
+      "mcc": {
+        "ci_high": 0.9945065005771119,
+        "ci_low": 0.9926525236067253,
+        "mean": 0.9935208601790435
+      },
+      "ovr_auprc": {
+        "ci_high": 0.9954178163660561,
+        "ci_low": 0.9802621901686237,
+        "mean": 0.9879557938934186
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9999185916367793,
+        "ci_low": 0.9997390979851376,
+        "mean": 0.999829080867111
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9999424791486915,
+        "ci_low": 0.9997123295514532,
+        "mean": 0.9998274043500723
+      }
+    },
+    "logstruct_identity": {
+      "balanced_accuracy": {
+        "ci_high": 0.890294597366494,
+        "ci_low": 0.8819786193554402,
+        "mean": 0.8859284389850629
+      },
+      "macro_f1": {
+        "ci_high": 0.8956538389558311,
+        "ci_low": 0.8835318571735984,
+        "mean": 0.8895928480647146
+      },
+      "mcc": {
+        "ci_high": 0.9874757048652366,
+        "ci_low": 0.9834073724483797,
+        "mean": 0.9854415386568082
+      },
+      "ovr_auprc": {
+        "ci_high": 0.9697448475525505,
+        "ci_low": 0.9523012726401004,
+        "mean": 0.961179649770816
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9997201968093312,
+        "ci_low": 0.9991504754511444,
+        "mean": 0.9995135045786162
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9994247418429112,
+        "ci_low": 0.9989068556051223,
+        "mean": 0.9991370217503615
+      }
+    },
+    "logstruct_string_700": {
+      "balanced_accuracy": {
+        "ci_high": 0.88724188665013,
+        "ci_low": 0.8754114953156827,
+        "mean": 0.8813942920372255
+      },
+      "macro_f1": {
+        "ci_high": 0.8908614697107519,
+        "ci_low": 0.8786159131593418,
+        "mean": 0.8841681805409592
+      },
+      "mcc": {
+        "ci_high": 0.9858152432679829,
+        "ci_low": 0.982054739304368,
+        "mean": 0.9841494321405788
+      },
+      "ovr_auprc": {
+        "ci_high": 0.9651288552697217,
+        "ci_low": 0.9506596888415706,
+        "mean": 0.9587569725861183
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9997061364419692,
+        "ci_low": 0.9992098720529443,
+        "mean": 0.9995282078117949
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9994822626942199,
+        "ci_low": 0.9988493004167117,
+        "mean": 0.9991945426016701
+      }
+    }
+  },
+  "dataset_name": "gtex_tissue",
+  "environment": {
+    "cuda_available": "True",
+    "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.7.1+cu126"
+  },
+  "fold_records": [
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.03333333333333333,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.03333333333333333,
+        "macro_f1": 0.008789013732833957,
+        "mcc": 0.0,
+        "ovr_auprc": 0.03333333333333333,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.23957434570031635
+      },
+      "seed": 0,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 0.10454553999989002
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.9687059185501603,
+        "max_genes": 500,
+        "selected": {
+          "C": 3.0
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.975875243964808,
+        "macro_f1": 0.9812518667687,
+        "mcc": 0.9922898283064201,
+        "ovr_auprc": 0.9891758772501741,
+        "ovr_auroc": 0.9999400780987213,
+        "top5_accuracy": 0.999712395743457
+      },
+      "seed": 0,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 213.28207562700118
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.8816331277357017,
+        "macro_f1": 0.8821589839258455,
+        "mcc": 0.9842754122107489,
+        "ovr_auprc": 0.9751494172211771,
+        "ovr_auroc": 0.9996635725182088,
+        "top5_accuracy": 0.998849582973828
+      },
+      "seed": 0,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 1.6022910600004252
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.8830037841063582,
+        "macro_f1": 0.8838490686828577,
+        "mcc": 0.9848923502186517,
+        "ovr_auprc": 0.9642062718011701,
+        "ovr_auroc": 0.9997111834520226,
+        "top5_accuracy": 0.999137187230371
+      },
+      "seed": 0,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 0.5712538879997737
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.03333333333333333,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.03333333333333333,
+        "macro_f1": 0.008803461474454984,
+        "mcc": 0.0,
+        "ovr_auprc": 0.03333333333333333,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.24043715846994534
+      },
+      "seed": 1,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 0.09251123300055042
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.9753663757320019,
+        "max_genes": 500,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.9522664568407306,
+        "macro_f1": 0.9516882865776205,
+        "mcc": 0.9950627045966256,
+        "ovr_auprc": 0.9966888245798298,
+        "ovr_auroc": 0.9999376570099779,
+        "top5_accuracy": 1.0
+      },
+      "seed": 1,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 246.87296665299982
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 1,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.8907331524370664,
+        "macro_f1": 0.8971263112546155,
+        "mcc": 0.9885899179237211,
+        "ovr_auprc": 0.9668158107992082,
+        "ovr_auroc": 0.9997314352179055,
+        "top5_accuracy": 0.999712395743457
+      },
+      "seed": 1,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 0.5783455990003858
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 1,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.8813425518443714,
+        "macro_f1": 0.8840417119347938,
+        "mcc": 0.9867442580937456,
+        "ovr_auprc": 0.9655878702707326,
+        "ovr_auroc": 0.9996721700953827,
+        "top5_accuracy": 0.999712395743457
+      },
+      "seed": 1,
+      "test_size": 3477,
+      "train_size": 13905,
+      "val_size": 0,
+      "wall_clock_sec": 0.5755141350000486
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.03333333333333333,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.03333333333333333,
+        "macro_f1": 0.008805659592176445,
+        "mcc": 0.0,
+        "ovr_auprc": 0.03333333333333333,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.24021864211737629
+      },
+      "seed": 2,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.09250781999980973
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.9675146990106225,
+        "max_genes": 500,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.9949867052445648,
+        "macro_f1": 0.9791632929099693,
+        "mcc": 0.9932106863036255,
+        "ovr_auprc": 0.9978467308406167,
+        "ovr_auroc": 0.9997154006633716,
+        "top5_accuracy": 0.9997123130034522
+      },
+      "seed": 2,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 237.64415094600008
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 2,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.8821981535137889,
+        "macro_f1": 0.8829175071119625,
+        "mcc": 0.9848777467801176,
+        "ovr_auprc": 0.9647937817219816,
+        "ovr_auroc": 0.9996336429044455,
+        "top5_accuracy": 0.998849252013809
+      },
+      "seed": 2,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5723261509992881
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 2,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.8805466341722014,
+        "macro_f1": 0.8816979722317057,
+        "mcc": 0.9839510918400259,
+        "ovr_auprc": 0.9651311320029864,
+        "ovr_auroc": 0.9996403309531903,
+        "top5_accuracy": 0.9985615650172612
+      },
+      "seed": 2,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5911043050000444
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.03333333333333333,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.03333333333333333,
+        "macro_f1": 0.008791208791208791,
+        "mcc": 0.0,
+        "ovr_auprc": 0.03333333333333334,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.23993095512082854
+      },
+      "seed": 3,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.09574886500013235
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.9789062605436836,
+        "max_genes": 500,
+        "selected": {
+          "C": 0.1
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.9890126523872448,
+        "macro_f1": 0.98014049288882,
+        "mcc": 0.9922880443601106,
+        "ovr_auprc": 0.9806897831208847,
+        "ovr_auroc": 0.999712420035461,
+        "top5_accuracy": 0.9997123130034522
+      },
+      "seed": 3,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 229.35213339499933
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 3,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.8822305342782191,
+        "macro_f1": 0.8875063037923758,
+        "mcc": 0.9818041455201415,
+        "ovr_auprc": 0.9541223746962629,
+        "ovr_auroc": 0.9997431058747309,
+        "top5_accuracy": 0.9991369390103567
+      },
+      "seed": 3,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5719729520005785
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 3,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.8709037135425615,
+        "macro_f1": 0.8750629283930191,
+        "mcc": 0.9799547754208993,
+        "ovr_auprc": 0.955579266496448,
+        "ovr_auroc": 0.999718072605209,
+        "top5_accuracy": 0.9991369390103567
+      },
+      "seed": 3,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5901301720004994
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.03333333333333333,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.03333333333333333,
+        "macro_f1": 0.008791208791208791,
+        "mcc": 0.0,
+        "ovr_auprc": 0.03333333333333333,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.23964326812428077
+      },
+      "seed": 4,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.09382916499998828
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.9758029074707284,
+        "max_genes": 500,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.9834066791472779,
+        "macro_f1": 0.9754714504225777,
+        "mcc": 0.9947530373284359,
+        "ovr_auprc": 0.9753777536755875,
+        "ovr_auroc": 0.9998398485280225,
+        "top5_accuracy": 1.0
+      },
+      "seed": 4,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 224.4349271989995
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 4,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.8928472269605382,
+        "macro_f1": 0.8982551342387745,
+        "mcc": 0.9876604708493117,
+        "ovr_auprc": 0.9450168644154509,
+        "ovr_auroc": 0.9987957663777903,
+        "top5_accuracy": 0.9991369390103567
+      },
+      "seed": 4,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5893378809996648
+    },
+    {
+      "dataset_name": "gtex_tissue",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 4,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.8911747765206359,
+        "macro_f1": 0.8961892214624199,
+        "mcc": 0.9852046851295714,
+        "ovr_auprc": 0.9432803223592544,
+        "ovr_auroc": 0.9988992819531695,
+        "top5_accuracy": 0.9994246260069045
+      },
+      "seed": 4,
+      "test_size": 3476,
+      "train_size": 13906,
+      "val_size": 0,
+      "wall_clock_sec": 0.5754695180003182
+    }
+  ],
+  "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+  "methods": [
+    "dummy_most_frequent",
+    "logistic_l2",
+    "logstruct_identity",
+    "logstruct_string_700"
+  ],
+  "n_input_genes": 56200,
+  "n_samples": 17382,
+  "n_selected_genes": 500,
+  "outer_folds_completed": 5,
+  "outer_folds_requested": 5,
+  "seed": 0,
+  "task": "classification",
+  "wall_clock_sec": 1205.327198903
+}
