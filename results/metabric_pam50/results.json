@@ -131,7 +131,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.2,
@@ -151,7 +151,7 @@
       "test_size": 352,
       "train_size": 1404,
       "val_size": 0,
-      "wall_clock_sec": 0.01977981100026227
+      "wall_clock_sec": 0.019567538000046625
     },
     {
       "dataset_name": "metabric_pam50",
@@ -163,7 +163,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -193,7 +193,7 @@
       "test_size": 352,
       "train_size": 1404,
       "val_size": 0,
-      "wall_clock_sec": 128.6296270169987
+      "wall_clock_sec": 126.96365575399977
     },
     {
       "dataset_name": "metabric_pam50",
@@ -205,7 +205,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -245,7 +245,7 @@
       "test_size": 352,
       "train_size": 1404,
       "val_size": 0,
-      "wall_clock_sec": 1.0474191640005301
+      "wall_clock_sec": 1.0425623459996132
     },
     {
       "dataset_name": "metabric_pam50",
@@ -257,7 +257,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -297,7 +297,7 @@
       "test_size": 352,
       "train_size": 1404,
       "val_size": 0,
-      "wall_clock_sec": 0.3808065800003533
+      "wall_clock_sec": 0.3823829110006045
     },
     {
       "dataset_name": "metabric_pam50",
@@ -309,7 +309,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.2,
@@ -329,7 +329,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.01721460499902605
+      "wall_clock_sec": 0.017055259999324335
     },
     {
       "dataset_name": "metabric_pam50",
@@ -341,7 +341,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -371,7 +371,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 113.662142485
+      "wall_clock_sec": 116.72468596699946
     },
     {
       "dataset_name": "metabric_pam50",
@@ -383,7 +383,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -423,7 +423,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.12352298299992981
+      "wall_clock_sec": 0.10531831299886107
     },
     {
       "dataset_name": "metabric_pam50",
@@ -435,7 +435,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -475,7 +475,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.29338050299884344
+      "wall_clock_sec": 0.28550022799936414
     },
     {
       "dataset_name": "metabric_pam50",
@@ -487,7 +487,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.2,
@@ -507,7 +507,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.018573170000308892
+      "wall_clock_sec": 0.016079855000498355
     },
     {
       "dataset_name": "metabric_pam50",
@@ -519,7 +519,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -549,7 +549,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 124.83717685300144
+      "wall_clock_sec": 132.6590800419999
     },
     {
       "dataset_name": "metabric_pam50",
@@ -561,7 +561,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -601,7 +601,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.157972258000882
+      "wall_clock_sec": 0.16817409000032058
     },
     {
       "dataset_name": "metabric_pam50",
@@ -613,7 +613,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -653,7 +653,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.2653630080003495
+      "wall_clock_sec": 0.2687028629989072
     },
     {
       "dataset_name": "metabric_pam50",
@@ -665,7 +665,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.2,
@@ -685,7 +685,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.016297599000608898
+      "wall_clock_sec": 0.016723859000194352
     },
     {
       "dataset_name": "metabric_pam50",
@@ -697,7 +697,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -727,7 +727,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 163.54475145700053
+      "wall_clock_sec": 157.08190726199973
     },
     {
       "dataset_name": "metabric_pam50",
@@ -739,7 +739,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -779,7 +779,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.1515152539996052
+      "wall_clock_sec": 0.16211789499902807
     },
     {
       "dataset_name": "metabric_pam50",
@@ -791,7 +791,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -831,7 +831,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.27489838199835503
+      "wall_clock_sec": 0.2845972710001661
     },
     {
       "dataset_name": "metabric_pam50",
@@ -843,7 +843,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.2,
@@ -863,7 +863,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.016141555999638513
+      "wall_clock_sec": 0.0184194089997618
     },
     {
       "dataset_name": "metabric_pam50",
@@ -875,7 +875,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -905,7 +905,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 154.20854179399976
+      "wall_clock_sec": 157.89923128699957
     },
     {
       "dataset_name": "metabric_pam50",
@@ -917,7 +917,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -957,7 +957,7 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.1470746840004722
+      "wall_clock_sec": 0.11776604399892676
     },
     {
       "dataset_name": "metabric_pam50",
@@ -969,7 +969,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -1009,10 +1009,10 @@
       "test_size": 351,
       "train_size": 1405,
       "val_size": 0,
-      "wall_clock_sec": 0.2969168310009991
+      "wall_clock_sec": 0.31661043200074346
     }
   ],
-  "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+  "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
   "methods": [
     "dummy_most_frequent",
     "logistic_l2",
@@ -1026,5 +1026,5 @@
   "outer_folds_requested": 5,
   "seed": 0,
   "task": "classification",
-  "wall_clock_sec": 730.5032259929994
+  "wall_clock_sec": 695.064091283999
 }

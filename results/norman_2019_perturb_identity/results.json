@@ -54,9 +54,9 @@
         "mean": 0.5043925570433682
       },
       "ovr_auroc": {
-        "ci_high": 0.9063201519751305,
-        "ci_low": 0.9063201519751305,
-        "mean": 0.9063201519751305
+        "ci_high": 0.9063201519751307,
+        "ci_low": 0.9063201519751307,
+        "mean": 0.9063201519751307
       },
       "top5_accuracy": {
         "ci_high": 0.9273981603153745,
@@ -147,7 +147,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.05555555555555556,
@@ -167,7 +167,7 @@
       "test_size": 3044,
       "train_size": 12172,
       "val_size": 0,
-      "wall_clock_sec": 0.06822576800004754
+      "wall_clock_sec": 0.07238859300014155
     },
     {
       "dataset_name": "norman_2019_perturb_identity",
@@ -179,7 +179,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -202,14 +202,14 @@
         "macro_f1": 0.46709901290836126,
         "mcc": 0.508987750405985,
         "ovr_auprc": 0.5043925570433682,
-        "ovr_auroc": 0.9063201519751305,
+        "ovr_auroc": 0.9063201519751307,
         "top5_accuracy": 0.9273981603153745
       },
       "seed": 0,
       "test_size": 3044,
       "train_size": 12172,
       "val_size": 0,
-      "wall_clock_sec": 327.8295895939991
+      "wall_clock_sec": 331.6198180089996
     },
     {
       "dataset_name": "norman_2019_perturb_identity",
@@ -221,7 +221,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -261,7 +261,7 @@
       "test_size": 3044,
       "train_size": 12172,
       "val_size": 0,
-      "wall_clock_sec": 1.5960917590000463
+      "wall_clock_sec": 1.5860216400014906
     },
     {
       "dataset_name": "norman_2019_perturb_identity",
@@ -273,7 +273,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -313,10 +313,10 @@
       "test_size": 3044,
       "train_size": 12172,
       "val_size": 0,
-      "wall_clock_sec": 0.5478985919999104
+      "wall_clock_sec": 0.5506106950015237
     }
   ],
-  "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+  "git_sha": "7feb15de5576595fccf6380a00a02595e3998fb4",
   "methods": [
     "dummy_most_frequent",
     "logistic_l2",
@@ -330,5 +330,5 @@
   "outer_folds_requested": 5,
   "seed": 0,
   "task": "single_cell_perturbation_classification",
-  "wall_clock_sec": 338.26568603299893
+  "wall_clock_sec": 334.1424998400016
 }
