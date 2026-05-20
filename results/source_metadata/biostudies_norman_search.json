@@ -1,0 +1,139 @@
+{
+  "page": 1,
+  "pageSize": 10,
+  "totalHits": 2799,
+  "isTotalHitsExact": false,
+  "sortBy": "relevance",
+  "sortOrder": "descending",
+  "hits": [
+    {
+      "accession": "E-MTAB-2068",
+      "type": "study",
+      "title": "Andersson_et_al_2013",
+      "author": "Emma Andersson Satu Mustjoki",
+      "links": 1,
+      "files": 3,
+      "release_date": "2013-11-14",
+      "views": 97,
+      "isPublic": true,
+      "content": "E-MTAB-2068 Andersson_et_al_2013 transcription profiling by array EFO EFO_0002768 Homo sapiens LGL leukemia is chronic clonal lymphoproliferative disorder, characterized by expansion of cytotoxic CD8+ T-cells or NK-cells. We compared gene expression of 2 LGL leukemia patients with STAT3 mutation"
+    },
+    {
+      "accession": "E-MTAB-1611",
+      "type": "study",
+      "title": "Rajala_et_al_2013",
+      "author": "Hanna Rajala Samuli Eldfors Satu Mustjoki",
+      "links": 1,
+      "files": 3,
+      "release_date": "2013-04-15",
+      "views": 134,
+      "isPublic": true,
+      "content": "E-MTAB-1611 Rajala_et_al_2013 transcription profiling by array EFO EFO_0002768 Homo sapiens Large lymphocytic leukemia (LGL) is a chronic clonal lymphoproliferative disorder, characterized by expansion of cytotoxic CD8+ T-cells or NK-cells. We compared gene expression of 3 LGL leukemia patients"
+    },
+    {
+      "accession": "S-EPMC7560930",
+      "type": "study",
+      "title": "Response to: gender differences on neuromuscular strategy during drop jump: a comment on Helm et al. (2019) by Di Giminiani et al.",
+      "author": "Helm M Freyler K Waldvogel J Gollhofer A Ritzmann R",
+      "links": 3,
+      "files": 1,
+      "release_date": "2020-01-01",
+      "views": 0,
+      "isPublic": true,
+      "content": "S-EPMC7560930 PMC7560930 Response to: gender differences on neuromuscular strategy during drop jump: a comment on Helm et al. (2019) by Di Giminiani et al. null European journal of applied physiology 120(11) 2557-2558 2020 Nov DOI PMC PMID Helm M o1 Freyler K o2 Waldvogel J o1 Gollhofer A o1"
+    },
+    {
+      "accession": "S-EPMC6327737",
+      "type": "study",
+      "title": "PADI-web corpus: Labeled textual data in animal health domain.",
+      "author": "Rabatel J Arsevska E Roche M",
+      "links": 4,
+      "files": 1,
+      "release_date": "2019-01-01",
+      "views": 12,
+      "isPublic": true,
+      "content": "S-EPMC6327737 PMC6327737 PADI-web corpus: Labeled textual data in animal health domain. Monitoring animal health worldwide, especially the early detection of outbreaks of emerging pathogens, is one of the means of preventing the introduction of infectious diseases in countries (Collier et al., 2008"
+    },
+    {
+      "accession": "S-EPMC11291144",
+      "type": "study",
+      "title": "Multiome Perturb-seq unlocks scalable discovery of integrated perturbation effects on the transcriptome and epigenome.",
+      "author": "Metzner E Southard KM Norman TM",
+      "links": 3,
+      "files": 7,
+      "release_date": "2024-01-01",
+      "views": 0,
+      "isPublic": true,
+      "content": "S-EPMC11291144 PMC11291144 Multiome Perturb-seq unlocks scalable discovery of integrated perturbation effects on the transcriptome and epigenome. Single-cell CRISPR screens link genetic perturbations to transcriptional states, but high-throughput methods connecting these induced changes"
+    },
+    {
+      "accession": "S-EPMC6812448",
+      "type": "study",
+      "title": "Cryobiopsy Compared with Surgical Lung Biopsy in ILD: Reply to Maldonado <i>et al.</i>, Froidure <i>et al.</i>, Bendstrup <i>et al.</i>, Agarwal <i>et al.</i>, Richeldi <i>et al.</i>, Rajchgot <i>et al.</i>, and Quadrelli <i>et al</i>.",
+      "author": "Romagnoli M Colby TV Suehs CM Vachier I Molinari N Bourdin A",
+      "links": 3,
+      "files": 2,
+      "release_date": "2019-01-01",
+      "views": 12,
+      "isPublic": true,
+      "content": "S-EPMC6812448 PMC6812448 Cryobiopsy Compared with Surgical Lung Biopsy in ILD: Reply to Maldonado <i>et al.</i>, Froidure <i>et al.</i>, Bendstrup <i>et al.</i>, Agarwal <i>et al.</i>, Richeldi <i>et al.</i>, Rajchgot <i>et al.</i>, and Quadrelli <i>et al</i>. null American journal of respiratory"
+    },
+    {
+      "accession": "S-EPMC5181115",
+      "type": "study",
+      "title": "Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens.",
+      "author": "Dixit A Parnas O Li B Chen J Fulco CP Jerby-Arnon L Marjanovic ND Dionne D Burks T Raychowdhury R Adamson B Norman TM Lander ES Weissman JS Friedman N Regev A",
+      "links": 4,
+      "files": 13,
+      "release_date": "2016-01-01",
+      "views": 12,
+      "isPublic": true,
+      "content": "S-EPMC5181115 PMC5181115 Perturb-Seq: Dissecting Molecular Circuits with Scalable Single-Cell RNA Profiling of Pooled Genetic Screens. Genetic screens help infer gene function in mammalian cells, but it has remained difficult to assay complex phenotypes-such as transcriptional profiles-at scale"
+    },
+    {
+      "accession": "S-EPMC3918956",
+      "type": "study",
+      "title": "Photodamage of lipid bilayers by irradiation of a fluorescently labeled cell-penetrating peptide.",
+      "author": "Meerovich I Muthukrishnan N Johnson GA Erazo-Oliveras A Pellois JP",
+      "links": 4,
+      "files": 7,
+      "release_date": "2014-01-01",
+      "views": 10,
+      "isPublic": true,
+      "content": "S-EPMC3918956 PMC3918956 Photodamage of lipid bilayers by irradiation of a fluorescently labeled cell-penetrating peptide. <h4>Background</h4>Fluorescently labeled cell-penetrating peptides can translocate into cells by endocytosis and upon light irradiation, lyse the endocytic vesicles. This"
+    },
+    {
+      "accession": "S-BIAD844",
+      "type": "study",
+      "title": "Pecharroman&Sol\u00e9_et_al_Microscopic_Images",
+      "author": "",
+      "links": 0,
+      "files": 17,
+      "release_date": "2023-08-12",
+      "views": 125,
+      "isPublic": true,
+      "content": "S-BIAD844 Pecharroman&Sol\u00e9_et_al_Microscopic_Images Source Data for Microscopic Images from Pecharroman&Sol\u00e9 et al EMBO Journal. colorectal cancer IKK\u03b1 BRD4 STAT3 LIF CC0 https://creativecommons.org/publicdomain/zero/1.0/legalcode Llu\u00eds Espinosa Blay lespinosa@imim.es corresponding author o1 Anna"
+    },
+    {
+      "accession": "E-MTAB-14567",
+      "type": "study",
+      "title": "Perturb-Seq scRNA-seq for Alternative Promote Usage Sites",
+      "author": "",
+      "links": 1,
+      "files": 5,
+      "release_date": "2025-11-19",
+      "views": 6,
+      "isPublic": true,
+      "content": "E-MTAB-14567 Perturb-Seq scRNA-seq for Alternative Promote Usage Sites RNA-seq of coding RNA from single cells EFO EFO_0005684 Homo sapiens Using the Direct Capture Perturb-seq technology (Replogle, J.M. et al. Nat Biotechnol 38, 954\u2013961 (2020)), we created a pooled of guides that target sites"
+    }
+  ],
+  "expandedEfoTerms": [
+    "labeled",
+    "labelled"
+  ],
+  "expandedSynonyms": [
+    "labeled"
+  ],
+  "query": "Norman et al 2019 Science labeled Perturb-seq 24688110",
+  "facets": null
+}

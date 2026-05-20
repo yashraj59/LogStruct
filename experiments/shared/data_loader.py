@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
+from scipy import sparse
 
 ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "data"
@@ -36,9 +37,10 @@ class DataSource:
 DATA_SOURCES: dict[str, DataSource] = {
     "metabric_cbioportal": DataSource(
         "metabric_cbioportal",
-        "https://cbioportal-datahub.s3.amazonaws.com/brca_metabric.tar.gz",
+        "https://datahub.assets.cbioportal.org/brca_metabric.tar.gz",
         RAW / "brca_metabric.tar.gz",
-        "METABRIC PAM50 from cBioPortal study brca_metabric.",
+        "METABRIC PAM50 from cBioPortal study brca_metabric. "
+        "The older S3 URL returned HTTP 403 on 2026-05-20.",
     ),
     "uci_pancancer": DataSource(
         "uci_pancancer",
@@ -64,6 +66,30 @@ DATA_SOURCES: dict[str, DataSource] = {
         RAW / "pbmc3k_filtered_gene_bc_matrices.tar.gz",
         "Small single-cell shakedown dataset; not a substitute for Tabula Sapiens.",
     ),
+    "tabula_sapiens_v2_blood": DataSource(
+        "tabula_sapiens_v2_blood",
+        "https://datasets.cellxgene.cziscience.com/b225ee37-5e06-4e49-9c25-c3d7b5008dab.h5ad",
+        RAW / "tabula_sapiens_v2" / "tabula_sapiens___blood.h5ad",
+        "Tabula Sapiens v2 Blood H5AD discovered through CELLxGENE collection metadata.",
+    ),
+    "tabula_sapiens_v2_spleen": DataSource(
+        "tabula_sapiens_v2_spleen",
+        "https://datasets.cellxgene.cziscience.com/d1966cc6-4082-43ec-a633-72e56f7c8a9a.h5ad",
+        RAW / "tabula_sapiens_v2" / "tabula_sapiens___spleen.h5ad",
+        "Tabula Sapiens v2 Spleen H5AD discovered through CELLxGENE collection metadata.",
+    ),
+    "tabula_sapiens_v2_lymph_node": DataSource(
+        "tabula_sapiens_v2_lymph_node",
+        "https://datasets.cellxgene.cziscience.com/6ec56d10-a543-45ff-aca0-c70efe8decdf.h5ad",
+        RAW / "tabula_sapiens_v2" / "tabula_sapiens___lymph_node.h5ad",
+        "Tabula Sapiens v2 Lymph Node H5AD discovered through CELLxGENE collection metadata.",
+    ),
+    "norman_2019_figshare_h5ad": DataSource(
+        "norman_2019_figshare_h5ad",
+        "https://ndownloader.figshare.com/files/43390776",
+        RAW / "norman_2019_adata.h5ad",
+        "Norman et al. 2019 labeled Perturb-seq H5AD, Figshare article 24688110.",
+    ),
 }
 
 
@@ -85,11 +111,19 @@ def download_source(name: str, *, overwrite: bool = False) -> Path:
 
 
 def write_checksums(paths: Iterable[Path], out_path: str | Path = RAW / "CHECKSUMS.txt") -> None:
+    out_path = Path(out_path)
     lines = []
     for path in sorted(Path(p) for p in paths):
-        if path.exists() and path.is_file():
+        if (
+            path.exists()
+            and path.is_file()
+            and path.resolve() != out_path.resolve()
+            and not path.name.endswith(".part")
+            and not path.name.startswith(".")
+            and ".git" not in path.parts
+        ):
             lines.append(f"{sha256_file(path)}  {path.relative_to(RAW)}")
-    Path(out_path).write_text("\n".join(lines) + ("\n" if lines else ""))
+    out_path.write_text("\n".join(lines) + ("\n" if lines else ""))
 
 
 def extract_archive(path: str | Path, dest: str | Path) -> Path:
@@ -182,6 +216,8 @@ def prepare_uci_pancancer(*, outer_folds: int = 5, inner_folds: int = 5, seed: i
     require_raw([raw_zip])
     out_dir = PROCESSED / "uci_pancancer"
     out_dir.mkdir(parents=True, exist_ok=True)
+    if (out_dir / "dataset.npz").exists() and (out_dir / "splits.json").exists():
+        return out_dir
 
     with zipfile.ZipFile(raw_zip) as zf:
         payload = zf.read("TCGA-PANCAN-HiSeq-801x20531.tar.gz")
@@ -199,6 +235,199 @@ def prepare_uci_pancancer(*, outer_folds: int = 5, inner_folds: int = 5, seed: i
     gene_names = data.columns[1:].to_numpy(dtype=str)
     y = labels["Class"].to_numpy(dtype=str)
     np.savez_compressed(out_dir / "dataset.npz", X=X, y=y, gene_names=gene_names)
+    create_nested_stratified_splits(
+        y,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        seed=seed,
+        save_path=out_dir / "splits.json",
+    )
+    return out_dir
+
+
+def _read_metabric_member(tar_path: Path, member: str, **read_csv_kwargs) -> pd.DataFrame:
+    with tarfile.open(tar_path) as tf:
+        f = tf.extractfile(member)
+        if f is None:
+            raise FileNotFoundError(f"{member} not found in {tar_path}")
+        return pd.read_csv(f, sep="\t", **read_csv_kwargs)
+
+
+def _collapse_duplicate_genes_by_variance(expr: pd.DataFrame) -> pd.DataFrame:
+    """Keep the highest-variance probe row for duplicated gene symbols."""
+    expr = expr.copy()
+    expr["Hugo_Symbol"] = expr["Hugo_Symbol"].astype(str).str.strip()
+    expr = expr[(expr["Hugo_Symbol"] != "") & (expr["Hugo_Symbol"].str.upper() != "NAN")]
+    sample_cols = [c for c in expr.columns if c not in {"Hugo_Symbol", "Entrez_Gene_Id"}]
+    values = expr[sample_cols].apply(pd.to_numeric, errors="coerce")
+    variances = values.var(axis=1, skipna=True)
+    keep_idx = variances.groupby(expr["Hugo_Symbol"], sort=False).idxmax()
+    collapsed = expr.loc[keep_idx].copy()
+    collapsed[sample_cols] = values.loc[keep_idx].fillna(0.0)
+    collapsed = collapsed.sort_values("Hugo_Symbol")
+    return collapsed[["Hugo_Symbol", *sample_cols]]
+
+
+def prepare_metabric_pam50(*, outer_folds: int = 5, inner_folds: int = 5, seed: int = 0):
+    """Prepare METABRIC PAM50/claudin subtype classification from cBioPortal.
+
+    The cBioPortal METABRIC archive exposes the label as `CLAUDIN_SUBTYPE`.
+    For the requested 5-class PAM50-like task, this parser keeps LumA, LumB,
+    Her2, Basal, and Normal, and excludes claudin-low, NC, and missing labels.
+    """
+    raw_tar = DATA_SOURCES["metabric_cbioportal"].raw_path
+    require_raw([raw_tar])
+    out_dir = PROCESSED / "metabric_pam50"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if (
+        (out_dir / "dataset.npz").exists()
+        and (out_dir / "splits.json").exists()
+        and (out_dir / "metadata.json").exists()
+    ):
+        return out_dir
+
+    clinical = _read_metabric_member(
+        raw_tar, "brca_metabric/data_clinical_patient.txt", comment="#"
+    )
+    labels = clinical[["PATIENT_ID", "CLAUDIN_SUBTYPE"]].dropna()
+    label_order = ["LumA", "LumB", "Her2", "Basal", "Normal"]
+    labels = labels[labels["CLAUDIN_SUBTYPE"].isin(label_order)].copy()
+
+    expr = _read_metabric_member(
+        raw_tar,
+        "brca_metabric/data_mrna_illumina_microarray_zscores_ref_diploid_samples.txt",
+        low_memory=False,
+    )
+    expr = _collapse_duplicate_genes_by_variance(expr)
+
+    sample_cols = [c for c in expr.columns if c != "Hugo_Symbol"]
+    label_map = labels.set_index("PATIENT_ID")["CLAUDIN_SUBTYPE"]
+    sample_ids = [s for s in sample_cols if s in label_map.index]
+    if not sample_ids:
+        raise ValueError("No overlapping METABRIC expression samples and clinical labels")
+
+    X = expr[sample_ids].T.to_numpy(dtype=np.float32)
+    gene_names = expr["Hugo_Symbol"].to_numpy(dtype=str)
+    y = label_map.loc[sample_ids].to_numpy(dtype=str)
+
+    # METABRIC z-scores are already normalized. Persist a strict metadata record
+    # so downstream result logs can state exactly what was included/excluded.
+    metadata = {
+        "source": DATA_SOURCES["metabric_cbioportal"].url,
+        "expression_member": "brca_metabric/data_mrna_illumina_microarray_zscores_ref_diploid_samples.txt",
+        "label_member": "brca_metabric/data_clinical_patient.txt",
+        "label_column": "CLAUDIN_SUBTYPE",
+        "kept_classes": label_order,
+        "excluded_label_counts": {
+            str(k): int(v)
+            for k, v in clinical["CLAUDIN_SUBTYPE"]
+            .fillna("missing")
+            .value_counts()
+            .items()
+            if k not in label_order
+        },
+        "n_samples": int(X.shape[0]),
+        "n_genes": int(X.shape[1]),
+    }
+
+    np.savez_compressed(
+        out_dir / "dataset.npz",
+        X=X,
+        y=y,
+        gene_names=gene_names,
+        sample_ids=np.asarray(sample_ids, dtype=str),
+        metadata=json.dumps(metadata, sort_keys=True),
+    )
+    (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
+    create_nested_stratified_splits(
+        y,
+        outer_folds=outer_folds,
+        inner_folds=inner_folds,
+        seed=seed,
+        save_path=out_dir / "splits.json",
+    )
+    return out_dir
+
+
+def _single_perturbation_label(value: str) -> str | None:
+    value = str(value)
+    if value == "ctrl":
+        return "ctrl"
+    parts = value.split("+")
+    if len(parts) != 2:
+        return None
+    non_ctrl = [p for p in parts if p.lower() != "ctrl"]
+    if len(non_ctrl) == 1:
+        return non_ctrl[0]
+    return None
+
+
+def prepare_norman_perturb_identity(
+    *,
+    outer_folds: int = 5,
+    inner_folds: int = 5,
+    seed: int = 0,
+    min_cells_per_class: int = 50,
+):
+    """Prepare Norman 2019 single-gene perturbation identity classification."""
+    raw_h5ad = DATA_SOURCES["norman_2019_figshare_h5ad"].raw_path
+    require_raw([raw_h5ad])
+    out_dir = PROCESSED / "norman_2019_perturb_identity"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    if (
+        (out_dir / "dataset.npz").exists()
+        and (out_dir / "splits.json").exists()
+        and (out_dir / "metadata.json").exists()
+    ):
+        return out_dir
+
+    import anndata as ad
+
+    adata = ad.read_h5ad(raw_h5ad)
+    if "guide_merged" not in adata.obs:
+        raise ValueError("Expected Norman H5AD obs column 'guide_merged'")
+
+    labels = adata.obs["guide_merged"].map(_single_perturbation_label)
+    keep = labels.notna().to_numpy()
+    labels = labels[keep].astype(str)
+    counts = labels.value_counts()
+    kept_classes = counts[counts >= min_cells_per_class].index
+    keep2 = labels.isin(kept_classes).to_numpy()
+    row_idx = np.flatnonzero(keep)[keep2]
+    y = labels[keep2].to_numpy(dtype=str)
+
+    X_raw = adata.X[row_idx]
+    if sparse.issparse(X_raw):
+        X = X_raw.toarray().astype(np.float32)
+    else:
+        X = np.asarray(X_raw, dtype=np.float32)
+    X = np.nan_to_num(X, copy=False)
+
+    if "gene_name" in adata.var:
+        gene_names = adata.var["gene_name"].astype(str).to_numpy()
+    else:
+        gene_names = adata.var_names.astype(str).to_numpy()
+
+    metadata = {
+        "source": DATA_SOURCES["norman_2019_figshare_h5ad"].url,
+        "figshare_article": "24688110",
+        "label_column": "guide_merged",
+        "task": "control and single-gene perturbation identity classification",
+        "min_cells_per_class": min_cells_per_class,
+        "n_samples": int(X.shape[0]),
+        "n_genes": int(X.shape[1]),
+        "n_classes": int(len(np.unique(y))),
+        "excluded_double_or_unparsed_cells": int((~keep).sum()),
+        "class_counts": {str(k): int(v) for k, v in pd.Series(y).value_counts().items()},
+    }
+    np.savez_compressed(
+        out_dir / "dataset.npz",
+        X=X,
+        y=y,
+        gene_names=np.asarray(gene_names, dtype=str),
+        metadata=json.dumps(metadata, sort_keys=True),
+    )
+    (out_dir / "metadata.json").write_text(json.dumps(metadata, indent=2, sort_keys=True) + "\n")
     create_nested_stratified_splits(
         y,
         outer_folds=outer_folds,

@@ -40,9 +40,9 @@ make all
 ```
 
 `make all` currently runs unit tests, a deterministic synthetic smoke test, and
-compile checks. Real biological experiments are intentionally strict: they fail
-until the exact raw datasets listed in each `experiments/*/config.yaml` file are
-present under `data/raw/`.
+compile checks. Real biological experiments are strict: they fail until the
+exact raw datasets listed in each `experiments/*/config.yaml` file are present
+under `data/raw/`.
 
 For the lightweight UCI pan-cancer shakedown subset:
 
@@ -50,6 +50,17 @@ For the lightweight UCI pan-cancer shakedown subset:
 make download-small
 .venv/bin/python experiments/02_tcga_pancancer/run.py
 ```
+
+Logged real-data runs now available on this branch:
+
+- METABRIC PAM50, top 1,000 train-selected genes, 5 outer folds:
+  `make metabric-1000`
+- Norman 2019 perturbation identity, top 500 train-selected genes, one pilot
+  outer fold:
+  `make norman-pilot`
+
+The downloaded raw files and checksums are listed in `data/raw/CHECKSUMS.txt`
+and `REPRODUCIBILITY.md`.
 
 Audit and paper-draft artifacts:
 
@@ -194,7 +205,10 @@ L = task_loss + λ_en * elastic_net(W) + λ_smooth * Σ w^T L w + λ_kl * KL(A |
 ### What you get
 
 - `clf.coef_`: Learned coefficients
+- `clf.effective_coef_`: Coefficients after folding in graph smoothing; use
+  these for biological interpretation
 - `clf.adjacency_`: Learned (sparse) adjacency matrix
+- `clf.adjacency_raw_`: Unthresholded learned adjacency used by prediction
 - `clf.get_top_edges(n)`: Most important learned edges
 - `clf.history_`: Training curves
 

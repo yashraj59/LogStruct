@@ -1,0 +1,1030 @@
+{
+  "aggregate_metrics": {
+    "dummy_most_frequent": {
+      "balanced_accuracy": {
+        "ci_high": 0.2,
+        "ci_low": 0.2,
+        "mean": 0.2
+      },
+      "macro_f1": {
+        "ci_high": 0.1140529531568228,
+        "ci_low": 0.11391386418955837,
+        "mean": 0.11400659016773466
+      },
+      "mcc": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "mean": 0.0
+      },
+      "ovr_auprc": {
+        "ci_high": 0.20000000000000004,
+        "ci_low": 0.2,
+        "mean": 0.2
+      },
+      "ovr_auroc": {
+        "ci_high": 0.5,
+        "ci_low": 0.5,
+        "mean": 0.5
+      },
+      "top5_accuracy": null
+    },
+    "logistic_l2": {
+      "balanced_accuracy": {
+        "ci_high": 0.7149366308959951,
+        "ci_low": 0.6740974065257187,
+        "mean": 0.6963187199336109
+      },
+      "macro_f1": {
+        "ci_high": 0.717988146660757,
+        "ci_low": 0.6807880230249201,
+        "mean": 0.7001841072644208
+      },
+      "mcc": {
+        "ci_high": 0.630209360531518,
+        "ci_low": 0.5966262173345185,
+        "mean": 0.613755187921443
+      },
+      "ovr_auprc": {
+        "ci_high": 0.8107219918113545,
+        "ci_low": 0.757388132028387,
+        "mean": 0.7850771664420415
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9372437149547819,
+        "ci_low": 0.9254883953152653,
+        "mean": 0.9313171928635514
+      },
+      "top5_accuracy": null
+    },
+    "logstruct_string_700": {
+      "balanced_accuracy": {
+        "ci_high": 0.6951489067496327,
+        "ci_low": 0.6448417062995435,
+        "mean": 0.6702907142975312
+      },
+      "macro_f1": {
+        "ci_high": 0.6935287228001324,
+        "ci_low": 0.6412372626262994,
+        "mean": 0.667425857461123
+      },
+      "mcc": {
+        "ci_high": 0.6272067771744091,
+        "ci_low": 0.5615750205443071,
+        "mean": 0.5940751112465693
+      },
+      "ovr_auprc": {
+        "ci_high": 0.7715081835479266,
+        "ci_low": 0.7406942657135549,
+        "mean": 0.7564596288552304
+      },
+      "ovr_auroc": {
+        "ci_high": 0.927748372635891,
+        "ci_low": 0.9128295478893291,
+        "mean": 0.9209072852070295
+      },
+      "top5_accuracy": null
+    },
+    "nslr_string_700": {
+      "balanced_accuracy": {
+        "ci_high": 0.6945925157721892,
+        "ci_low": 0.6448417062995435,
+        "mean": 0.6698696616659522
+      },
+      "macro_f1": {
+        "ci_high": 0.6939548458176349,
+        "ci_low": 0.6405299161045199,
+        "mean": 0.6672423809610775
+      },
+      "mcc": {
+        "ci_high": 0.6290272189459892,
+        "ci_low": 0.5613845581166236,
+        "mean": 0.5931870978278818
+      },
+      "ovr_auprc": {
+        "ci_high": 0.7715140403565642,
+        "ci_low": 0.7406940616547184,
+        "mean": 0.7563270528074926
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9276734409090954,
+        "ci_low": 0.9127246414052973,
+        "mean": 0.9208257375728559
+      },
+      "top5_accuracy": null
+    }
+  },
+  "dataset_name": "metabric_pam50",
+  "environment": {
+    "cuda_available": "True",
+    "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.7.1+cu126"
+  },
+  "fold_records": [
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.2,
+        "max_genes": 1000,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.2,
+        "macro_f1": 0.11382113821138211,
+        "mcc": 0.0,
+        "ovr_auprc": 0.2,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": null
+      },
+      "seed": 0,
+      "test_size": 352,
+      "train_size": 1404,
+      "val_size": 0,
+      "wall_clock_sec": 0.01977981100026227
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.6719570673564481,
+        "max_genes": 1000,
+        "selected": {
+          "C": 0.1
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.7128070175438597,
+        "macro_f1": 0.7199191423539475,
+        "mcc": 0.6269839697305334,
+        "ovr_auprc": 0.8308099711924644,
+        "ovr_auroc": 0.9422175705719017,
+        "top5_accuracy": null
+      },
+      "seed": 0,
+      "test_size": 352,
+      "train_size": 1404,
+      "val_size": 0,
+      "wall_clock_sec": 128.6296270169987
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": true,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 0.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "nslr_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6631829573934837,
+        "macro_f1": 0.6709998226728195,
+        "mcc": 0.588644648155201,
+        "ovr_auprc": 0.7699061897317282,
+        "ovr_auroc": 0.9272950206016557,
+        "top5_accuracy": null
+      },
+      "seed": 0,
+      "test_size": 352,
+      "train_size": 1404,
+      "val_size": 0,
+      "wall_clock_sec": 1.0474191640005301
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6667167919799499,
+        "macro_f1": 0.6745365552817171,
+        "mcc": 0.5965072412622715,
+        "ovr_auprc": 0.7698663561088415,
+        "ovr_auroc": 0.9274122783738596,
+        "top5_accuracy": null
+      },
+      "seed": 0,
+      "test_size": 352,
+      "train_size": 1404,
+      "val_size": 0,
+      "wall_clock_sec": 0.3808065800003533
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.2,
+        "max_genes": 1000,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.2,
+        "macro_f1": 0.1140529531568228,
+        "mcc": 0.0,
+        "ovr_auprc": 0.20000000000000004,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.01721460499902605
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.6976220413274525,
+        "max_genes": 1000,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.6997559991933857,
+        "macro_f1": 0.6970822983349041,
+        "mcc": 0.5881932817644526,
+        "ovr_auprc": 0.7933509327565165,
+        "ovr_auroc": 0.9335296623104871,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 113.662142485
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": true,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 0.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 1,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "nslr_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6870944602886526,
+        "macro_f1": 0.6894050764923836,
+        "mcc": 0.6122028369637347,
+        "ovr_auprc": 0.777945442855908,
+        "ovr_auroc": 0.928265567003983,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.12352298299992981
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 1,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 1,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6870944602886526,
+        "macro_f1": 0.6894050764923836,
+        "mcc": 0.6122028369637347,
+        "ovr_auprc": 0.778075493304267,
+        "ovr_auroc": 0.9283032798052293,
+        "top5_accuracy": null
+      },
+      "seed": 1,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.29338050299884344
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.2,
+        "max_genes": 1000,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.2,
+        "macro_f1": 0.1140529531568228,
+        "mcc": 0.0,
+        "ovr_auprc": 0.20000000000000004,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": null
+      },
+      "seed": 2,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.018573170000308892
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.6980430413202656,
+        "max_genes": 1000,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.6877210267046927,
+        "macro_f1": 0.6941030443688133,
+        "mcc": 0.6222729743285448,
+        "ovr_auprc": 0.7590475203632095,
+        "ovr_auroc": 0.9282998827825107,
+        "top5_accuracy": null
+      },
+      "seed": 2,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 124.83717685300144
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": true,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 0.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 2,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "nslr_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.7155322213579927,
+        "macro_f1": 0.7099821267152937,
+        "mcc": 0.6559489328065148,
+        "ovr_auprc": 0.7572901302898449,
+        "ovr_auroc": 0.9272460293342002,
+        "top5_accuracy": null
+      },
+      "seed": 2,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.157972258000882
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 2,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 2,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.7141036499294213,
+        "macro_f1": 0.7073627766066244,
+        "mcc": 0.652526406792882,
+        "ovr_auprc": 0.7578845096755764,
+        "ovr_auroc": 0.9273107468212775,
+        "top5_accuracy": null
+      },
+      "seed": 2,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.2653630080003495
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.2,
+        "max_genes": 1000,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.2,
+        "macro_f1": 0.1140529531568228,
+        "mcc": 0.0,
+        "ovr_auprc": 0.2,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": null
+      },
+      "seed": 3,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.016297599000608898
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.6891673696175646,
+        "max_genes": 1000,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.7246565600994356,
+        "macro_f1": 0.7265100751304929,
+        "mcc": 0.6397584421349832,
+        "ovr_auprc": 0.7993195419576634,
+        "ovr_auroc": 0.931265980275694,
+        "top5_accuracy": null
+      },
+      "seed": 3,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 163.54475145700053
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": true,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 0.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 3,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "nslr_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6267877009597164,
+        "macro_f1": 0.6276323713507252,
+        "mcc": 0.5428872426842938,
+        "ovr_auprc": 0.7258737025855636,
+        "ovr_auroc": 0.9070177845490314,
+        "top5_accuracy": null
+      },
+      "seed": 3,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.1515152539996052
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 3,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 3,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6267877009597164,
+        "macro_f1": 0.6276323713507252,
+        "mcc": 0.5428872426842938,
+        "ovr_auprc": 0.7258022666356496,
+        "ovr_auroc": 0.9071671693033178,
+        "top5_accuracy": null
+      },
+      "seed": 3,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.27489838199835503
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.2,
+        "max_genes": 1000,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.2,
+        "macro_f1": 0.1140529531568228,
+        "mcc": 0.0,
+        "ovr_auprc": 0.2,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": null
+      },
+      "seed": 4,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.016141555999638513
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.6858481503689473,
+        "max_genes": 1000,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.6566529961266804,
+        "macro_f1": 0.6633059761339466,
+        "mcc": 0.5915672716487014,
+        "ovr_auprc": 0.7428578659403539,
+        "ovr_auroc": 0.9212728683771634,
+        "top5_accuracy": null
+      },
+      "seed": 4,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 154.20854179399976
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": true,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 0.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 4,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "nslr_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6567509683299156,
+        "macro_f1": 0.6381925075741647,
+        "mcc": 0.5662518285296646,
+        "ovr_auprc": 0.7506197985744179,
+        "ovr_auroc": 0.9143042863754095,
+        "top5_accuracy": null
+      },
+      "seed": 4,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.1470746840004722
+    },
+    {
+      "dataset_name": "metabric_pam50",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 4,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 1000,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 4,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.6567509683299156,
+        "macro_f1": 0.6381925075741647,
+        "mcc": 0.5662518285296646,
+        "ovr_auprc": 0.7506695185518181,
+        "ovr_auroc": 0.9143429517314632,
+        "top5_accuracy": null
+      },
+      "seed": 4,
+      "test_size": 351,
+      "train_size": 1405,
+      "val_size": 0,
+      "wall_clock_sec": 0.2969168310009991
+    }
+  ],
+  "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+  "methods": [
+    "dummy_most_frequent",
+    "logistic_l2",
+    "nslr_string_700",
+    "logstruct_string_700"
+  ],
+  "n_input_genes": 20385,
+  "n_samples": 1756,
+  "n_selected_genes": 1000,
+  "outer_folds_completed": 5,
+  "outer_folds_requested": 5,
+  "seed": 0,
+  "task": "classification",
+  "wall_clock_sec": 730.5032259929994
+}

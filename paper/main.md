@@ -1,7 +1,9 @@
 # LogStruct: learned prior-anchored gene-graph smoothing for interpretable omics prediction
 
-Draft status: scaffold only. Do not submit until every result placeholder is
-replaced by a logged run under `results/`.
+Draft status: active empirical draft. The code audit, METABRIC 1,000-gene
+5-fold run, and one-fold Norman perturbation pilot are backed by logged runs
+under `results/`. The full 5k-10k feature campaign, remaining datasets, and
+biological validation are not complete.
 
 ## Abstract
 
@@ -11,9 +13,12 @@ gene graph as fixed. We evaluate LogStruct, a sklearn-compatible PyTorch
 estimator that learns a Bernoulli-parameterized feature graph anchored to a
 biological prior, uses the learned graph as an explicit feature-smoothing
 operator, and retains linear-model interpretability through effective
-coefficients. This draft currently reports only code-audit and synthetic smoke
-test results. Bulk, single-cell, drug-response, and biological validation
-results remain to be run before any empirical claims are made.
+coefficients. This draft currently reports an initial METABRIC breast-cancer
+run and a single-fold Norman perturb-seq pilot. These first results are mixed:
+LogStruct is competitive with a fixed STRING graph on METABRIC but trails tuned
+L2 logistic regression; on the Norman pilot, LogStruct improves macro-F1 over
+the tuned logistic baseline. These results are logged but not yet
+publication-complete.
 
 ## 1. Introduction
 
@@ -119,9 +124,24 @@ The synthetic smoke test in `results/smoke/results.json` passed with balanced
 accuracy 0.773, macro-F1 0.777, and OvR AUROC 0.965. This verifies the training
 pipeline only and is not a biological result.
 
-### 5.2 Main comparison
+### 5.2 Initial METABRIC comparison
 
-Pending real-data runs. Table placeholder: `paper/tables/table1_main_results.md`.
+The first real-data run uses cBioPortal METABRIC mRNA z-scores with
+`CLAUDIN_SUBTYPE` labels, keeping LumA, LumB, Her2, Basal, and Normal samples
+and excluding claudin-low, missing, and NC labels. The processed matrix contains
+1,756 samples and 20,385 unique gene symbols. Each outer fold selects the top
+1,000 genes by variance on the train/validation partition only. Results are
+logged in `results/metabric_pam50/results.json`; the table is regenerated from
+that file by `experiments/01_brca_pam50/make_outputs.py`.
+
+Table: `paper/tables/table1_metabric_1000g.md`.
+
+Key result: tuned L2 logistic regression is best in this first run with balanced
+accuracy 0.696 (95% bootstrap CI 0.674, 0.715). LogStruct STRING-700 and the
+frozen fixed-graph STRING-700 baseline are nearly tied at 0.670 balanced
+accuracy. This does not support a performance advantage for learned adjacency on
+this reduced METABRIC setting. It does show that the graph-smoothed linear model
+is competitive but currently weaker than a strong classical baseline.
 
 ### 5.3 Prior sensitivity
 
@@ -145,7 +165,20 @@ Pending real-data runs.
 
 ### 5.8 Perturbation identity and regulatory recovery
 
-Pending real-data runs.
+Norman 2019 data were downloaded from Figshare article 24688110 and loaded from
+the labeled H5AD. This file is a prefiltered 27,658-cell by 2,000-gene object.
+For the first closed-set pilot, double perturbations were excluded and controls
+plus single-gene perturbations with at least 50 cells were retained, yielding
+15,216 cells, 18 classes, and 2,000 genes. One outer fold was run with the top
+500 train-selected genes. Because only one fold is complete, the confidence
+intervals in `paper/tables/table_norman_500g_pilot.md` are degenerate and
+should not be interpreted as final uncertainty estimates.
+
+In this pilot, LogStruct identity reached balanced accuracy 0.559 and macro-F1
+0.598, LogStruct STRING-700 reached balanced accuracy 0.554 and macro-F1 0.595,
+and tuned L2 logistic regression reached balanced accuracy 0.541 and macro-F1
+0.467. This is promising enough to justify the full 5-fold perturbation run, but
+it is not yet the final perturb-seq result.
 
 ### 5.9 Biological interpretation
 
@@ -159,9 +192,19 @@ ceiling. Second, KL scaling is not a minor numerical detail: the legacy summed
 KL can dominate at large feature counts, so the paper must report the chosen KL
 normalization and sensitivity to `lambda_kl`.
 
-The empirical discussion will be written only after logged real-data runs. If
-LogStruct underperforms fixed-graph or classical baselines, that will be
-reported directly.
+The first METABRIC result is a useful negative control for the paper's honesty
+standard: LogStruct did not beat a tuned L2 logistic baseline, and the learned
+STRING graph barely differed from the frozen graph baseline at the tested
+settings. The likely explanations are the reduced 1,000-gene feature set, short
+early-stopped neural optimization, and a KL/smoothness setting that may not
+move the adjacency enough. The next experiment should sweep `lambda_kl`,
+`lambda_smooth`, and temperature before making any claim about adaptive graph
+benefit.
+
+The Norman pilot points in the opposite direction: with imbalanced
+perturbation classes, the smoothed linear model improved macro-F1 over tuned
+logistic regression on the first fold. This must be confirmed over the remaining
+outer folds and with DoRothEA priors before it becomes a paper claim.
 
 ## 7. Conclusion
 

@@ -1,0 +1,334 @@
+{
+  "aggregate_metrics": {
+    "dummy_most_frequent": {
+      "balanced_accuracy": {
+        "ci_high": 0.05555555555555555,
+        "ci_low": 0.05555555555555555,
+        "mean": 0.05555555555555555
+      },
+      "macro_f1": {
+        "ci_high": 0.03593391123953471,
+        "ci_low": 0.03593391123953471,
+        "mean": 0.03593391123953471
+      },
+      "mcc": {
+        "ci_high": 0.0,
+        "ci_low": 0.0,
+        "mean": 0.0
+      },
+      "ovr_auprc": {
+        "ci_high": 0.05555555555555555,
+        "ci_low": 0.05555555555555555,
+        "mean": 0.05555555555555555
+      },
+      "ovr_auroc": {
+        "ci_high": 0.5,
+        "ci_low": 0.5,
+        "mean": 0.5
+      },
+      "top5_accuracy": {
+        "ci_high": 0.561760840998686,
+        "ci_low": 0.561760840998686,
+        "mean": 0.561760840998686
+      }
+    },
+    "logistic_l2": {
+      "balanced_accuracy": {
+        "ci_high": 0.5407959008458672,
+        "ci_low": 0.5407959008458672,
+        "mean": 0.5407959008458672
+      },
+      "macro_f1": {
+        "ci_high": 0.46709901290836126,
+        "ci_low": 0.46709901290836126,
+        "mean": 0.46709901290836126
+      },
+      "mcc": {
+        "ci_high": 0.508987750405985,
+        "ci_low": 0.508987750405985,
+        "mean": 0.508987750405985
+      },
+      "ovr_auprc": {
+        "ci_high": 0.5043925570433682,
+        "ci_low": 0.5043925570433682,
+        "mean": 0.5043925570433682
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9063201519751305,
+        "ci_low": 0.9063201519751305,
+        "mean": 0.9063201519751305
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9273981603153745,
+        "ci_low": 0.9273981603153745,
+        "mean": 0.9273981603153745
+      }
+    },
+    "logstruct_identity": {
+      "balanced_accuracy": {
+        "ci_high": 0.5585392947922786,
+        "ci_low": 0.5585392947922786,
+        "mean": 0.5585392947922786
+      },
+      "macro_f1": {
+        "ci_high": 0.5976114304148684,
+        "ci_low": 0.5976114304148684,
+        "mean": 0.5976114304148684
+      },
+      "mcc": {
+        "ci_high": 0.7008168793489536,
+        "ci_low": 0.7008168793489536,
+        "mean": 0.7008168793489536
+      },
+      "ovr_auprc": {
+        "ci_high": 0.6199934818989117,
+        "ci_low": 0.6199934818989117,
+        "mean": 0.6199934818989117
+      },
+      "ovr_auroc": {
+        "ci_high": 0.927544856417819,
+        "ci_low": 0.927544856417819,
+        "mean": 0.927544856417819
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9402102496714849,
+        "ci_low": 0.9402102496714849,
+        "mean": 0.9402102496714849
+      }
+    },
+    "logstruct_string_700": {
+      "balanced_accuracy": {
+        "ci_high": 0.5544560971865612,
+        "ci_low": 0.5544560971865612,
+        "mean": 0.5544560971865612
+      },
+      "macro_f1": {
+        "ci_high": 0.594676569923397,
+        "ci_low": 0.594676569923397,
+        "mean": 0.594676569923397
+      },
+      "mcc": {
+        "ci_high": 0.7016252362620192,
+        "ci_low": 0.7016252362620192,
+        "mean": 0.7016252362620192
+      },
+      "ovr_auprc": {
+        "ci_high": 0.6260376457461098,
+        "ci_low": 0.6260376457461098,
+        "mean": 0.6260376457461098
+      },
+      "ovr_auroc": {
+        "ci_high": 0.9285758766993903,
+        "ci_low": 0.9285758766993903,
+        "mean": 0.9285758766993903
+      },
+      "top5_accuracy": {
+        "ci_high": 0.9421813403416557,
+        "ci_low": 0.9421813403416557,
+        "mean": 0.9421813403416557
+      }
+    }
+  },
+  "dataset_name": "norman_2019_perturb_identity",
+  "environment": {
+    "cuda_available": "True",
+    "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "torch": "2.7.1+cu126"
+  },
+  "fold_records": [
+    {
+      "dataset_name": "norman_2019_perturb_identity",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {},
+        "inner_balanced_accuracy": 0.05555555555555556,
+        "max_genes": 500,
+        "selected": {}
+      },
+      "method": "dummy_most_frequent",
+      "metrics": {
+        "balanced_accuracy": 0.05555555555555555,
+        "macro_f1": 0.03593391123953471,
+        "mcc": 0.0,
+        "ovr_auprc": 0.05555555555555555,
+        "ovr_auroc": 0.5,
+        "top5_accuracy": 0.561760840998686
+      },
+      "seed": 0,
+      "test_size": 3044,
+      "train_size": 12172,
+      "val_size": 0,
+      "wall_clock_sec": 0.06822576800004754
+    },
+    {
+      "dataset_name": "norman_2019_perturb_identity",
+      "device": "cpu",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "grid": {
+          "C": [
+            0.03,
+            0.1,
+            0.3,
+            1.0,
+            3.0
+          ]
+        },
+        "inner_balanced_accuracy": 0.5508613582232587,
+        "max_genes": 500,
+        "selected": {
+          "C": 0.03
+        }
+      },
+      "method": "logistic_l2",
+      "metrics": {
+        "balanced_accuracy": 0.5407959008458672,
+        "macro_f1": 0.46709901290836126,
+        "mcc": 0.508987750405985,
+        "ovr_auprc": 0.5043925570433682,
+        "ovr_auroc": 0.9063201519751305,
+        "top5_accuracy": 0.9273981603153745
+      },
+      "seed": 0,
+      "test_size": 3044,
+      "train_size": 12172,
+      "val_size": 0,
+      "wall_clock_sec": 327.8295895939991
+    },
+    {
+      "dataset_name": "norman_2019_perturb_identity",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "identity",
+        "prior_metadata": {
+          "baseline": 0.01,
+          "source": "identity"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_identity",
+      "metrics": {
+        "balanced_accuracy": 0.5585392947922786,
+        "macro_f1": 0.5976114304148684,
+        "mcc": 0.7008168793489536,
+        "ovr_auprc": 0.6199934818989117,
+        "ovr_auroc": 0.927544856417819,
+        "top5_accuracy": 0.9402102496714849
+      },
+      "seed": 0,
+      "test_size": 3044,
+      "train_size": 12172,
+      "val_size": 0,
+      "wall_clock_sec": 1.5960917590000463
+    },
+    {
+      "dataset_name": "norman_2019_perturb_identity",
+      "device": "cuda",
+      "environment": {
+        "cuda_available": "True",
+        "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
+        "python": "3.10.12",
+        "torch": "2.7.1+cu126"
+      },
+      "fold": 0,
+      "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+      "hyperparameters": {
+        "alpha": 0.5,
+        "device": "cuda",
+        "early_stopping": true,
+        "freeze_adjacency": false,
+        "kl_reduction": "offdiag_mean",
+        "lambda_en": 0.001,
+        "lambda_kl": 1.0,
+        "lambda_smooth": 0.001,
+        "learning_rate": 0.01,
+        "max_genes": 500,
+        "max_iter": 120,
+        "n_iter_no_change": 12,
+        "neighbor_weight": 1.0,
+        "prior": "string_700",
+        "prior_metadata": {
+          "score_threshold": 700,
+          "source": "STRING v12"
+        },
+        "random_state": 0,
+        "self_loop_weight": 1.0,
+        "sparsity_threshold": 0.05,
+        "temperature": 0.8,
+        "validation_fraction": 0.15,
+        "verbose": false
+      },
+      "method": "logstruct_string_700",
+      "metrics": {
+        "balanced_accuracy": 0.5544560971865612,
+        "macro_f1": 0.594676569923397,
+        "mcc": 0.7016252362620192,
+        "ovr_auprc": 0.6260376457461098,
+        "ovr_auroc": 0.9285758766993903,
+        "top5_accuracy": 0.9421813403416557
+      },
+      "seed": 0,
+      "test_size": 3044,
+      "train_size": 12172,
+      "val_size": 0,
+      "wall_clock_sec": 0.5478985919999104
+    }
+  ],
+  "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
+  "methods": [
+    "dummy_most_frequent",
+    "logistic_l2",
+    "logstruct_identity",
+    "logstruct_string_700"
+  ],
+  "n_input_genes": 2000,
+  "n_samples": 15216,
+  "n_selected_genes": 500,
+  "outer_folds_completed": 1,
+  "outer_folds_requested": 5,
+  "seed": 0,
+  "task": "single_cell_perturbation_classification",
+  "wall_clock_sec": 338.26568603299893
+}

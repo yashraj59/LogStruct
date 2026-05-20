@@ -1,4 +1,4 @@
-.PHONY: all smoke test audit-check download-small
+.PHONY: all smoke test audit-check download-small metabric-1000 norman-pilot
 
 PYTHON ?= .venv/bin/python
 
@@ -15,3 +15,11 @@ audit-check:
 
 download-small:
 	$(PYTHON) -c 'from experiments.shared.data_loader import download_source, write_checksums, prepare_uci_pancancer; paths = [download_source("uci_pancancer")]; write_checksums(paths); prepare_uci_pancancer()'
+
+metabric-1000:
+	$(PYTHON) experiments/01_brca_pam50/run.py --max-genes 1000 --methods dummy_most_frequent logistic_l2 nslr_string_700 logstruct_string_700 --device cuda
+	$(PYTHON) experiments/01_brca_pam50/make_outputs.py
+
+norman-pilot:
+	$(PYTHON) experiments/06_norman_perturb_identity/run.py --max-outer 1 --max-genes 500 --methods dummy_most_frequent logistic_l2 logstruct_identity logstruct_string_700 --device cuda
+	$(PYTHON) experiments/06_norman_perturb_identity/make_outputs.py

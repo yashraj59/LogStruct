@@ -57,6 +57,7 @@ def classification_metrics(y_true, y_pred, y_proba=None) -> dict[str, float | No
         "balanced_accuracy": float(balanced_accuracy_score(y_true, y_pred)),
         "macro_f1": float(f1_score(y_true, y_pred, average="macro")),
         "mcc": float(matthews_corrcoef(y_true, y_pred)),
+        "top5_accuracy": None,
         "ovr_auroc": None,
         "ovr_auprc": None,
     }
@@ -64,6 +65,11 @@ def classification_metrics(y_true, y_pred, y_proba=None) -> dict[str, float | No
     if y_proba is not None:
         classes = np.unique(y_true)
         try:
+            proba = np.asarray(y_proba)
+            if proba.ndim == 2 and proba.shape[1] > 5 and proba.shape[1] == len(classes):
+                top5 = np.argsort(proba, axis=1)[:, -5:]
+                true_idx = np.searchsorted(classes, y_true)
+                out["top5_accuracy"] = float(np.mean([t in row for t, row in zip(true_idx, top5)]))
             if len(classes) == 2:
                 scores = y_proba[:, 1] if np.asarray(y_proba).ndim == 2 else y_proba
                 out["ovr_auroc"] = float(roc_auc_score(y_true, scores))

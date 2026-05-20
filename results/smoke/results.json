@@ -2,12 +2,12 @@
   "dataset_name": "synthetic_docstring_smoke",
   "device": "cpu",
   "environment": {
-    "cuda_available": "False",
+    "cuda_available": "True",
     "platform": "Linux-5.15.0-164-generic-x86_64-with-glibc2.35",
     "python": "3.10.12",
-    "torch": "2.12.0+cu130"
+    "torch": "2.7.1+cu126"
   },
-  "git_sha": "282d53223a4a9c13dcb636b7570981461eb66b56",
+  "git_sha": "31562a10030c37a231d53b17a7a580f748409c51",
   "hyperparameters": {
     "device": "cpu",
     "kl_reduction": "offdiag_mean",
@@ -25,11 +25,12 @@
     "mcc": 0.6339667779924166,
     "n_iter": 50,
     "ovr_auprc": 0.9730627717999001,
-    "ovr_auroc": 0.9650974025974025
+    "ovr_auroc": 0.9650974025974025,
+    "top5_accuracy": null
   },
   "seed": 42,
   "test_size": 100,
   "train_size": 400,
   "val_size": 40,
-  "wall_clock_sec": 0.876123520999954
+  "wall_clock_sec": 0.71998644300038
 }
