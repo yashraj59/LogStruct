@@ -147,7 +147,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.03333333333333333,
@@ -167,7 +167,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 0.10454553999989002
+      "wall_clock_sec": 0.10388563300148235
     },
     {
       "dataset_name": "gtex_tissue",
@@ -179,7 +179,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -209,7 +209,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 213.28207562700118
+      "wall_clock_sec": 221.19983618600236
     },
     {
       "dataset_name": "gtex_tissue",
@@ -221,7 +221,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -261,7 +261,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 1.6022910600004252
+      "wall_clock_sec": 1.6095115110001643
     },
     {
       "dataset_name": "gtex_tissue",
@@ -273,7 +273,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -313,7 +313,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 0.5712538879997737
+      "wall_clock_sec": 0.5750621629995294
     },
     {
       "dataset_name": "gtex_tissue",
@@ -325,7 +325,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.03333333333333333,
@@ -345,7 +345,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 0.09251123300055042
+      "wall_clock_sec": 0.09175836700160289
     },
     {
       "dataset_name": "gtex_tissue",
@@ -357,7 +357,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -387,7 +387,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 246.87296665299982
+      "wall_clock_sec": 240.32104558799983
     },
     {
       "dataset_name": "gtex_tissue",
@@ -399,7 +399,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -439,7 +439,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 0.5783455990003858
+      "wall_clock_sec": 0.5874431330012158
     },
     {
       "dataset_name": "gtex_tissue",
@@ -451,7 +451,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -491,7 +491,7 @@
       "test_size": 3477,
       "train_size": 13905,
       "val_size": 0,
-      "wall_clock_sec": 0.5755141350000486
+      "wall_clock_sec": 0.5856738399997994
     },
     {
       "dataset_name": "gtex_tissue",
@@ -503,7 +503,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.03333333333333333,
@@ -523,7 +523,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.09250781999980973
+      "wall_clock_sec": 0.09550191500238725
     },
     {
       "dataset_name": "gtex_tissue",
@@ -535,7 +535,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -565,7 +565,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 237.64415094600008
+      "wall_clock_sec": 239.0377141079989
     },
     {
       "dataset_name": "gtex_tissue",
@@ -577,7 +577,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -617,7 +617,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5723261509992881
+      "wall_clock_sec": 0.5814023380007711
     },
     {
       "dataset_name": "gtex_tissue",
@@ -629,7 +629,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -669,7 +669,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5911043050000444
+      "wall_clock_sec": 0.576113915998576
     },
     {
       "dataset_name": "gtex_tissue",
@@ -681,7 +681,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.03333333333333333,
@@ -701,7 +701,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.09574886500013235
+      "wall_clock_sec": 0.09331992499937769
     },
     {
       "dataset_name": "gtex_tissue",
@@ -713,7 +713,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -743,7 +743,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 229.35213339499933
+      "wall_clock_sec": 227.06672625200008
     },
     {
       "dataset_name": "gtex_tissue",
@@ -755,7 +755,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -795,7 +795,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5719729520005785
+      "wall_clock_sec": 0.579902375000529
     },
     {
       "dataset_name": "gtex_tissue",
@@ -807,7 +807,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -847,7 +847,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5901301720004994
+      "wall_clock_sec": 0.5742982819974713
     },
     {
       "dataset_name": "gtex_tissue",
@@ -859,7 +859,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {},
         "inner_balanced_accuracy": 0.03333333333333333,
@@ -879,7 +879,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.09382916499998828
+      "wall_clock_sec": 0.09461854999972275
     },
     {
       "dataset_name": "gtex_tissue",
@@ -891,7 +891,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "grid": {
           "C": [
@@ -921,7 +921,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 224.4349271989995
+      "wall_clock_sec": 218.49535765900146
     },
     {
       "dataset_name": "gtex_tissue",
@@ -933,7 +933,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -973,7 +973,7 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5893378809996648
+      "wall_clock_sec": 0.5749519290002354
     },
     {
       "dataset_name": "gtex_tissue",
@@ -985,7 +985,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "alpha": 0.5,
         "device": "cuda",
@@ -1025,10 +1025,10 @@
       "test_size": 3476,
       "train_size": 13906,
       "val_size": 0,
-      "wall_clock_sec": 0.5754695180003182
+      "wall_clock_sec": 0.5735503110008722
     }
   ],
-  "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+  "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
   "methods": [
     "dummy_most_frequent",
     "logistic_l2",
@@ -1042,5 +1042,5 @@
   "outer_folds_requested": 5,
   "seed": 0,
   "task": "classification",
-  "wall_clock_sec": 1205.327198903
+  "wall_clock_sec": 1158.755285023999
 }

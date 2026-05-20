@@ -115,7 +115,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500
       },
@@ -144,7 +144,7 @@
         "TSP8"
       ],
       "train_size": 34098,
-      "wall_clock_sec": 0.25838664599905314
+      "wall_clock_sec": 0.10014756300006411
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -156,7 +156,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "identity",
@@ -190,7 +190,7 @@
         "TSP8"
       ],
       "train_size": 34098,
-      "wall_clock_sec": 7.3412343919990235
+      "wall_clock_sec": 1.8726716020028107
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -202,7 +202,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 0,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "string_700",
@@ -236,7 +236,7 @@
         "TSP8"
       ],
       "train_size": 34098,
-      "wall_clock_sec": 3.3001531480003905
+      "wall_clock_sec": 0.8403620900025999
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -248,7 +248,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500
       },
@@ -277,7 +277,7 @@
         "TSP8"
       ],
       "train_size": 42572,
-      "wall_clock_sec": 0.04104700199968647
+      "wall_clock_sec": 0.03078058499886538
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -289,7 +289,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "identity",
@@ -323,7 +323,7 @@
         "TSP8"
       ],
       "train_size": 42572,
-      "wall_clock_sec": 3.557957107999755
+      "wall_clock_sec": 0.7986951040002168
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -335,7 +335,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 1,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "string_700",
@@ -369,7 +369,7 @@
         "TSP8"
       ],
       "train_size": 42572,
-      "wall_clock_sec": 4.196807339998486
+      "wall_clock_sec": 0.802071016998525
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -381,7 +381,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500
       },
@@ -410,7 +410,7 @@
         "TSP8"
       ],
       "train_size": 31447,
-      "wall_clock_sec": 0.29176303399981407
+      "wall_clock_sec": 0.11076175400012289
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -422,7 +422,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "identity",
@@ -456,7 +456,7 @@
         "TSP8"
       ],
       "train_size": 31447,
-      "wall_clock_sec": 4.246767564998663
+      "wall_clock_sec": 0.8458494250007789
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -468,7 +468,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 2,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "string_700",
@@ -502,7 +502,7 @@
         "TSP8"
       ],
       "train_size": 31447,
-      "wall_clock_sec": 1.1001734809997288
+      "wall_clock_sec": 0.8424887500004843
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -514,7 +514,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500
       },
@@ -543,7 +543,7 @@
         "TSP8"
       ],
       "train_size": 36721,
-      "wall_clock_sec": 0.1326649250004266
+      "wall_clock_sec": 0.07563219599978765
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -555,7 +555,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "identity",
@@ -589,7 +589,7 @@
         "TSP8"
       ],
       "train_size": 36721,
-      "wall_clock_sec": 4.186589136999828
+      "wall_clock_sec": 0.8289641689989367
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -601,7 +601,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 3,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "string_700",
@@ -635,7 +635,7 @@
         "TSP8"
       ],
       "train_size": 36721,
-      "wall_clock_sec": 4.300357789999907
+      "wall_clock_sec": 0.8263770589983324
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -647,7 +647,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500
       },
@@ -676,7 +676,7 @@
         "TSP7"
       ],
       "train_size": 28694,
-      "wall_clock_sec": 0.3535191009996197
+      "wall_clock_sec": 0.12858214100197074
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -688,7 +688,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "identity",
@@ -722,7 +722,7 @@
         "TSP7"
       ],
       "train_size": 28694,
-      "wall_clock_sec": 4.869268865999402
+      "wall_clock_sec": 0.8515124119985558
     },
     {
       "dataset_name": "tabula_sapiens_immune",
@@ -734,7 +734,7 @@
         "torch": "2.7.1+cu126"
       },
       "fold": 4,
-      "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+      "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
       "hyperparameters": {
         "max_genes": 500,
         "prior": "string_700",
@@ -768,10 +768,10 @@
         "TSP7"
       ],
       "train_size": 28694,
-      "wall_clock_sec": 4.594092422999893
+      "wall_clock_sec": 0.8571942980015592
     }
   ],
-  "git_sha": "c997085067cde62f51f18591f15acbc144daf194",
+  "git_sha": "ff8ca239d451b48c5879f99ea02d06bd062838b7",
   "metadata": {
     "class_counts": {
       "B cell": 3000,
@@ -824,5 +824,5 @@
   "outer_folds_completed": 5,
   "seed": 0,
   "task": "single_cell_celltype_classification",
-  "wall_clock_sec": 302.5104645430001
+  "wall_clock_sec": 96.11820768100006
 }
