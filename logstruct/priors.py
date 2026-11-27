@@ -331,6 +331,79 @@ def from_grn(
     return adj
 
 
+def shuffle_degree_preserving(
+    adj: np.ndarray,
+    edge_threshold: float = 0.1,
+    baseline: float = 0.05,
+    swaps_per_edge: int = 10,
+    random_state: int | None = None,
+) -> np.ndarray:
+    """
+    Rewire a prior while keeping the degree of every node.
+
+    This is the null model for testing if a prior carries real biology:
+    every gene keeps its number of neighbors (hubs stay hubs), but who is
+    connected to whom is randomized with double-edge swaps.
+
+    Parameters
+    ----------
+    adj : ndarray of shape (n_features, n_features)
+        Prior adjacency.
+    edge_threshold : float
+        Entries above this value are treated as edges.
+    baseline : float
+        Value for non-edges in the output.
+    swaps_per_edge : int
+        Number of attempted swaps is swaps_per_edge * n_edges.
+    random_state : int, optional
+        Random seed.
+
+    Returns
+    -------
+    shuffled : ndarray of shape (n_features, n_features)
+        Rewired adjacency with the same edge weights and node degrees.
+    """
+    rng = np.random.default_rng(random_state)
+    adj = np.asarray(adj, dtype=np.float32)
+    n = adj.shape[0]
+    sym = np.maximum(adj, adj.T)
+    rows, cols = np.nonzero(np.triu(sym > edge_threshold, k=1))
+    weights = sym[rows, cols]
+    edges = np.stack([rows, cols], axis=1)
+    n_edges = len(edges)
+
+    if n_edges >= 2:
+        present = {(int(a), int(b)) for a, b in edges}
+        picks = rng.integers(0, n_edges, size=(swaps_per_edge * n_edges, 2))
+        flips = rng.random(swaps_per_edge * n_edges) < 0.5
+        for (e1, e2), flip in zip(picks, flips):
+            if e1 == e2:
+                continue
+            a, b = edges[e1]
+            c, d = edges[e2]
+            if flip:
+                c, d = d, c
+            # (a, b), (c, d) -> (a, d), (c, b)
+            if a == d or c == b:
+                continue
+            new1 = (int(min(a, d)), int(max(a, d)))
+            new2 = (int(min(c, b)), int(max(c, b)))
+            if new1 in present or new2 in present or new1 == new2:
+                continue
+            present.discard((int(edges[e1][0]), int(edges[e1][1])))
+            present.discard((int(edges[e2][0]), int(edges[e2][1])))
+            present.add(new1)
+            present.add(new2)
+            edges[e1] = new1
+            edges[e2] = new2
+
+    out = np.full((n, n), baseline, dtype=np.float32)
+    out[edges[:, 0], edges[:, 1]] = weights
+    out[edges[:, 1], edges[:, 0]] = weights
+    np.fill_diagonal(out, 0.0)
+    return out
+
+
 def to_sparse(adj: np.ndarray, threshold: float = 0.0) -> csr_matrix:
     """
     Convert dense adjacency to sparse format.

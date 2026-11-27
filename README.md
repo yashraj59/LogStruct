@@ -110,7 +110,13 @@ prior = priors.from_identity(n_features, baseline=0.01)
 | `lambda_kl` | 1.0 | KL divergence to prior (how much to trust your prior) |
 | `alpha` | 0.5 | Elastic net mixing: 0=ridge, 1=lasso |
 | `temperature` | 0.8 | Adjacency sharpness (lower = more binary edges) |
+| `edge_threshold` | 0.1 | Prior entries above this become learnable edges, everything else is fixed at zero |
+| `n_candidate_neighbors` | 0 | If > 0, also add each gene's k most correlated genes as candidate edges |
+| `class_weight` | None | `"balanced"` reweights the loss so rare cell types count as much as common ones |
+| `early_stopping` | False | If True, stop on a held-out validation loss instead of training to convergence |
 | `freeze_adjacency` | False | If True, don't learn structure (use prior directly) |
+
+All penalties are divided by the number of training samples, so `lambda_en=1` is the same strength as `C=1` in sklearn and the defaults do not need to change with the number of genes or edges.
 
 ### Tuning tips
 
@@ -150,21 +156,25 @@ where `S = I + row_normalize(A)` and `A` is the learned adjacency.
 
 This means each gene's value becomes a weighted average of itself and its network neighbors.
 
+`A` is stored as an edge list. Only edges in the prior (plus optional candidate edges from `n_candidate_neighbors`) have a learnable weight, and every other entry is fixed at zero. So the model has one graph parameter per edge instead of one per gene pair, the smoothing is a sparse matrix product, and the learned graph can only reweight edges that were proposed to it.
+
 ### Loss function
 
 ```
-L = task_loss + λ_en * elastic_net(W) + λ_smooth * Σ w^T L w + λ_kl * KL(A || A_prior)
+L = task_loss + (1/n) * [ λ_en * elastic_net(W) + λ_smooth * Σ w^T L w + λ_kl * KL(A || A_prior) ]
 ```
 
 - **Task loss:** Cross-entropy (classification) or MSE (regression)
-- **Elastic net:** Sparsity on coefficients
+- **Elastic net:** Sparsity on coefficients. The L1 part is applied as a proximal (soft-threshold) step, so unused genes get a coefficient of exactly zero
 - **Laplacian smoothness:** `w^T L w` penalizes large differences between coefficients of connected features
-- **KL divergence:** Keeps learned adjacency close to prior
+- **KL divergence:** Keeps learned edge weights close to the prior, summed over edges
+- **1/n scaling:** The penalties act like a prior, so they matter most with few samples and fade as more data comes in
 
 ### What you get
 
 - `clf.coef_`: Learned coefficients
-- `clf.adjacency_`: Learned (sparse) adjacency matrix
+- `clf.adjacency_`: Learned adjacency matrix (dense up to 5000 features, scipy CSR above that, see `sparse_adjacency`)
+- `clf.edges_`, `clf.edge_weights_`, `clf.edge_prior_`: The learnable edges with their learned and prior weights
 - `clf.get_top_edges(n)`: Most important learned edges
 - `clf.history_`: Training curves
 
@@ -234,7 +244,8 @@ This will output:
 
 ## Limitations
 
-- **Scalability:** Dense P×P adjacency. Works well up to ~5k features. For larger, consider selecting features first.
+- **Scalability:** The graph is sparse, but training is still full-batch on a dense expression matrix, so memory grows with cells × genes.
+- **Edges come from the prior:** The model reweights the edges it is given. To find edges outside the prior, set `n_candidate_neighbors`.
 - **Not a GNN:** This is regularized linear model with graph structure, not a graph neural network. Interpretability over raw power.
 - **Edge learning is soft:** Adjacency is probabilistic, not discrete. Threshold for interpretation.
 

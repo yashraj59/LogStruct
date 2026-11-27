@@ -286,3 +286,171 @@ class TestEdgeCases:
         # Single sample prediction
         y_pred = clf.predict(X[:1])
         assert y_pred.shape == (1,)
+
+
+class TestSparseGraph:
+    """Test the sparse edge parameterization and the loss fixes."""
+
+    def test_only_prior_edges_are_learned(self):
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((120, 30))
+        y = (X[:, 0] > 0).astype(int)
+        prior = priors.from_edge_list(30, [(0, 1), (2, 3, 0.9), (4, 5)])
+
+        clf = LogStructClassifier(prior_adjacency=prior, max_iter=20, random_state=0)
+        clf.fit(X, y)
+
+        assert clf.edges_.shape == (3, 2)
+        assert clf.edge_weights_.shape == (3,)
+        assert clf._model.edge_logits.numel() == 3
+        # Nothing outside the prior support can become an edge
+        assert np.count_nonzero(clf.adjacency_) <= 6
+        assert np.allclose(clf.adjacency_, clf.adjacency_.T)
+
+    def test_no_edges_is_plain_linear_model(self):
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((150, 20))
+        y = (X[:, 0] - X[:, 1] > 0).astype(int)
+
+        clf = LogStructClassifier(
+            prior_adjacency=priors.from_identity(20), max_iter=100, random_state=0
+        )
+        clf.fit(X, y)
+
+        assert len(clf.edges_) == 0
+        assert clf.adjacency_.sum() == 0
+        assert clf.score(X, y) > 0.85
+
+    def test_sparse_prior_and_sparse_adjacency(self):
+        from scipy.sparse import csr_matrix, issparse
+
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((100, 40))
+        y = (X[:, 0] > 0).astype(int)
+        dense = priors.from_random(40, density=0.1, random_state=0)
+        dense[dense < 0.1] = 0.0
+
+        clf_dense = LogStructClassifier(prior_adjacency=dense, max_iter=10, random_state=0)
+        clf_sparse = LogStructClassifier(
+            prior_adjacency=csr_matrix(dense), max_iter=10, random_state=0,
+            sparse_adjacency=True,
+        )
+        clf_dense.fit(X, y)
+        clf_sparse.fit(X, y)
+
+        assert issparse(clf_sparse.adjacency_)
+        assert np.allclose(clf_sparse.adjacency_.toarray(), clf_dense.adjacency_, atol=1e-6)
+
+    def test_candidate_edges(self):
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((200, 25))
+        X[:, 7] = X[:, 3] + 0.1 * rng.standard_normal(200)  # strongly correlated pair
+        y = (X[:, 0] > 0).astype(int)
+
+        clf = LogStructClassifier(
+            prior_adjacency=priors.from_identity(25),
+            n_candidate_neighbors=2,
+            max_iter=10,
+            random_state=0,
+        )
+        clf.fit(X, y)
+
+        assert clf.n_prior_edges_ == 0
+        assert len(clf.edges_) > 0
+        assert [3, 7] in clf.edges_.tolist()
+        assert np.allclose(clf.edge_prior_, 0.05)
+
+    def test_proximal_l1_gives_exact_zeros(self):
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((300, 60))
+        y = (X[:, 0] + X[:, 1] > 0).astype(int)
+
+        clf = LogStructClassifier(
+            prior_adjacency=priors.from_identity(60),
+            alpha=1.0,
+            lambda_en=10.0,
+            max_iter=300,
+            early_stopping=False,
+            random_state=0,
+        )
+        clf.fit(X, y)
+
+        assert np.sum(clf.coef_ == 0) > 30
+        assert clf.coef_[0] != 0 and clf.coef_[1] != 0
+        assert clf.score(X, y) > 0.9
+
+    def test_penalty_scale_does_not_depend_on_feature_count(self):
+        # With the old sum-over-P^2 penalties the default settings crushed the
+        # model as soon as there were many features. Defaults must now fit.
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((2000, 400))
+        y = (X[:, 0] + X[:, 1] > 0).astype(int)
+        prior = priors.from_random(400, density=0.02, random_state=0)
+
+        clf = LogStructClassifier(prior_adjacency=prior, max_iter=150, random_state=0)
+        clf.fit(X, y)
+
+        assert clf.score(X, y) > 0.9
+
+    def test_kl_keeps_edges_near_prior(self):
+        rng = np.random.default_rng(0)
+        X = rng.standard_normal((100, 30))
+        y = (X[:, 0] > 0).astype(int)
+        prior = priors.from_random(30, density=0.2, random_state=0)
+
+        def drift(lambda_kl):
+            clf = LogStructClassifier(
+                prior_adjacency=prior, lambda_kl=lambda_kl, max_iter=100,
+                early_stopping=False, random_state=0,
+            ).fit(X, y)
+            return np.abs(clf.edge_weights_ - clf.edge_prior_).mean()
+
+        assert drift(1000.0) < drift(0.0)
+
+    def test_class_weight_balanced(self):
+        rng = np.random.default_rng(0)
+        n = 600
+        y = (rng.random(n) < 0.05).astype(int)  # 5% rare class
+        X = rng.standard_normal((n, 20))
+        X[:, 0] += 1.0 * y
+
+        kwargs = dict(prior_adjacency=priors.from_identity(20), max_iter=200, random_state=0)
+        plain = LogStructClassifier(**kwargs).fit(X, y)
+        balanced = LogStructClassifier(class_weight="balanced", **kwargs).fit(X, y)
+
+        recall_plain = (plain.predict(X)[y == 1] == 1).mean()
+        recall_balanced = (balanced.predict(X)[y == 1] == 1).mean()
+        assert recall_balanced > recall_plain
+
+    def test_get_params_roundtrip(self):
+        from sklearn.base import clone
+
+        prior = priors.from_random(10, random_state=0)
+        clf = LogStructClassifier(prior_adjacency=prior, class_weight="balanced", lambda_kl=3.0)
+        cloned = clone(clf)
+        assert cloned.class_weight == "balanced"
+        assert cloned.lambda_kl == 3.0
+        reg = clone(LogStructRegressor(prior_adjacency=prior, edge_threshold=0.2))
+        assert reg.edge_threshold == 0.2
+
+
+class TestShuffle:
+    """Test the degree-preserving null prior."""
+
+    def test_degrees_and_weights_preserved(self):
+        prior = priors.from_random(60, density=0.1, random_state=1)
+        shuffled = priors.shuffle_degree_preserving(prior, random_state=1)
+
+        deg = (prior > 0.1).sum(axis=1)
+        deg_shuffled = (shuffled > 0.1).sum(axis=1)
+        assert np.array_equal(deg, deg_shuffled)
+        assert np.allclose(shuffled, shuffled.T)
+        assert np.allclose(np.diag(shuffled), 0)
+        assert np.allclose(np.sort(prior[prior > 0.1]), np.sort(shuffled[shuffled > 0.1]))
+
+    def test_edges_actually_change(self):
+        prior = priors.from_random(60, density=0.1, random_state=1)
+        shuffled = priors.shuffle_degree_preserving(prior, random_state=1)
+
+        same = ((prior > 0.1) & (shuffled > 0.1)).sum() / (prior > 0.1).sum()
+        assert same < 0.5

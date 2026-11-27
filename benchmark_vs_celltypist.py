@@ -300,17 +300,15 @@ def train_logstruct(X_train: np.ndarray, y_train: np.ndarray, n_features: int,
         print("  Using identity prior (no network)")
         prior = priors.from_identity(n_features, baseline=0.01)
     
+    # Penalties are scaled by 1/n_samples, so the library defaults
+    # (lambda = 1, same strength as C=1 in sklearn) are used as they are.
     clf = LogStructClassifier(
         prior_adjacency=prior,
-        lambda_en=0.05,           # Even lighter regularization
-        lambda_smooth=0.0,        # Disable smoothing
-        lambda_kl=0.0,            # Disable KL
+        lambda_en=1.0,
+        lambda_smooth=1.0,
+        lambda_kl=1.0,
         alpha=0.5,
-        max_iter=2000,            # 2000 iterations as requested
-        learning_rate=0.005,      # Lower LR for better convergence
-        early_stopping=False,     # Don't stop early - run until convergence
-        n_iter_no_change=50,      # If early stopping enabled, be patient
-        tol=1e-5,                 # Tighter tolerance
+        max_iter=500,
         verbose=True,
         random_state=42,
     )

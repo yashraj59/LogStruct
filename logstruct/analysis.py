@@ -1,5 +1,10 @@
 
 import numpy as np
+from scipy.sparse import issparse
+
+
+def _to_dense(adj):
+    return adj.toarray() if issparse(adj) else np.asarray(adj)
 
 def compare_to_prior(model, gene_names=None, prior_threshold=0.5, learned_threshold=0.1):
     """
@@ -22,11 +27,11 @@ def compare_to_prior(model, gene_names=None, prior_threshold=0.5, learned_thresh
     if not hasattr(model, 'adjacency_') or model.adjacency_ is None:
         raise ValueError("Model has not learned an adjacency matrix yet.")
         
-    adj_learned = model.adjacency_
+    adj_learned = _to_dense(model.adjacency_)
     
     # Check if model has prior stored
     if hasattr(model, 'prior_adjacency'):
-        adj_prior = model.prior_adjacency
+        adj_prior = _to_dense(model.prior_adjacency)
     else:
         # Fallback if prior is not stored in model (though it should be)
         raise ValueError("Model does not have 'prior_adjacency' attribute.")
