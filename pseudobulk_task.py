@@ -164,7 +164,6 @@ def task_data(counts, meta, genes, task: str, cell_type: str):
 def make_logstruct(prior, params: dict, args, seed: int) -> LogStructClassifier:
     return LogStructClassifier(
         prior_adjacency=prior,
-        alpha=args.alpha,
         lambda_kl=args.lambda_kl,
         class_weight="balanced",
         max_iter=args.max_iter,
@@ -205,10 +204,14 @@ def run_fold(fold_id, train, test, X, y, genes, string_edges, args):
     prior = string_prior(string_edges, fold_genes)
     n_edges = int((np.triu(prior, 1) > 0.1).sum())
 
-    plain_grid = [{"lambda_en": en} for en in args.lambda_en]
+    plain_grid = [
+        {"alpha": a, "lambda_en": en} for a, en in product(args.alpha, args.lambda_en)
+    ]
     graph_grid = [
-        {"lambda_en": en, "lambda_smooth": sm, "neighbor_weight": nw}
-        for en, sm, nw in product(args.lambda_en, args.lambda_smooth, args.neighbor_weight)
+        {"alpha": a, "lambda_en": en, "lambda_smooth": sm, "neighbor_weight": nw}
+        for a, en, sm, nw in product(
+            args.alpha, args.lambda_en, args.lambda_smooth, args.neighbor_weight
+        )
     ]
 
     rows = []
@@ -335,18 +338,21 @@ def main():
     parser.add_argument("--inner_folds", type=int, default=3)
     parser.add_argument("--n_shuffles", type=int, default=2)
     parser.add_argument("--string_score", type=int, default=700)
-    parser.add_argument("--alpha", type=float, default=0.5)
-    parser.add_argument("--lambda_en", type=float, nargs="+", default=[1.0, 10.0, 100.0])
+    parser.add_argument("--alpha", type=float, nargs="+", default=[0.0, 0.5],
+                        help="Elastic net mixing values to tune over (0 = ridge)")
+    parser.add_argument("--lambda_en", type=float, nargs="+", default=[0.1, 1.0, 10.0, 100.0])
     parser.add_argument("--lambda_smooth", type=float, nargs="+", default=[1.0, 10.0])
     parser.add_argument("--neighbor_weight", type=float, nargs="+", default=[1.0])
     parser.add_argument("--lambda_kl", type=float, default=1.0)
     parser.add_argument("--max_iter", type=int, default=500)
     parser.add_argument("--n_jobs", type=int, default=-1)
+    parser.add_argument("--tag", default=None, help="Output file prefix (default: task name)")
     parser.add_argument("--output_dir", default="./pseudobulk_output")
     args = parser.parse_args()
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(exist_ok=True)
+    tag = args.tag or args.task
 
     print("=" * 78)
     print(f"Donor-level pseudobulk task: {args.task}")
@@ -368,9 +374,9 @@ def main():
         all_rows += rows
         d = pd.DataFrame(rows).groupby("condition")["auroc"].mean().reindex(CONDITIONS)
         print("  AUROC  " + "  ".join(f"{c}={v:.3f}" for c, v in d.items()))
-        pd.DataFrame(all_rows).to_csv(output_dir / f"{args.task}_runs.csv", index=False)
+        pd.DataFrame(all_rows).to_csv(output_dir / f"{tag}_runs.csv", index=False)
 
-    summarize(pd.DataFrame(all_rows), output_dir, args.task, args.folds)
+    summarize(pd.DataFrame(all_rows), output_dir, tag, args.folds)
     print(f"\nResults saved to {output_dir}/")
 
 

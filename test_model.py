@@ -482,3 +482,24 @@ class TestSmoothingEquivalence:
             S = torch.eye(p) + A / (A.sum(1, keepdim=True) + 1e-8)
             expected = (x @ S) @ model.linear.weight.T + model.linear.bias
             assert torch.allclose(model(x), expected, atol=1e-4)
+
+
+class TestFewSamplesManyFeatures:
+    """The optimizer must not stall when n_samples << n_features."""
+
+    def test_objective_is_minimized(self):
+        rng = np.random.default_rng(0)
+        n, p = 80, 2000
+        X = rng.standard_normal((n, p))
+        y = (X[:, :20].sum(axis=1) > 0).astype(int)
+
+        clf = LogStructClassifier(
+            prior_adjacency=priors.from_identity(p), alpha=0.0, lambda_en=10.0, random_state=0
+        )
+        clf.fit(X, y)
+
+        loss = clf.history_["train_loss"]
+        # A too-large step used to make the loss go up and stop after ~10 epochs.
+        assert clf.n_iter_ > 20
+        assert min(loss) < 0.5 * loss[0]
+        assert clf.score(X, y) > 0.95

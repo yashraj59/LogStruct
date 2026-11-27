@@ -396,14 +396,18 @@ class _BaseLogStruct(BaseEstimator):
             if learn_edges and kl_strength > 0:
                 smooth_loss = smooth_loss + kl_strength * model.kl_prior_penalty()
 
+            # Full objective at the current parameters (before this step).
+            with torch.no_grad():
+                loss_value = smooth_loss.item() + l1_strength * model.l1_penalty().item()
+            if X_val is None and loss_value < best_train_loss:
+                best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+
             smooth_loss.backward()
             torch.nn.utils.clip_grad_norm_(params, 1.0)
             optimizer.step()
             if l1_strength > 0:
                 _prox_l1_adam(model.linear.weight, optimizer, l1_strength)
 
-            with torch.no_grad():
-                loss_value = smooth_loss.item() + l1_strength * model.l1_penalty().item()
             self.history_["train_loss"].append(loss_value)
             if track_accuracy:
                 train_acc = (out.argmax(1) == y_train_t).float().mean().item()
@@ -444,17 +448,27 @@ class _BaseLogStruct(BaseEstimator):
                         print(f"Early stopping at epoch {epoch + 1}")
                     break
 
-            elif self.tol > 0:
-                # No validation set: stop when the training objective is flat.
+            else:
+                # No validation set: follow the training objective.
                 if loss_value < best_train_loss * (1 - self.tol) or best_train_loss == float("inf"):
-                    best_train_loss = loss_value
                     no_improve = 0
                 else:
                     no_improve += 1
-                if no_improve >= self.n_iter_no_change:
-                    if self.verbose:
-                        print(f"Converged at epoch {epoch + 1}")
-                    break
+                best_train_loss = min(best_train_loss, loss_value)
+
+                if self.tol > 0 and no_improve >= self.n_iter_no_change:
+                    # The objective stopped improving. With few samples and many
+                    # features this usually means the step is too large, so cut
+                    # the learning rate first and only stop once it is small.
+                    lr = optimizer.param_groups[0]["lr"]
+                    if lr > self.learning_rate * 0.01:
+                        for group in optimizer.param_groups:
+                            group["lr"] = lr * 0.3
+                        no_improve = 0
+                    else:
+                        if self.verbose:
+                            print(f"Converged at epoch {epoch + 1}")
+                        break
 
             if self.verbose and (epoch % 10 == 0 or epoch == self.max_iter - 1):
                 msg = f"[{epoch+1}/{self.max_iter}] loss={loss_value:.4f}"
