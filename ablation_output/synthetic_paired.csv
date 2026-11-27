@@ -1,7 +1,7 @@
 train_size,metric,comparison,mean_diff,std_diff,seeds_real_wins,n_seeds
-all,accuracy,real - shuffled prior,0.07533333333333334,0.012022612439754653,5,5
-all,accuracy,real - no prior,0.07653333333333331,0.013324163513456803,5,5
-all,f1_macro,real - shuffled prior,0.07537864902499303,0.01221879195551234,5,5
-all,f1_macro,real - no prior,0.07675145210781671,0.013656065742768824,5,5
-all,balanced_accuracy,real - shuffled prior,0.07523081529649887,0.012112485339514032,5,5
-all,balanced_accuracy,real - no prior,0.07628038512108085,0.013781183065051808,5,5
+all,accuracy,real - shuffled prior,0.07424444444444446,0.01245222970762098,5,5
+all,accuracy,real - no prior,0.07193333333333332,0.009621734655340365,5,5
+all,f1_macro,real - shuffled prior,0.07420187138844497,0.012633531202425372,5,5
+all,f1_macro,real - no prior,0.07186108286089572,0.00951641705993144,5,5
+all,balanced_accuracy,real - shuffled prior,0.07408833954934506,0.012559776604728208,5,5
+all,balanced_accuracy,real - no prior,0.07182455696976048,0.009814435874137,5,5

@@ -269,12 +269,12 @@ python ablation_prior.py --dataset blood --max_cells 20000 --n_genes 2000 \
 
 | Condition | Accuracy | F1-Macro |
 |-----------|----------|----------|
-| **real prior** | **46.3% ± 1.3** | **46.2% ± 1.4** |
-| shuffled prior | 38.8% ± 0.8 | 38.7% ± 0.8 |
-| no prior | 38.7% ± 0.6 | 38.6% ± 0.5 |
+| **real prior** | **46.4% ± 1.3** | **46.3% ± 1.4** |
+| shuffled prior | 39.0% ± 0.7 | 38.9% ± 0.8 |
+| no prior | 39.2% ± 1.0 | 39.1% ± 1.0 |
 | sklearn LR | 39.2% ± 0.4 | 39.1% ± 0.4 |
 
-When the prior matches the real structure, the model gains about 7.5 points over a shuffled prior on all 5 seeds.
+When the prior matches the real structure, the model gains about 7.4 points over a shuffled prior on all 5 seeds.
 
 ### Cell type annotation on the CellTypist Blood atlas with a STRING prior
 
@@ -282,28 +282,76 @@ When the prior matches the real structure, the model gains about 7.5 points over
 
 | Training cells | Condition | Accuracy | F1-Macro |
 |----------------|-----------|----------|----------|
-| 500 | real prior | 65.9% ± 3.3 | 53.1% ± 3.4 |
+| 500 | real prior | 66.0% ± 3.3 | 53.4% ± 3.6 |
 | 500 | shuffled prior | 64.5% ± 3.3 | 51.7% ± 2.8 |
-| 500 | **no prior** | **71.0% ± 2.5** | 58.0% ± 2.2 |
+| 500 | **no prior** | **71.0% ± 2.6** | 58.0% ± 2.4 |
 | 500 | sklearn LR | 70.6% ± 2.3 | **58.6% ± 1.5** |
-| 2,000 | real prior | 72.5% ± 2.3 | 61.2% ± 2.0 |
-| 2,000 | shuffled prior | 72.1% ± 2.4 | 60.7% ± 2.3 |
-| 2,000 | **no prior** | **76.2% ± 2.0** | 64.9% ± 2.3 |
+| 2,000 | real prior | 72.6% ± 2.3 | 61.2% ± 1.9 |
+| 2,000 | shuffled prior | 72.3% ± 2.4 | 60.9% ± 2.3 |
+| 2,000 | **no prior** | **76.3% ± 1.9** | 64.8% ± 2.1 |
 | 2,000 | sklearn LR | 76.0% ± 2.1 | **65.3% ± 2.4** |
-| all (~14.5k) | real prior | 76.3% ± 2.3 | 67.7% ± 1.7 |
-| all (~14.5k) | shuffled prior | 76.8% ± 2.1 | 67.3% ± 1.6 |
-| all (~14.5k) | **no prior** | **77.6% ± 1.6** | **69.5% ± 1.6** |
+| all (~14.5k) | real prior | 77.2% ± 2.3 | 68.1% ± 1.8 |
+| all (~14.5k) | shuffled prior | 76.9% ± 2.4 | 67.7% ± 1.8 |
+| all (~14.5k) | **no prior** | **78.1% ± 2.2** | **69.6% ± 1.8** |
 | all (~14.5k) | sklearn LR | 76.9% ± 2.0 | 68.9% ± 1.7 |
 
 What this says:
 
-- **The real STRING prior is slightly better than a shuffled one when cells are few** (+1.4 accuracy points at 500 cells, 5 of 5 seeds), and the gap closes with more cells.
-- **Any graph is worse than no graph on this task** (-5.0 points at 500 cells, -1.3 with all cells). Cell types are separated by a few sharp marker genes, and smoothing over PPI neighbors blurs them.
-- **Without a graph the model matches sklearn LR**, with 79% to 98% of coefficients exactly zero.
+- **The real STRING prior is slightly better than a shuffled one when cells are few** (+1.5 accuracy points at 500 cells, 5 of 5 seeds), and the gap closes with more cells.
+- **Any graph is worse than no graph on this task** (-5.0 points at 500 cells, -0.9 with all cells). Cell types are separated by a few sharp marker genes, and smoothing over PPI neighbors blurs them.
+- **Without a graph the model matches sklearn LR.**
 
 So cell type annotation is not the task where the network prior pays off. The synthetic control shows the kind of problem where it does: weak signal spread over gene modules, noisy single genes, and few samples.
 
 ![Prior ablation on blood](ablation_output/blood_ablation.png)
+
+### Donor-level phenotype prediction from pseudobulk (COVID-19 PBMC)
+
+This is the setting closest to the synthetic control: few samples (one per donor), many genes, and signal that is expected to sit in pathways. `pseudobulk_task.py` uses the Stephenson et al. 2021 COVID-19 PBMC atlas (647k cells, 120 donors). Counts are summed per donor and cell type, converted to log-CPM, and the top 2000 variable genes are picked on the training fold only. The prior is STRING (score ≥ 700). Every condition is tuned by inner 3-fold CV (LogStruct: `alpha`, `lambda_en`, `lambda_smooth`; sklearn: `C`), and scored by AUROC over 5 x 5 repeated stratified CV on donors.
+
+```bash
+python pseudobulk_task.py --task severity
+python pseudobulk_task.py --task covid
+```
+
+**Severity** (severe or critical vs asymptomatic, mild or moderate, COVID donors only), AUROC mean ± std over repeats:
+
+| Pseudobulk | real prior | shuffled prior | no prior | sklearn LR |
+|------------|-----------|----------------|----------|------------|
+| all cells | 0.705 ± 0.050 | 0.707 ± 0.056 | 0.705 ± 0.065 | **0.721 ± 0.060** |
+| CD14 monocytes | 0.699 ± 0.057 | 0.698 ± 0.069 | 0.725 ± 0.072 | **0.746 ± 0.042** |
+| CD4 T | 0.752 ± 0.042 | 0.727 ± 0.049 | 0.763 ± 0.051 | **0.772 ± 0.045** |
+| CD8 T | 0.675 ± 0.035 | 0.674 ± 0.023 | 0.693 ± 0.064 | **0.746 ± 0.039** |
+| NK (CD16 high) | 0.607 ± 0.052 | 0.640 ± 0.061 | 0.633 ± 0.036 | **0.680 ± 0.039** |
+| B cells | 0.688 ± 0.054 | 0.671 ± 0.048 | 0.708 ± 0.052 | **0.747 ± 0.048** |
+
+**COVID vs healthy**, AUROC:
+
+| Pseudobulk | real prior | shuffled prior | no prior | sklearn LR |
+|------------|-----------|----------------|----------|------------|
+| all cells | 0.962 ± 0.019 | 0.958 ± 0.029 | 0.973 ± 0.010 | **0.980 ± 0.010** |
+| CD14 monocytes | 0.969 ± 0.015 | 0.979 ± 0.010 | 0.980 ± 0.015 | **0.984 ± 0.006** |
+| CD4 T | 0.923 ± 0.016 | 0.947 ± 0.014 | 0.953 ± 0.013 | **0.955 ± 0.008** |
+| CD8 T | 0.952 ± 0.023 | 0.957 ± 0.017 | 0.955 ± 0.021 | **0.960 ± 0.012** |
+| NK (CD16 high) | **0.973 ± 0.011** | 0.954 ± 0.015 | 0.961 ± 0.015 | 0.970 ± 0.009 |
+| B cells | 0.928 ± 0.029 | 0.932 ± 0.038 | 0.949 ± 0.028 | **0.963 ± 0.011** |
+
+Paired AUROC differences, averaged over the six pseudobulk views:
+
+| Task | real - shuffled | real - no prior |
+|------|-----------------|-----------------|
+| severity | +0.002 ± 0.016 (3 of 5 repeats) | -0.017 ± 0.014 (1 of 5) |
+| COVID vs healthy | -0.003 ± 0.006 (2 of 5) | -0.011 ± 0.007 (0 of 5) |
+
+What this says:
+
+- **The STRING prior does not help here.** Real and shuffled priors are indistinguishable, and both are a little worse than no graph.
+- **sklearn LR is the best or tied for best in 11 of 12 rows.** The no-prior model is the same model class, so the remaining gap (about 0.02 to 0.05 AUROC on severity) comes from the optimizer and tuning grid, not from the graph.
+- The single consistent win for the real prior is NK cells on COVID vs healthy (+0.019 over shuffled, 5 of 5 repeats). With 12 comparisons, one such result is expected by chance.
+
+Caveats: COVID vs healthy is near ceiling, so it cannot separate methods. Collection site is partly confounded with status in this dataset. The tuning grid was widened (ridge option, smaller `lambda_en`) after a first run where training stalled, so the grid was not fixed in advance. With `lambda_kl=1` the edge weights stay within about 0.01 of the prior, so this tests "smooth over the STRING graph", not "learn a better graph".
+
+![Severity AUROC](pseudobulk_output/severity_auroc.png)
 
 ## Benchmark: LogStruct vs CellTypist
 
