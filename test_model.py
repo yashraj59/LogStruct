@@ -454,3 +454,31 @@ class TestShuffle:
 
         same = ((prior > 0.1) & (shuffled > 0.1)).sum() / (prior > 0.1).sum()
         assert same < 0.5
+
+
+class TestSmoothingEquivalence:
+    """Smoothing the coefficients must equal smoothing the data."""
+
+    def test_forward_matches_dense_smoothing(self):
+        import torch
+        from logstruct.model import _StructuredModel
+
+        torch.manual_seed(0)
+        p, c = 30, 4
+        pairs = torch.triu_indices(p, p, 1).T
+        edges = pairs[torch.randperm(len(pairs))[:60]]
+        model = _StructuredModel(
+            p, c, edges, torch.rand(60) * 0.8 + 0.1, device=torch.device("cpu")
+        )
+        torch.nn.init.normal_(model.linear.weight)
+        torch.nn.init.normal_(model.linear.bias)
+        x = torch.randn(7, p)
+
+        with torch.no_grad():
+            w = model.edge_weights()
+            A = torch.zeros(p, p)
+            A[edges[:, 0], edges[:, 1]] = w
+            A[edges[:, 1], edges[:, 0]] = w
+            S = torch.eye(p) + A / (A.sum(1, keepdim=True) + 1e-8)
+            expected = (x @ S) @ model.linear.weight.T + model.linear.bias
+            assert torch.allclose(model(x), expected, atol=1e-4)

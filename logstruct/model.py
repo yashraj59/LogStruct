@@ -111,7 +111,7 @@ class _StructuredModel(nn.Module):
     """
     Internal PyTorch module for structured regression.
 
-    Smoothing: x_smooth = x @ S
+    Smoothing: x_smooth = x @ S, prediction = x_smooth @ W.T + b
     where S = self_loop_weight * I + neighbor_weight * row_norm(A)
     and A is a sparse symmetric matrix with A_ij = sigmoid(edge_logit_ij / T)
     on the edge list and 0 everywhere else.
@@ -162,30 +162,34 @@ class _StructuredModel(nn.Module):
         """Edge probabilities, one per undirected edge."""
         return torch.sigmoid(self.edge_logits / self.temperature)
 
-    def smooth(self, x: torch.Tensor) -> torch.Tensor:
-        """x @ S, computed with a sparse matrix product."""
+    def effective_weight(self) -> torch.Tensor:
+        """
+        Coefficients on the raw features: W @ S.T, shape (output_dim, input_dim).
+
+        (x @ S) @ W.T is the same as x @ (W @ S.T).T, so the graph smoothing
+        is applied to the small coefficient matrix instead of the data. The
+        cost per step then depends on the number of edges, not on the number
+        of cells.
+        """
+        W = self.linear.weight
         if self.n_edges == 0 or self.neighbor_weight == 0:
-            return self.self_loop_weight * x
+            return self.self_loop_weight * W
 
         w = self.edge_weights()
-        p = self.input_dim
-        deg = torch.zeros(p, device=w.device, dtype=w.dtype)
+        deg = torch.zeros(self.input_dim, device=w.device, dtype=w.dtype)
         deg = deg.index_add(0, self.edge_i, w).index_add(0, self.edge_j, w)
 
-        # Row-normalized A has entries A_ij / deg_i. We need x @ A_norm,
-        # which is (A_norm.T @ x.T).T, so build A_norm.T directly.
-        rows = torch.cat([self.edge_j, self.edge_i])
-        cols = torch.cat([self.edge_i, self.edge_j])
-        vals = torch.cat([w, w]) / (deg[cols] + 1e-8)
-        A_norm_t = torch.sparse_coo_tensor(
-            torch.stack([rows, cols]), vals, (p, p), check_invariants=False
-        )
-        neighbors = torch.sparse.mm(A_norm_t, x.t()).t()
+        # Row-normalized A has entries A_ij / deg_i, so
+        # (W @ A_norm.T)[:, i] = sum_j (A_ij / deg_i) * W[:, j]
+        src = torch.cat([self.edge_i, self.edge_j])
+        dst = torch.cat([self.edge_j, self.edge_i])
+        vals = torch.cat([w, w]) / (deg[src] + 1e-8)
+        neighbors = torch.zeros_like(W).index_add(1, src, W[:, dst] * vals)
 
-        return self.self_loop_weight * x + self.neighbor_weight * neighbors
+        return self.self_loop_weight * W + self.neighbor_weight * neighbors
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return self.linear(self.smooth(x))
+        return x @ self.effective_weight().t() + self.linear.bias
 
     # ---- penalties (all are sums; the estimator divides them by n_samples) ----
 
