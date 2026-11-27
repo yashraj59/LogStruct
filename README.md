@@ -249,7 +249,65 @@ This will output:
 - **Not a GNN:** This is regularized linear model with graph structure, not a graph neural network. Interpretability over raw power.
 - **Edge learning is soft:** Adjacency is probabilistic, not discrete. Threshold for interpretation.
 
+## Prior Ablation: Does the Biology in the Prior Help?
+
+`ablation_prior.py` trains the same model with the same settings and only changes the graph:
+
+- **real prior:** the prior as given
+- **shuffled prior:** degree-preserving rewiring of the real prior (`priors.shuffle_degree_preserving`), so hubs stay hubs but the partners are random
+- **no prior:** no edges, which is a plain elastic-net linear model
+
+```bash
+python ablation_prior.py --dataset synthetic --seeds 5 --n_shuffles 3
+python ablation_prior.py --dataset blood --max_cells 20000 --n_genes 2000 \
+    --train_sizes 500 2000 0 --seeds 5 --n_shuffles 3
+```
+
+### Synthetic data with a known gene-module graph (positive control)
+
+400 training cells, 600 genes, 50% dropout, prior has 70% of the true edges plus the same number of false edges.
+
+| Condition | Accuracy | F1-Macro |
+|-----------|----------|----------|
+| **real prior** | **46.3% ± 1.3** | **46.2% ± 1.4** |
+| shuffled prior | 38.8% ± 0.8 | 38.7% ± 0.8 |
+| no prior | 38.7% ± 0.6 | 38.6% ± 0.5 |
+| sklearn LR | 39.2% ± 0.4 | 39.1% ± 0.4 |
+
+When the prior matches the real structure, the model gains about 7.5 points over a shuffled prior on all 5 seeds.
+
+### Cell type annotation on the CellTypist Blood atlas with a STRING prior
+
+20k cells, 2000 HVGs, STRING score ≥ 700, 20 cell types, test cells from held-out donors, 5 seeds (mean ± std).
+
+| Training cells | Condition | Accuracy | F1-Macro |
+|----------------|-----------|----------|----------|
+| 500 | real prior | 65.9% ± 3.3 | 53.1% ± 3.4 |
+| 500 | shuffled prior | 64.5% ± 3.3 | 51.7% ± 2.8 |
+| 500 | **no prior** | **71.0% ± 2.5** | 58.0% ± 2.2 |
+| 500 | sklearn LR | 70.6% ± 2.3 | **58.6% ± 1.5** |
+| 2,000 | real prior | 72.5% ± 2.3 | 61.2% ± 2.0 |
+| 2,000 | shuffled prior | 72.1% ± 2.4 | 60.7% ± 2.3 |
+| 2,000 | **no prior** | **76.2% ± 2.0** | 64.9% ± 2.3 |
+| 2,000 | sklearn LR | 76.0% ± 2.1 | **65.3% ± 2.4** |
+| all (~14.5k) | real prior | 76.3% ± 2.3 | 67.7% ± 1.7 |
+| all (~14.5k) | shuffled prior | 76.8% ± 2.1 | 67.3% ± 1.6 |
+| all (~14.5k) | **no prior** | **77.6% ± 1.6** | **69.5% ± 1.6** |
+| all (~14.5k) | sklearn LR | 76.9% ± 2.0 | 68.9% ± 1.7 |
+
+What this says:
+
+- **The real STRING prior is slightly better than a shuffled one when cells are few** (+1.4 accuracy points at 500 cells, 5 of 5 seeds), and the gap closes with more cells.
+- **Any graph is worse than no graph on this task** (-5.0 points at 500 cells, -1.3 with all cells). Cell types are separated by a few sharp marker genes, and smoothing over PPI neighbors blurs them.
+- **Without a graph the model matches sklearn LR**, with 79% to 98% of coefficients exactly zero.
+
+So cell type annotation is not the task where the network prior pays off. The synthetic control shows the kind of problem where it does: weak signal spread over gene modules, noisy single genes, and few samples.
+
+![Prior ablation on blood](ablation_output/blood_ablation.png)
+
 ## Benchmark: LogStruct vs CellTypist
+
+> **Note:** the numbers in this section were produced with the earlier dense-adjacency version of the model and have not been rerun with the current one.
 
 We benchmarked LogStruct against [CellTypist](https://www.celltypist.org/) (SOTA cell annotation tool) and sklearn Logistic Regression on the CellTypist Blood Organ Atlas (20k cells, 3k HVGs).
 

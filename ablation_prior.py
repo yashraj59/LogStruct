@@ -277,8 +277,10 @@ def run_conditions(X_train, y_train, X_test, y_test, prior, args, seed, train_si
     rows = []
 
     def add(condition, result, shuffle_id=0):
-        rows.append({"seed": seed, "train_size": len(y_train), "condition": condition,
-                     "shuffle_id": shuffle_id, **result})
+        # train_size is the requested size (0 = all training cells), so runs
+        # from different seeds group together even when "all" differs by split.
+        rows.append({"seed": seed, "train_size": train_size, "n_train": len(y_train),
+                     "condition": condition, "shuffle_id": shuffle_id, **result})
         print(f"    {condition:<15} acc={result['accuracy']:.4f} "
               f"f1={result['f1_macro']:.4f} ({result['train_time']:.0f}s)")
 
@@ -298,15 +300,24 @@ def run_conditions(X_train, y_train, X_test, y_test, prior, args, seed, train_si
 # Report
 # --------------------------------------------------------------------------
 
+def _size_label(size) -> str:
+    return "all" if not size else f"{int(size):,}"
+
+
 def summarize(runs: pd.DataFrame, output_dir: Path, tag: str) -> None:
     metrics = ["accuracy", "f1_macro", "balanced_accuracy"]
     # Average the shuffles inside each seed first, so every condition has one value per seed.
     per_seed = runs.groupby(["train_size", "seed", "condition"])[metrics].mean().reset_index()
+    # Sort sizes numerically with "all" (0) last.
+    per_seed["train_size"] = per_seed["train_size"].replace(0, np.inf)
+    per_seed = per_seed.sort_values("train_size")
+    per_seed["train_size"] = per_seed["train_size"].replace(np.inf, 0).astype(int)
 
     summary = (
         per_seed.groupby(["train_size", "condition"])[metrics]
         .agg(["mean", "std"])
         .reindex(CONDITIONS, level="condition")
+        .rename(index=_size_label, level="train_size")
     )
     summary.to_csv(output_dir / f"{tag}_summary.csv")
     print("\n" + "=" * 78)
@@ -323,7 +334,7 @@ def summarize(runs: pd.DataFrame, output_dir: Path, tag: str) -> None:
             diff = wide[metric]["real prior"] - wide[metric][other]
             for size, d in diff.groupby(level="train_size"):
                 rows.append({
-                    "train_size": size, "metric": metric, "comparison": f"real - {other}",
+                    "train_size": _size_label(size), "metric": metric, "comparison": f"real - {other}",
                     "mean_diff": d.mean(), "std_diff": d.std(ddof=1) if len(d) > 1 else np.nan,
                     "seeds_real_wins": int((d > 0).sum()), "n_seeds": len(d),
                 })
@@ -339,7 +350,7 @@ def summarize(runs: pd.DataFrame, output_dir: Path, tag: str) -> None:
         matplotlib.use("Agg")
         import matplotlib.pyplot as plt
 
-        sizes = sorted(per_seed["train_size"].unique())
+        sizes = sorted(per_seed["train_size"].unique(), key=lambda v: v if v else float("inf"))
         fig, axes = plt.subplots(1, 2, figsize=(11, 4))
         for ax, metric in zip(axes, ["accuracy", "f1_macro"]):
             for condition in CONDITIONS:
@@ -350,7 +361,7 @@ def summarize(runs: pd.DataFrame, output_dir: Path, tag: str) -> None:
                 ax.errorbar(range(len(sizes)), g["mean"], yerr=g["std"].fillna(0),
                             marker="o", capsize=3, label=condition)
             ax.set_xticks(range(len(sizes)))
-            ax.set_xticklabels([f"{s:,}" for s in sizes])
+            ax.set_xticklabels([_size_label(s) for s in sizes])
             ax.set_xlabel("training cells")
             ax.set_ylabel(metric)
             ax.grid(alpha=0.3)
